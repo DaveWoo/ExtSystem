@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+
+    ViewBag.Index = "00";
+    Layout = "~/Views/Shared/_LayoutNMember.cshtml";
+
+
+
+}
+
+<script src="~/Content/js/jquery.cityselect.js"></script>
+
+@model NModel.NewsPager
+
+
+
+<div class="cmcenter">
+    <div class="cmheader">
+        <div class="cmheadermsg"><a href="#">个人信息管理</a> » <a>卖出素材</a></div>
+        <div class="clear" style="height:15px;"></div>
+
+
+        @*<div class="cmheader">
+
+
+                <span class="cmspan">
+                    <div class="cmheadersearch">
+
+                        <input type="text" class="cmheadertxtsearch" style="border:1px solid #d9d9d9;height:28px;width:250px;line-height:28px" />
+                        <input type="button" value="搜索" style="border:1px solid #d9d9d9;width:50px; height:28px" />
+
+                    </div>
+
+
+
+                    <div class="cmheaderbtn">
+                        <input type="button" value="清除所有消息" style="border: 1px solid #38A4E0; width: 100px; height: 28px; float: right; margin-left: 10px; " />
+                        <input type="button" value="发送消息" style="border: 1px solid #38A4E0; width: 100px; height: 28px; float: right; " />
+
+                    </div>
+
+                </span>
+            </div>*@
+
+
+
+    </div>
+
+    <div class="clear"></div>
+    <div class="cmheadercn">
+
+
+
+
+
+
+
+
+        <div class="cmheadertop">
+
+
+            <h2 class="cmheaderh2">卖出素材</h2>
+
+        </div>
+
+        <div class="clear" style="height:5px;"></div>
+        <form method="POST" action="/action/profile/passwd?user=558911" id="change_pwd"></form>
+
+    </div>
+    <div class="clear" style="height:15px;"></div>
+
+
+</div>
+

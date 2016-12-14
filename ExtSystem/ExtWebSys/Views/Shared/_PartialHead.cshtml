@@ -1,0 +1,25 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+@{NModel.WebPager<NModel.DB_Area> model_pager = Model;}
+<title>@model_pager.OutWebConfig.WebConfig_Title</title>
+
+<meta name="keywords" content="@model_pager.OutWebConfig.WebConfig_Keywords" />
+<meta name="description" content="@model_pager.OutWebConfig.WebConfig_Description" />
+<meta name="author" content="@model_pager.OutWebConfig.WebConfig_Author" />
+<meta name="mobile-agent" content="format=xhtml; ">
+<meta name="mobile-agent" content="format=html5; ">
+<meta name="mobile-agent" content="format=wml; ">
+
+
+<script src="~/Content/js/jquery11-1-min.js"></script>
+
+<script src="~/Content/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="~/Content/dwz/js/jquery.cookie.js"></script>
+
+
+
+<link href="~/Content/web/css/common.css" rel="stylesheet" />
+
+@{
+    BLL.Fun.Auto_Login_User();
+  
+}

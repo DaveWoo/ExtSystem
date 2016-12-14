@@ -1,0 +1,1016 @@
+﻿@{
+
+    Layout = "";
+    ViewBag.Title = "用户角色管理";
+
+    string DBName = "db_Classify";
+    string Num = this.Request.QueryString["Num"];
+    string Classify_x = this.Request.QueryString["x"];
+    string Classify_y = this.Request.QueryString["y"];
+    string Classify_z = this.Request.QueryString["z"];
+    string Classify_id = this.Request.QueryString["id"];
+    if (string.IsNullOrEmpty(Classify_id)) { Classify_id = "0"; }
+}
+
+
+<style>
+    .Classify_sub a {
+        float: right;
+        margin-left: 20px;
+    }
+
+    .tab_one_span img {
+        float: left;
+        height: 18px;
+        margin-top: 5px;
+    }
+
+    .tab_one_span pre {
+        display: block;
+        height: 25px;
+        line-height: 25px;
+        padding-top: 2px;
+        padding-right: 9px;
+        padding-left: 9px;
+        float: left;
+    }
+
+    .@{@DBName}@{@Classify_id;}@{@Num;}
+
+{
+        padding: 20px;
+        width: 850px;
+    }
+
+    .form_@{@DBName}@{@Classify_id;}@{@Num;} h1 {
+        margin-top: 20px;
+        width: 740px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .@{@DBName}@{@Classify_id;}@{@Num;} td {
+        padding: 10px;
+    }
+</style>
+
+@{
+    //pageNum=1  numPerPage=100  orderField=${param.orderField}  orderDirection=${param.orderDirection}
+
+    NModel.PageData<NModel.DB_Classify> pageData = Model;
+
+
+
+
+}
+
+
+
+
+<div class="pageContent">
+
+
+    <div class="tabs" currentindex="0" eventtype="click">
+        <div class="tabsHeader">
+            <div class="tabsHeaderContent">
+                <ul id="tabs_admin_user">
+                    <li>
+                        <a href="javascript:;">
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_listTable.png" /><pre>分类管理</pre></span>
+                        </a>
+                    </li>
+                    <li class="Classify_ae_ui@{@Classify_id;}@{@Num;}">
+                        <a href="javascript:;">
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_add.png" /><pre>分类编辑</pre> </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_Statistics.png" /><pre>统计管理</pre></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+
+
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_help.png" /><pre>关于帮助</pre></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tabsContent" style="">
+            <div>
+                <form id="pagerForm" method="post" action="#rel#">
+                    <input type="hidden" name="pageNum" value="1" />
+                    <input type="hidden" name="numPerPage" value="@pageData.NumPerPage" />
+                    <input type="hidden" name="orderField" value="@pageData.OrderField" />
+                    <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+                </form>
+
+                <div class="pageHeader">
+                    <form rel="pagerForm" id="Classify_pagerForm@{@DBName}@{@Classify_id;}@{@Num;}" onsubmit="return navTabSearch(this);" action="/DBItem/Item_db_Classify?id=@Classify_id&x=@Classify_x&y=@Classify_y&z=@Classify_z&Num=@Num" method="post">
+
+                        <div class="searchBar">
+
+                            <table>
+
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>分类名称：</td>
+                                    <td><input type="text" style="width:250px;" name="dbClassifyurl" value="" /> </td>
+                                    <td>增加时间：</td>
+                                    <td>
+                                        <input type="text" name="dbClassifydate" class="date" readonly="true" />
+                                        <a class="inputDateButton" href="javascript:;">选择</a>
+                                    <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+
+                                </tr>
+
+                            </table>
+                        </div>
+
+                    </form>
+                    <div>
+
+
+
+                    </div>
+
+                </div>
+                <div class="pageContent">
+                    <div class="panelBar">
+                        <ul class="toolBar">
+
+                            <li><a class="add" onclick="add_Classify@{@Classify_id;}@{@Num;}_fun(this)"><span>添加</span></a></li>
+                            <li><a class="edit" onclick="_edit_Classify@{@Classify_id;}@{@Num;}@{@Classify_id;}@{@Num;}_fun(this)" warn="请选择一个"><span>修改</span></a></li>
+                            <li><a title="确实要删除这些记录吗?" onclick="batch_all_Classify@{@Classify_id;}@{@Num;}_fun()" class="delete"><span>批量删除全部方式</span></a></li>
+                            <li><a title="确实要删除这些记录吗?" onclick="batch_Classify@{@Classify_id;}@{@Num;}_fun()" class="delete"><span>批量删除选择部分方式</span></a></li>
+
+                            <li class="line">line</li>
+                            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+                            <li><a class="refresh_main" onclick="refresh_Classify@{@DBName}@{@Classify_id;}@{@Num;}(this)"><span id="refresh_mainID">刷新</span></a></li>
+                            <li><a><span>移动位置：</span></a></li>
+                            <li><input type="text" id="Move_Level_@{@DBName}@{@Classify_id;}@{@Num;}" /></li>
+                            <li><a class="refresh_main" ><span id="searchID">&nbsp;&nbsp;</span></a></li>
+
+                            <li title="勾选移动级别"><a class="refresh_main" onclick="move_@{@DBName}@{@Classify_id;}@{@Num;}()"><span id="nextID">移动到原级</span></a></li>
+                            <li title="勾选移动级别"><a class="refresh_main" onclick="next_move_@{@DBName}@{@Classify_id;}@{@Num;}()"><span id="nextID">移动到下级</span></a></li>
+                            @*<li><a class="add" width="700" id="asfilec" target="dialog" href=""><span>批量增加添加文件</span></a><select id="sfilec"> </select></li>*@
+                        </ul>
+                    </div>
+                    <table class="table" width="1200" layouth="138">
+                        <thead>
+                            <tr>
+
+
+
+                                <th width="30" orderfield="Num">序号</th>
+                                <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+
+                                <th width="40" orderfield="Classify_ID" class="asc">ID</th>
+                                <th width="70" orderfield="Classify_Name">分类名称</th>
+
+                                <th width="50" orderfield="Classify_Code">编号</th>
+                                <th width="50" orderfield="Classify_SortNo">排序号</th>
+
+                                <th width="40" orderfield="Classify_Status_Show">启用状态</th>
+                                <th width="40" orderfield="Classify_Operate_Show">操作权限</th>
+
+                                <th width="130">编辑</th>
+
+                                <th width="60" orderfield="Classify_AddTime">增加时间</th>
+                                <th width="50">操作</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="data_Classify_list@{@DBName}@{@Classify_id;}@{@Num;}"></tbody>
+                    </table>
+                    <div class="panelBar">
+                        <div class="pages">
+                            <span>显示</span>
+                            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                            </select>
+                            <span>条，共<span class="totalNum_Classify">@pageData.TotalPage</span>条</span>
+                        </div>
+
+                        <div class="pagination " targettype="navTab" totalcount="@pageData.TotalPage" numperpage="@pageData.NumPerPage" pagenumshown="7" currentpage="@pageData.PageNum"></div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div>
+                <form class="form_@{@DBName}@{@Classify_id;}@{@Num;} " method="post">
+
+                    <h1 class="Classify_h1@{@Classify_id;}@{@Num;}">增加数据</h1>
+
+                    <table cellpadding="5" class="check_@{@DBName}@{@Classify_id;}@{@Num;} @{@DBName}@{@Classify_id;}@{@Num;}">
+                        <tr>
+                            <td>名称:</td>
+                            <td>
+                                <input name="Classify_Name" class="@{@DBName}@{@Classify_id;}@{@Num;}_input required " style=" width:220px; "
+                                       id="Classify_Name" type="text" />
+                            </td>
+
+                            <td>
+                                编号：
+
+                            </td>
+                            <td >
+                                <input id=" Classify_Code" name="Classify_Code" class="@{@DBName}@{@Classify_id;}@{@Num;}_input " style=" width:210px; " type="text" />
+
+
+                            </td>
+
+
+                        </tr>
+
+                        <tr>
+                            <td>网站作者:</td>
+                            <td>
+                                <input readonly name="Classify_X" class="@{@DBName}@{@Classify_id;}@{@Num;}_input required " value="@Classify_x" style=" width:80px; " id="Classify_X" type="text" />
+                                <input readonly name="Classify_Y" class="@{@DBName}@{@Classify_id;}@{@Num;}_input required " value="@Classify_y" style=" width:80px; " id="Classify_Y" type="text" />
+                                <input readonly name="Classify_Z" class="@{@DBName}@{@Classify_id;}@{@Num;}_input required " value="@Classify_z" style=" width:80px; " id="Classify_Z" type="text" />
+                            </td>
+
+                            <td>状态:</td>
+                            <td>
+                                <span class="_status_sp">启用:</span> <input id="Classify_Status" value="1"
+                                                                           checked class="@{@DBName}@{@Classify_id;}@{@Num;}_input  " type="radio"
+                                                                           name="Classify_Status" data-options="required:true">
+                                <span class="_status_sp">禁用:</span><input id="Classify_Status" value="0" class="@{@DBName}@{@Classify_id;}@{@Num;}_input " type="radio"
+                                                                          name="Classify_Status" data-options="required:true">
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+                            <td>排序:</td>
+                            <td>
+                                <input name="Classify_SortNo" id="Classify_SortNo" class="@{@DBName}@{@Classify_id;}@{@Num;}_input required _Munber" value="0" style=" width:180px; " type="text" />
+                            </td>
+                            <td>操作权限:</td>
+                            <td colspan="3">
+                                <span class="_status_sp">可删除:</span>
+                                <input id="Classify_Operate"
+                                       value="1"
+                                       checked class="@{@DBName}@{@Classify_id;}@{@Num;}_input  "
+                                       type="radio" name="Classify_Operate" data-options="required:true">
+
+                                <span class="_status_sp">不可删除:</span>
+                                <input id="Classify_Operate" value="0" class="@{@DBName}@{@Classify_id;}@{@Num;}_input "
+                                       type="radio" name="Classify_Operate" data-options="required:true">
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td>热门:</td>
+                            <td>
+                                <span class="_status_sp">是:</span> <input id="Classify_IsHot" value="1"
+                                                                          class="@{@DBName}@{@Classify_id;}@{@Num;}_input  " type="radio"
+                                                                          name="Classify_IsHot">
+                                <span class="_status_sp">否:</span><input id="Classify_IsHot" checked value="0" class="@{@DBName}@{@Classify_id;}@{@Num;}_input " type="radio"
+                                                                         name="Classify_IsHot">
+                            </td>
+
+                            <td >链接：</td>
+                            <td>
+                                <input id="Classify_Url" name="Classify_Url" class="@{@DBName}@{@Classify_id;}@{@Num;}_input " style=" width:210px; " type="text" /> 
+                                
+                                
+                            </td>
+
+
+
+                        </tr>
+
+                        <tr style="display:none;">
+
+
+                            <td>编号固定:</td>
+                            <td>
+
+
+                                <input name="Classify_Num" id="Classify_Num" class="@{@DBName}@{@Classify_id;}@{@Num;}_input required "
+                                       style=" width:220px; " type="text" />
+
+
+                            </td>
+                           
+
+                        </tr>
+
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" class="Classify_sub">
+                                <a href="#" id="btn_@{@DBName}@{@Classify_id;}@{@Num;}_op" iconcls="icon-ok" class="button" onclick=""><span>增加</span></a>&nbsp;&nbsp;
+                                <a href="#" class="button" id="btn_@{@DBName}@{@Classify_id;}@{@Num;}_clear" iconcls="icon-cancel"><span>清空</span></a>
+                            </td>
+
+                        </tr>
+
+
+
+                    </table>
+
+
+
+
+
+                </form>
+
+                <table style="display:none;">
+                    <tr>
+                        <td>ID:</td>
+                        <td>
+                            <input id="Classify_ID" name="Classify_ID" class="@{@DBName}@{@Classify_id;}@{@Num;}_input " style=" width:210px; " type="text" />
+                        </td>
+
+                        <td>增加时间:</td>
+                        <td>
+                            <input name="Classify_AddTime" id="Classify_AddTime" class="@{@DBName}@{@Classify_id;}@{@Num;}_input  " value="0" style=" width:100px; " type="text" />
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div>
+                <div class="barchart"></div>
+
+
+
+                <div id="chartHolder"></div>
+
+            </div>
+        </div>
+        <div class="tabsFooter">
+            <div class="tabsFooterContent"></div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+
+</style>
+<script>
+
+
+    function test_next_move_@{@DBName}@{@Classify_id}@{@Num}(_url,name,ids,nlevel){
+        alertMsg.confirm("您是否正确定要移动吗？", {
+            okCall: function(){
+
+
+                $.post(_url,{'delList[]':ids,"name":name,"nlevel":nlevel},function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+
+                    switch(data.msgcode){
+
+                        case 1:
+
+
+
+                            break;
+
+                    }
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+    }
+    function next_move_@{@DBName}@{@Classify_id;}@{@Num;}(){
+
+
+        var name=    $("#Move_Level_@{@DBName}@{@Classify_id;}@{@Num;}").val()
+        var Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}=   $(".Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}:checked ");
+
+        var ids=[];
+        for(var i=0;i<Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}.length;i++){
+            var id=$(Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}[i]).val();
+            ids.push(id);
+
+
+        }
+        if(ids.length<=0){
+            alertMsg.info("请选择,移动分类")
+            return ;
+        }
+
+
+        test_next_move_@{@DBName}@{@Classify_id;}@{@Num;}("/DBDataAE/Move_DB_Classify",name,ids,1)
+    }
+    function move_@{@DBName}@{@Classify_id;}@{@Num;}(){
+
+
+        var name=    $("#Move_Level_@{@DBName}@{@Classify_id;}@{@Num;}").val()
+        var Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}=   $(".Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}:checked ");
+
+        var ids=[];
+        for(var i=0;i<Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}.length;i++){
+            var id=$(Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}[i]).val();
+            ids.push(id);
+
+
+        }
+        if(ids.length<=0){
+            alertMsg.info("请选择,移动分类")
+            return ;
+        }
+
+
+        test_next_move_@{@DBName}@{@Classify_id;}@{@Num;}("/DBDataAE/Move_DB_Classify",name,ids,0)
+    }
+
+    var Data_Classify_pager=$(".Data_Classify_pager");
+    var data_Classify_list@{@DBName}@{@Classify_id;}@{@Num;}=    $("#data_Classify_list@{@DBName}@{@Classify_id;}@{@Num;}");
+    var relNum=0;
+    $.Cue_Classify_ListData={id:{ }};
+    function ToJsonShowTree(dt) {
+
+
+        var htmlTree = "";
+
+        var rows = dt;
+
+        if(rows==null)return "";
+        for (var i = 0; i < rows.length; i++) {
+            var level=0;
+
+            relNum++;
+
+            var Classify_ID= rows[i].Classify_ID;
+            var Classify_Name= rows[i].Classify_Name
+            var Classify_SortNo= rows[i].Classify_SortNo;
+
+            var Classify_Status_Show= rows[i].Classify_Status_Show;
+
+            var Classify_Operate_Show= rows[i].Classify_Operate_Show;
+            var Classify_AddTime= rows[i].Classify_AddTime;
+            var Next_Count_Show= rows[i].Count_Show;
+            var Classify_Code=rows[i].Classify_Code;
+
+
+            var Classify_X= rows[i].Classify_X;
+
+            var Classify_Y= rows[i].Classify_Y;
+
+            var Classify_Z= rows[i].Classify_Z;
+            level++;
+            htmlTree+= '<tr target="sid_user" id="tr_Classify_'+Classify_ID+'" rel="'+relNum+'">';
+            htmlTree+='<td  >'+relNum+'</td>';
+            htmlTree+='<td  ><input name="ids" class="Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}" value="'+Classify_ID+'" type="checkbox"></td>';
+            htmlTree+='<td  >'+Classify_ID+'</td>';
+
+            htmlTree+='<td >'+Classify_Name+'</td>';
+            htmlTree+='<td >'+Classify_Code+'</td>';
+            htmlTree+='<td >'+Classify_SortNo+'</td>';
+            htmlTree+='<td  >'+Classify_Status_Show+'</td>'
+
+            htmlTree+='<td >'+Classify_Operate_Show+'</td>';
+            htmlTree+='<td ><a target="navTab"  rel="job_'+Classify_ID+'" href="/DBItem/Item_db_Classify?Num=@Num&id='+Classify_ID+'&x='+Classify_X+'&y='+Classify_Y+'&z='+(parseInt(Classify_Z)+1)+'" >('+Classify_Name+')下级（'+ Next_Count_Show+'）个</a> </td>'
+
+            htmlTree+='<td >'+Classify_AddTime+'</td>'
+            htmlTree+='<td >'
+            htmlTree+= '<a title="删除"  onclick="del_Classify@{@DBName}@{@Classify_id;}@{@Num;}_fun('+Classify_ID+')"  class="btnDel">删除</a>';
+            htmlTree+='<a title="编辑"   onclick="edit_Classify@{@Classify_id;}@{@Num;}_fun('+Classify_ID +')"  class="btnEdit">编辑</a>';
+            htmlTree+='</td></tr>'
+            // htmlTree+="<style> #tr_Classify_"+Classify_ID+"  div{ height:60px;line-height:60px;} #tr_Classify_"+Classify_ID+"  input{   margin-top:23px; </style>  "
+            $.Cue_Classify_ListData["id_"+Classify_ID]=rows[i];
+
+
+
+
+
+        }
+
+        return htmlTree;
+    }
+
+
+    $.initData_Classify=      function initData_Classify(_page,_rows,_where,_order){
+
+
+        $.ajax({
+            type: "POST",
+            url: "/DBData/Data_db_Classify?Num=@{@Num;}&n="+Math.random(),data:{page:_page,rows:_rows,order:_order,where:_where}, async: false, success: function (data) {
+
+                try{
+
+
+
+                    var dt = eval('(' + data + ')');
+
+                    if (dt == null) return;
+                    var pageSize = dt.total;
+
+
+                    var htmlContent = ToJsonShowTree(dt.rows);
+
+                    data_Classify_list@{@DBName}@{@Classify_id;}@{@Num;}.html(htmlContent);
+                }catch(e){}
+
+            }
+        })
+
+
+
+
+
+
+
+
+
+    }
+
+
+    $.initData_Classify("@pageData.PageNum","@pageData.NumPerPage","@{Output.Write(pageData.Where);}","@pageData.OrderField");
+
+
+
+
+    new @{@DBName}@{@Classify_id;}@{@Num;}();
+    function   @{@DBName}@{@Classify_id;}@{@Num;}()
+    {
+        function setVal(m_id) {
+            var postval = "{";
+            var radio = $(m_id + ":radio");
+            //  var array=new Array();
+            var dict = new Array();
+            var allCtl = $(m_id);
+
+            if (allCtl.length <= 0)
+                return;
+            for (var i = 0; i < allCtl.length; i++) {
+
+                var allthis = $(allCtl[i]);
+
+                var isRadio = (allthis.attr("type") + "").indexOf("radio") != -1;
+
+
+
+                if (isRadio) {
+                    continue
+
+
+                }
+
+
+                var name = allthis.attr("id");
+                var isCombobox = allthis.hasClass("easyui-combobox");
+                var val = allthis.val();
+
+                if (isCombobox) {
+                    val = $(allthis).combobox('getValue')
+
+
+
+                }
+
+
+
+                if (val == null || name == null) {
+                    continue
+
+
+                }
+
+                if (!dict.hasOwnProperty(name)) {
+
+                    dict[name] = val + "";
+                    postval += "'" + name + "':'" + val + "',";
+                }
+
+            }
+
+
+
+            for (var i = 0; i < radio.length; i++) {
+
+                for (var j = 1; j < radio.length; j++) {
+
+
+                    var name0 = $(radio[i]).attr("name");
+
+                    var name1 = $(radio[j]).attr("name");
+                    if (name0.match(name1)) {
+                        if (!dict.hasOwnProperty(name0)) {
+
+                            var val = $(m_id + "[name='" + name0 + "']:checked").val();
+                            // alert(val)
+                            dict[name0] = val + "";
+                            postval += "'" + name0 + "':'" + val + "',";
+                        }
+
+                    }
+
+                }
+
+
+            }
+
+            var lastdhas = postval.lastIndexOf(",")
+            postval = postval.substring(0, lastdhas);
+
+            postval += "}"
+
+
+            var postvalue = eval('(' + postval + ')')
+
+
+
+            return postvalue;
+
+        }
+
+
+
+        $("#btn_@{@DBName}@{@Classify_id;}@{@Num;}_op").click(function (e) {
+
+            var @{@DBName}@{@Classify_id;}@{@Num;}_input = $(".@{@DBName}@{@Classify_id;}@{@Num;}_input");
+
+            var loadData = setVal(".@{@DBName}@{@Classify_id;}@{@Num;}_input");
+
+            var OKNum=$.AddOrEidtNum@{@Classify_id;}@{@Num;}
+            //1 增加 2修改
+            switch(OKNum)
+            {
+
+                case 1:
+
+                    $.post("/DBDataAE/add_@{@DBName}?Num=@{@Num;}",loadData,function(dt){
+
+                        var data = eval('(' +dt + ')');
+
+                        switch(data.msgcode){
+
+                            case 1:
+
+
+                                break;
+
+                        }
+
+                        alertMsg.info(data.msg)
+
+                    })
+
+
+
+                    break;
+                case 2:
+                    $.post("/DBDataAE/edit_@{@DBName}?Num=@{@Num;}",loadData,function(dt){
+
+                        var data = eval('(' +dt + ')');
+
+
+                        alertMsg.info(data.msg)
+                        switch(data.msgcode){
+                            case 1:
+
+                                window.location.href="/lcq/login"
+                                break;
+
+                        }
+
+                    })
+
+
+                    break;
+
+                default:break;
+            }
+
+
+
+
+
+        })
+
+        $("#btn_@{@DBName}@{@Classify_id;}@{@Num;}_clear").click(function () {
+
+
+            $(".form_@{@DBName}@{@Classify_id;}@{@Num;}")[0].reset()
+        })
+
+
+
+
+    }
+
+    function _edit_Classify@{@Classify_id;}@{@Num;}@{@Classify_id;}@{@Num;}_fun(id){
+
+
+
+        $.extend($,{'AddOrEidtNum@{@Classify_id;}@{@Num;}':2 })
+
+        $(".Classify_h1@{@Classify_id;}@{@Num;}").html("修改数据");
+
+        $("#btn_@{@DBName}@{@Classify_id;}@{@Num;}_op span").html("修改");
+        var ck=       $(".Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}:checked ");
+
+
+        // $.Cue_Classify_ListData["id_"+id]=rows[i];
+        if(ck!=null&&ck.length>0){
+            edit_fun(ck.val())
+            $(".Classify_ae_ui@{@Classify_id;}@{@Num;}").click();
+        }
+        else
+        {
+            alertMsg.info("请选择")
+
+        }
+
+
+    }
+
+
+
+    function edit_fun(id){
+
+        var rows= $.Cue_Classify_ListData["id_"+id];
+
+
+        if(!rows)return;
+
+        $.extend($,{"SelectClassify_ID{@Classify_id;}@{@Num;}":rows.role_menu})
+        for(var rws in rows){
+
+
+            var obj=   $(".@{@DBName}@{@Classify_id;}@{@Num;}_input[name='"+rws+"']");
+            if(obj!=null&&obj.length>0){
+                var isRadio = (obj.attr("type")+ "").indexOf("radio") != -1;
+                if(isRadio){
+
+
+
+                    for(var l=0;l<obj.length;l++){
+
+                        if($(obj[l]).val().indexOf(rows[rws])!=-1){
+                            $(obj[l]).attr("checked","true")
+                        }
+
+                    }
+                }else
+                {
+
+                    $(obj).val(rows[rws])
+
+                }
+
+
+            }
+
+        }
+    }
+
+    function edit_Classify@{@Classify_id;}@{@Num;}_fun(id){
+
+        // var tabs_admin_user=   $("#tabs_admin_user")
+
+        $(".Classify_ae_ui@{@Classify_id;}@{@Num;}").click();
+        $.extend($,{'AddOrEidtNum@{@Classify_id;}@{@Num;}':2 })
+
+        $(".Classify_h1@{@Classify_id;}@{@Num;}").html("修改数据");
+
+        $("#btn_@{@DBName}@{@Classify_id;}@{@Num;}_op span").html("修改");
+        edit_fun(id)
+
+
+    }
+
+
+    function testConfirmMsg(_url, ids){
+        alertMsg.confirm("您是否正确定要删除？", {
+            okCall: function(){
+
+
+                $.post(_url,{'delList[]':ids},function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+
+                    switch(data.msgcode){
+
+                        case 1:
+
+
+
+                            break;
+
+                    }
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+    }
+
+
+    function delAnySelectedConfirmMsg(_url,arrid){
+
+        alertMsg.confirm("您是否正确定要删除全部？", {
+            okCall: function(){
+
+
+                $.post(_url,{"dellist[]":arrid},function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+                    var code= data.msgcode
+                    switch(code){
+                        case 1:
+
+
+
+                            break;
+                        default:
+
+
+                            break;
+
+                    }
+
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+
+
+    }
+
+    function delAllConfirmMsg(_url){
+        alertMsg.confirm("您是否正确定要删除全部？", {
+            okCall: function(){
+
+
+                $.post(_url,function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+                    var code= data.msgcode
+                    switch(code){
+                        case 1:
+
+
+
+                            break;
+                        default:
+
+
+                            break;
+
+                    }
+
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+    }
+    function del_Classify@{@DBName}@{@Classify_id;}@{@Num;}_fun(id){
+        testConfirmMsg('/DBDataAE/Del_db_Classify', id)
+
+
+    }
+
+    function batch_all_Classify@{@Classify_id;}@{@Num;}_fun(){
+
+
+        delAllConfirmMsg('/DBDataAE/Del_All_db_Classify?Num=@Num')
+    }
+    function  batch_Classify@{@Classify_id;}@{@Num;}_fun(){
+
+        var Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}=   $(".Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}:checked ");
+
+        var arrid=[];
+        for(var i=0;i<Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}.length;i++){
+            var id=$(Classify_ck@{@DBName}@{@Classify_id;}@{@Num;}[i]).val();
+            arrid.push(id);
+
+
+        }
+        if(arrid.length<=0){
+            alertMsg.info("请选择")
+            return ;
+        }
+        delAnySelectedConfirmMsg('/DBDataAE/del_db_Classify',arrid)
+
+
+
+    }
+
+
+    function add_Classify@{@Classify_id;}@{@Num;}_fun(that){
+
+        // var tabs_admin_user=   $("#tabs_admin_user")
+
+        $(".Classify_ae_ui@{@Classify_id;}@{@Num;}").click();
+        $.extend($,{'AddOrEidtNum@{@Classify_id;}@{@Num;}':1 })
+
+        $(".Classify_h1@{@Classify_id;}@{@Num;}").html("增加数据");
+        $("#btn_@{@DBName}@{@Classify_id;}@{@Num;}_op span").html("增加");
+
+        $.extend($,{"SelectClassify_ID{@Classify_id;}@{@Num;}":""})
+
+
+
+    }
+
+
+
+
+    function refresh_Classify@{@DBName}@{@Classify_id;}@{@Num;}(that){
+
+        var form=  $("#Classify_pagerForm@{@DBName}@{@Classify_id;}@{@Num;}")
+        navTab.reload(form.action, $(form).serializeArray());
+    }
+
+
+</script>
+
+
+
+
+
+<script>
+
+    //function fun_select_icon(e) {
+
+
+
+    //    //var rdoval = $(".tb_cw_icon input[name='rdo_createworld']:checked").val();
+
+
+    //    //$("#menu_File_URL").val(rdoval);
+
+    //}
+
+
+
+
+
+    //function fun_select_tree_Classify(that){
+    //    var _checkbox=  $("#select_Classify .ckbox");
+
+    //    var checkbox=  $("#select_Classify :checkbox");
+    //    var role_menu=$("#role_menu");
+    //    var  n_role_menu=$("#n_role_menu");
+    //    var val_role_menu_str="";
+    //    var count_role_menu=1;
+    //    var txt_role_menu_str="";
+
+    //    $(_checkbox).each(function () {
+
+
+    //        checkbox=  $(this).children(":checkbox")
+    //        //
+
+    //        if($(this).hasClass("checked")|| $(this).hasClass("indeterminate")){
+    //            var text=$(checkbox).attr("text")
+    //            var vl= $(checkbox).val();
+    //            if(vl!=null){
+    //                txt_role_menu_str+=text+";";
+    //                val_role_menu_str+=vl+",";
+    //            }
+
+
+    //        }
+
+    //        count_role_menu++;
+    //    });
+
+
+    //    var lastIndex=    val_role_menu_str.lastIndexOf(",")
+    //    var news= val_role_menu_str.substring(0,lastIndex)
+    //    n_role_menu.val(txt_role_menu_str);
+    //    role_menu.val(news)
+
+    //}
+
+
+    $("._Munber").NIsNunberChange(0);
+</script>

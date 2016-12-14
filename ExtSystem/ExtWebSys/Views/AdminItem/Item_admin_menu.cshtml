@@ -1,0 +1,1024 @@
+﻿@{
+
+    Layout = "";
+    ViewBag.Title = "用户菜单管理";
+
+    string DBName = "admin_menu";
+}
+<style>
+    .admin_menu_sub a {
+        float: right;
+        margin-left: 20px;
+    }
+
+    .tab_one_span img {
+        float: left;
+        height: 18px;
+        margin-top: 5px;
+    }
+
+    .tab_one_span pre {
+        display: block;
+        height: 25px;
+        line-height: 25px;
+        padding-top: 2px;
+        padding-right: 9px;
+        padding-left: 9px;
+        float: left;
+    }
+
+    .admin_menu {
+        padding: 20px;
+        width: 750px;
+    }
+
+    .form_admin_menu h1 {
+        margin-top: 20px;
+        width: 740px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .admin_menu td {
+        padding: 10px;
+    }
+</style>
+
+@{
+    //pageNum=1  numPerPage=100  orderField=${param.orderField}  orderDirection=${param.orderDirection}
+
+    NModel.PageData<NModel.Admin_Menu> pageData = Model;
+
+
+}
+
+
+<div class="clear   pageheader" style=" height:20px;"></div>
+<div class="pageContent">
+
+
+    <div class="tabs" currentindex="0" eventtype="click">
+        <div class="tabsHeader">
+            <div class="tabsHeaderContent">
+                <ul id="tabs_admin_user">
+                    <li>
+                        <a href="javascript:;">
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_listTable.png" /><pre>菜单管理</pre></span>
+                        </a>
+                    </li>
+                    <li class="admin_menu_ae_ui">
+                        <a href="javascript:;">
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_add.png" /><pre>菜单编辑</pre> </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_Statistics.png" /><pre>统计管理</pre></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+
+
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_help.png" /><pre>关于帮助</pre></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tabsContent" style="">
+            <div>
+                <form id="pagerForm_admin_menu" method="post" action="#rel#">
+                    <input type="hidden" name="pageNum" value="1" />
+                    <input type="hidden" name="numPerPage" value="@pageData.NumPerPage" />
+                    <input type="hidden" name="orderField" value="${param.orderField}" />
+                    <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+                </form>
+
+                <div class="pageHeader">
+                    <form rel="pagerForm_admin_menu" id="admin_menu_pagerForm" action="/AdminItem/Item_admin_menu" method="post"></form>
+                </div>
+                <div class="pageContent">
+                    <div class="panelBar">
+                        <ul class="toolBar">
+                            <li><a class="add" onclick="add_admin_menu_fun(this)"><span>添加</span></a></li>
+                            <li><a class="edit" onclick="_edit_admin_menu_fun(this)" warn="请选择一个"><span>修改</span></a></li>
+                            <li><a title="确实要删除这些记录吗?" onclick="batch_all_admin_menu_fun()" class="delete"><span>批量删除全部方式</span></a></li>
+                            <li><a title="确实要删除这些记录吗?" onclick="batch_admin_menu_fun()" class="delete"><span>批量删除选择部分方式</span></a></li>
+
+                            <li class="line">line</li>
+                            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+                            <li><a class="refresh_main" onclick="refresh_admin_menu(this)"><span id="refresh_mainID">刷新</span></a></li>
+
+
+                            <li><input type="text" id="Move_Level_@{@DBName}" /></li>
+                            @*<li><a class="refresh_main" ><span id="searchID">&nbsp;&nbsp;</span></a></li>*@
+
+                            <li title="勾选移动级别"><a class="refresh_main" onclick="move_@{@DBName}()"><span id="nextID">移动到原级</span></a></li>
+                            <li title="勾选移动级别"><a class="refresh_main" onclick="next_move_@{@DBName}()"><span id="nextID">移动到下级</span></a></li>
+                        </ul>
+                    </div>
+                    <table class="table" width="1200" layouth="138">
+                        <thead>
+                            <tr>
+                                <th width="70" orderfield="Num" >序号</th>
+                                <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+
+                                <th width="70" orderfield="Menu_id" class="asc">ID</th>
+                                <th width="70" orderfield="Menu_Name">名称</th>
+                                <th width="80" orderfield="accountType">菜单级别</th>
+                                <th width="60" orderfield="Menu_img_url">图片路径</th>
+                                <th width="180" align="center" orderfield="Menu_url">资源路径</th>
+                                <th width="100" align="center" orderfield="Menu_addtime">增加时间</th>
+                                <th width="100">权限</th>
+                                <th width="70">操作</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody  id="data_admin_menu_list" ></tbody>
+                    </table>
+                    <div class="panelBar">
+                        <div class="pages">
+                            <span>显示</span>
+                            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                            </select>
+                            <span>条，共<span class="totalNum_admin_menu">@pageData.TotalPage</span>条</span>
+                        </div>
+
+                        <div class="pagination Data_admin_menu_pager" targettype="navTab" totalcount="@pageData.TotalPage" numperpage="@pageData.NumPerPage" pagenumshown="10" currentpage="@pageData.PageNum"></div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div>
+                <form class="form_@{@DBName} " method=" post">
+
+                    <h1 class="admin_menu_h1">增加数据</h1>
+                    <table cellpadding="5" class="check_@{@DBName}   @{@DBName}">
+
+
+
+                        <tr>
+<td>编号：</td>
+                            <td colspan="3">
+    <a class="easyui-panel easyui-tooltip" title="">
+        <input name="menu_num" id="menu_num" class="admin_menu_input " style=" width:180px; " type="text" />
+
+    </a>
+</td>
+                           
+
+                        </tr>
+                        <tr>
+                            <td>名称:</td>
+                            <td>
+                                <input name="menu_name" class="required  admin_menu_input" style=" width:180px; " id="menu_name" type="text"
+                                       invalidmessage="长度5-16个字符！" data-options="required:true,validType:'length[2,16]'" />
+                            </td>
+
+                            <td>名称(英语):</td>
+                            <td>
+                                <a class="easyui-panel easyui-tooltip" title="">
+                                    <input name="menu_name_en" id="menu_name_en" class="admin_menu_input " style=" width:180px; " type="text" />
+
+                                </a>
+                            </td>
+                        </tr>
+
+
+
+
+                        <tr>
+
+
+                            <td>图片:</td>
+                            <td>
+
+
+                                <span style=" float:left;">
+
+                                    <input readonly name="menu_img_url" id="menu_img_url" class="readonly required admin_menu_input" lookupgroup="menu_img_url" invalidmessage="长度2-60个数字！"
+                                           style=" width:130px; " type="text" />
+
+
+                                </span>
+                                <a href="~/Html/img_menu_icon.html" width="700" height="400" rel="dlg_page7" class="btnLook" style=" cursor:pointer;" target="dialog"></a>
+
+
+
+
+                            </td>
+                            <td>排序:</td>
+                            <td>
+                                <input name="menu_sortno" id="menu_sortno" class="admin_menu_input _Munber" value="0" style=" width:100px; " type="text"
+                                       invalidmessage="长度1-16个数字！" data-options="required:true,validType:['etc','length[1,16]']" />
+                            </td>
+                        </tr>
+
+
+                        <tr>
+
+
+                            <td>资源路径:</td>
+                            <td>
+                                <input name="menu_url" id="menu_url" class="admin_menu_input  " @*data-options="required:true,validType:'length[3,120]'"*@ style=" width:190px; " type="text" />
+                            </td>
+
+                            <td>状态:</td>
+                            <td>
+                                <span class="_status_sp">启用:</span> <input id="menu_status" value="1"
+                                                                           checked class="admin_menu_input noclear_@{@DBName}_add noclear_@{@DBName}_edit" type="radio"
+                                                                           name="menu_status" data-options="required:true">
+                                <span class="_status_sp">禁用:</span><input id="menu_status" value="0" class="admin_menu_input noclear_@{@DBName}_add noclear_@{@DBName}_edit" type="radio" name="menu_status" data-options="required:true">
+                            </td>
+
+
+                        </tr>
+
+                        <tr>
+
+
+                            <td>编号:</td>
+                            <td colspan="3">
+
+
+
+                                <span style="float:left">
+                                    <a id="pp_code" class="easyui-panel easyui-tooltip" title="编号可以自行填写,或右边选择-->">
+
+                                        <input readonly name="menu_x" id="menu_x" class="required  readonly  noclear_@{@DBName}_edit admin_menu_input" data-options="readonly:true,required:true,validType:'length[1,12]'" style=" width:60px; " type="text" />
+                                        <input readonly name="menu_y" id="menu_y" class="required readonly  noclear_@{@DBName}_edit admin_menu_input" data-options="readonly:true,required:true,validType:'length[1,12]'" style=" width:60px; " type="text" />
+                                        <input readonly name="menu_z" id="menu_z" class="required  readonly noclear_@{@DBName}_edit admin_menu_input" data-options="readonly:true,required:true,validType:'length[1,12]'" style=" width:60px; " type="text" />
+                                    </a>
+                                </span>
+
+                                <span style="float:left; margin-left:14px;">
+
+                                    <select id="level"
+                                            class="admin_menu_input noclear_@{@DBName}_add noclear_@{@DBName}_edit"
+                                            name="level" style="width:90px;">
+
+
+                                        <option value="2" selected>原级不动</option>
+                                        <option value="1">下级加级</option>
+                                        <option value="0">原级加级</option>
+
+                                    </select>
+
+
+                                </span>
+                                <span style="float: left; margin-left: 14px; ">
+
+
+
+
+                                    @*<select id="menu_cc" class="easyui-combotree" data-options="required:false,method:'get'" style="width:130px;"></select>*@
+
+                                </span>
+                                <span style="float: left; margin-left: 14px; ">
+                                    <a href="~/AdminSelectItem/Select_item_tree" rel="dlg_page7" class="btnLook" style=" cursor:pointer;" target="dialog"></a>
+                                </span>
+
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td>操作权限:</td>
+                            <td colspan="3">
+                                <span class="_status_sp">可删除:</span>
+                                <input id="menu_operate"
+                                       value="1"
+                                       checked class="admin_menu_input noclear_@{@DBName}_add noclear_@{@DBName}_edit" type="radio"
+                                       name="menu_operate" data-options="required:true">
+                                <span class="_status_sp">不可删除:</span>
+                                <input id="menu_operate" value="0"
+                                       class="admin_menu_input noclear_@{@DBName}_add noclear_@{@DBName}_edit" type="radio" name="menu_operate" data-options="required:true">
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" class="admin_menu_sub">
+                                <a href="#" id="btn_@{@DBName}_op" iconcls="icon-ok" class="button" onclick=""><span>增加</span></a>&nbsp;&nbsp;
+                                <a href="#" class="button" id="btn_@{@DBName}_clear" iconcls="icon-cancel"><span>清空</span></a>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+
+                </form>
+
+                <table style="display:none;">
+                    <tr style="">
+                        <td>菜单ID:</td>
+                        <td>
+                            <input id="menu_id" name="menu_id" class="admin_menu_input noclear_@{@DBName}_edit readonly" style=" width:210px; " type="text" />
+                        </td>
+
+                        <td>增加时间:</td>
+                        <td>
+                            <input name="menu_addtime" id="menu_addtime" class="readonly admin_menu_input  noclear_@{@DBName}_edit" value="0" style=" width:100px; " type="text" />
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div>
+                <div class="barchart"></div>
+
+
+
+                <div id="chartHolder"></div>
+
+            </div>
+        </div>
+        <div class="tabsFooter">
+            <div class="tabsFooterContent"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+
+
+    function test_next_move_@{@DBName}(_url,name,ids,nlevel){
+        alertMsg.confirm("您是否正确定要移动吗？", {
+            okCall: function(){
+
+
+                $.post(_url,{'delList[]':ids,"id":name,"nlevel":nlevel},function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+
+                    switch(data.msgcode){
+
+                        case 1:
+
+
+
+                            break;
+
+                    }
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+    }
+    function next_move_@{@DBName}(){
+
+
+        var name=    $("#Move_Level_@{@DBName}").val()
+        var Menu_ck@{@DBName}=   $(".admin_menu_ck:checked ");
+
+        var ids=[];
+        for(var i=0;i<Menu_ck@{@DBName}.length;i++){
+            var id=$(Menu_ck@{@DBName}[i]).val();
+            ids.push(id);
+
+
+        }
+        if(ids.length<=0){
+            alertMsg.info("请选择,移动分类")
+            return ;
+        }
+
+
+        test_next_move_@{@DBName}("/AdminDataAE/Move_Admin_Menu",name,ids,1)
+    }
+    function move_@{@DBName}(){
+
+
+        var name=    $("#Move_Level_@{@DBName}").val()
+        var Menu_ck@{@DBName}=   $(".Menu_ck@{@DBName}:checked ");
+
+        var ids=[];
+        for(var i=0;i<Menu_ck@{@DBName}.length;i++){
+            var id=$(Menu_ck@{@DBName}[i]).val();
+            ids.push(id);
+
+
+        }
+        if(ids.length<=0){
+            alertMsg.info("请选择,移动分类")
+            return ;
+        }
+
+
+        test_next_move_@{@DBName}("/AdminDataAE/Move_Admin_Menu",name,ids,0)
+    }
+
+
+</script>
+
+    <script>
+
+        var Data_admin_menu_pager=$(".Data_admin_menu_pager");
+        var data_admin_menu_list=    $("#data_admin_menu_list");
+        var relNum=0;
+        $.Cue_Admin_Menu_ListData={id:{ }};
+        function ToJsonShowTree(dt) {
+
+
+            var htmlTree = "";
+
+            var rows = dt;
+
+            for (var i = 0; i < rows.length; i++) {
+                var level=0;
+
+                relNum++;
+                var menu_id = rows[i].menu_id;
+                var menu_name = rows[i].menu_name;
+                var menu_url = rows[i].menu_url;
+                var menu_status_show = rows[i].menu_status_show;
+                var menu_status = rows[i].menu_status;
+                var menu_x = rows[i].menu_x;
+                var menu_y = rows[i].menu_y;
+                var menu_z = rows[i].menu_z;
+                var menu_sortno = rows[i].menu_sortno;
+                var menu_operate = rows[i].menu_operate;
+                var menu_operate_show = rows[i].menu_operate_show;
+                var menu_img_url = rows[i].menu_img_url;
+                var menu_addtime = rows[i].menu_addtime;
+                var menu_edittime = rows[i].menu_edittime;
+                var iconCls = rows[i].iconCls;
+         
+
+                level++;
+                htmlTree+= '<tr target="sid_user" rel="'+relNum+'">';
+                htmlTree+='<td  >'+relNum+'</td>';
+                htmlTree+='<td  ><input name="ids" class="admin_menu_ck" value="'+menu_id+'" type="checkbox"></td>';
+                htmlTree+='<td  >'+menu_id+'</td>';
+                htmlTree+='<td >'+menu_name+'</td>';
+                htmlTree+='<td >'+menu_x+'_'+menu_y+'_'+menu_z+'</td>';
+                htmlTree+='<td >'+menu_img_url+'</td>';
+                htmlTree+='<td  >'+menu_url+'</td>';
+                htmlTree+='<td >'+menu_addtime+'</td>';
+
+                htmlTree+='<td >'+ menu_operate_show+'</td>';
+                htmlTree+='<td >'
+                htmlTree+= '<a title="删除"  onclick="del_admin_menu_fun('+menu_id+')"  class="btnDel">删除</a>';
+                htmlTree+='<a title="编辑"  onclick="edit_admin_menu_fun('+menu_id+')"  class="btnEdit">编辑</a>';
+                htmlTree+='</td></tr>'
+
+                $.Cue_Admin_Menu_ListData["id_"+menu_id]=rows[i];
+
+                var children = rows[i].children
+
+                if(children!=null)
+                    for (var j = 0; j < children.length; j++) {
+                        relNum++;
+                        var children_id = children[j].menu_id;
+                        var children_name = children[j].menu_name;
+                        var children_url = children[j].menu_url;
+                        var children_status_show = children[j].menu_status_show;
+                        var children_status = children[j].menu_status;
+                        var children_x = children[j].menu_x;
+                        var children_y = children[j].menu_y;
+                        var children_z = children[j].menu_z;
+                        var children_sortno = children[j].menu_sortno;
+                        var children_operate = children[j].menu_operate;
+                        var children_operate_show = children[j].menu_operate_show;
+                        var children_img_url = children[j].menu_img_url;
+                        var children_addtime = children[j].menu_addtime;
+                        var children_edittime = children[j].menu_edittime;
+                        var iconCls = children[j].iconCls;
+
+                        $.Cue_Admin_Menu_ListData["id_"+children_id]= children[j];
+
+
+                        level++;
+                        htmlTree+= '<tr target="sid_user" rel="'+relNum+'">';
+                        htmlTree+='<td   >'+relNum+'</td>';
+                        htmlTree+='<td  ><input name="ids"  class="admin_menu_ck" value="'+children_id+'" type="checkbox"></td>';
+                        htmlTree+='<td  >'+children_id+'</td>';
+                        htmlTree+='<td  >'+children_name+'</td>';
+                        htmlTree+='<td >'+children_x+'_'+children_y+'_'+children_z+'</td>';
+                        htmlTree+='<td >'+children_img_url+'</td>';
+                        htmlTree+='<td   >'+children_url+'</td>';
+                        htmlTree+='<td >'+children_addtime+'</td>';
+                        htmlTree+='<td >'+children_operate_show+'</td>';
+                        htmlTree+='<td >'
+                        htmlTree+= '<a title="删除"  href="javascript:;"  onclick="del_admin_menu_fun('+children_id+')" class="btnDel">删除</a>';
+                        htmlTree+='<a title="编辑"   href="javascript:;" onclick="edit_admin_menu_fun('+children_id+')"  class="btnEdit">编辑</a>';
+                        htmlTree+='</td></tr>'
+
+
+                        var _rchildren = children[j].children;
+
+
+
+                        if (_rchildren != null && _rchildren.length > 0) {
+
+
+                            htmlTree += ToJsonShowTree(_rchildren)
+
+
+                        } else {
+
+
+
+                        }
+
+
+
+                    }
+
+            }
+
+            return htmlTree;
+        }
+
+
+        $.initData_Admin_Menu=      function initData_Admin_Menu(page,rows){
+
+            if(isNaN(rows)){
+            
+            
+            
+            }
+
+
+            $.ajax({
+                url: "/AdminData/Data_Admin_Menu_New?page="+page+"&rows="+rows+"&num="+Math.random(), async: false, success: function (data) {
+
+                    var dt = eval('(' + data + ')');
+
+                    if (dt == null) return;
+                    var pageSize = dt.total;
+
+
+
+                    var htmlContent = ToJsonShowTree(dt.rows);
+
+                    data_admin_menu_list.html(htmlContent);
+                }
+            })
+
+
+
+        }
+
+
+        $.initData_Admin_Menu("@pageData.PageNum","@pageData.NumPerPage");
+
+
+
+
+        new @{@DBName}();
+        function   @{@DBName}(){
+            function setVal(m_id) {
+                var postval = "{";
+                var radio = $(m_id + ":radio");
+                //  var array=new Array();
+                var dict = new Array();
+                var allCtl = $(m_id);
+
+                if (allCtl.length <= 0)
+                    return;
+                for (var i = 0; i < allCtl.length; i++) {
+
+                    var allthis = $(allCtl[i]);
+
+                    var isRadio = (allthis.attr("type") + "").indexOf("radio") != -1;
+
+
+
+                    if (isRadio) {
+                        continue
+
+
+                    }
+
+
+                    var name = allthis.attr("id");
+                    var isCombobox = allthis.hasClass("easyui-combobox");
+                    var val = allthis.val();
+
+                    if (isCombobox) {
+                        val = $(allthis).combobox('getValue')
+
+
+
+                    }
+
+
+
+                    if (val == null || name == null) {
+                        continue
+
+
+                    }
+
+                    if (!dict.hasOwnProperty(name)) {
+
+                        dict[name] = val + "";
+                        postval += "'" + name + "':'" + val + "',";
+                    }
+
+                }
+
+
+
+                for (var i = 0; i < radio.length; i++) {
+
+                    for (var j = 1; j < radio.length; j++) {
+
+
+                        var name0 = $(radio[i]).attr("name");
+
+                        var name1 = $(radio[j]).attr("name");
+                        if (name0.match(name1)) {
+                            if (!dict.hasOwnProperty(name0)) {
+
+                                var val = $(m_id + "[name='" + name0 + "']:checked").val();
+                                // alert(val)
+                                dict[name0] = val + "";
+                                postval += "'" + name0 + "':'" + val + "',";
+                            }
+
+                        }
+
+                    }
+
+
+                }
+
+                var lastdhas = postval.lastIndexOf(",")
+                postval = postval.substring(0, lastdhas);
+
+                postval += "}"
+
+
+                var postvalue = eval('(' + postval + ')')
+
+
+
+                return postvalue;
+
+            }
+
+
+
+            $("#btn_@{@DBName}_op").click(function (e) {
+
+                var admin_menu_input = $(".admin_menu_input");
+
+                var loadData = setVal(".admin_menu_input");
+
+
+                //1 增加 2修改
+                switch($.AddOrEidtNum)
+                {
+
+                    case 1:
+
+                        $.post("/AdminDataAE/add_@{@DBName}",loadData,function(dt){
+
+                            var data = eval('(' +dt + ')');
+
+                            switch(data.msgcode){
+
+                                case 1:
+
+
+                                    break;
+
+                            }
+
+                            alertMsg.info(data.msg)
+
+                        })
+
+
+
+                        break;
+                    case 2:
+                        $.post("/AdminDataAE/edit_@{@DBName}",loadData,function(dt){
+
+                            var data = eval('(' +dt + ')');
+
+                            alertMsg.info(data.msg)
+
+                        })
+
+
+                        break;
+
+                    default:break;
+                }
+
+
+
+
+
+            })
+
+            $("#btn_@{@DBName}_clear").click(function () {
+
+
+                $(".form_@{@DBName}")[0].reset()
+            })
+
+
+
+
+        }
+
+        function _edit_admin_menu_fun(id){
+
+
+          
+            $.extend($,{'AddOrEidtNum':2 })
+
+            $(".admin_menu_h1").html("修改数据");
+
+            $("#btn_@{@DBName}_op span").html("修改");
+            var ck=       $(".admin_menu_ck:checked ");
+
+           
+           // $.Cue_Admin_Menu_ListData["id_"+id]=rows[i];
+          if(ck!=null&&ck.length>0){
+              edit_fun(ck.val())
+              $(".admin_menu_ae_ui").click();
+          }
+          else
+          {
+              alertMsg.info("请选择")
+          
+          }
+         
+
+        }
+
+         
+
+        function edit_fun(id){
+        
+            var rows= $.Cue_Admin_Menu_ListData["id_"+id];
+            if(!rows)return;
+            for(var rws in rows){
+
+
+                var obj=   $(".admin_menu_input[name='"+rws+"']");
+                if(obj!=null&&obj.length>0){
+                    var isRadio = (obj.attr("type")+ "").indexOf("radio") != -1;
+                    if(isRadio){
+                    
+
+                     
+                        for(var l=0;l<obj.length;l++){
+                             
+                            if($(obj[l]).val().indexOf(rows[rws])!=-1){
+                                $(obj[l]).attr("checked","true")
+                            }
+                      
+                        }
+                    }else
+                    {
+                  
+                        $(obj).val(rows[rws])
+                  
+                    }
+
+
+                }
+
+            }
+        }
+
+        function edit_admin_menu_fun(id){
+
+            // var tabs_admin_user=   $("#tabs_admin_user")
+
+            $(".admin_menu_ae_ui").click();
+            $.extend($,{'AddOrEidtNum':2 })
+
+            $(".admin_menu_h1").html("修改数据");
+
+            $("#btn_@{@DBName}_op span").html("修改");
+            edit_fun(id)
+        }
+
+
+        function testConfirmMsg(_url, ids){
+            alertMsg.confirm("您是否正确定要删除？", {
+                okCall: function(){
+
+
+                    $.post(_url,{'delList[]':ids},function(dt){
+
+
+                        var data = eval('(' +dt + ')');
+
+                        switch(data.msgcode){
+
+                            case 1:
+
+
+
+                                break;
+
+                        }
+                        alertMsg.info(data.msg)
+
+                    })
+                }
+            });
+        }
+
+
+        function delAnySelectedConfirmMsg(_url,arrid){
+
+            alertMsg.confirm("您是否正确定要删除全部？", {
+                okCall: function(){
+
+
+                    $.post(_url,{"dellist[]":arrid},function(dt){
+
+
+                        var data = eval('(' +dt + ')');
+                        var code= data.msgcode
+                        switch(code){
+                            case 1:
+
+
+
+                                break;
+                            default:
+
+
+                                break;
+
+                        }
+
+                        alertMsg.info(data.msg)
+
+                    })
+                }
+            });
+
+
+        }
+
+        function delAllConfirmMsg(_url){
+            alertMsg.confirm("您是否正确定要删除全部？", {
+                okCall: function(){
+
+
+                    $.post(_url,function(dt){
+
+
+                        var data = eval('(' +dt + ')');
+                        var code= data.msgcode
+                        switch(code){
+                            case 1:
+
+
+
+                                break;
+                            default:
+
+
+                                break;
+
+                        }
+
+                        alertMsg.info(data.msg)
+
+                    })
+                }
+            });
+        }
+        function del_admin_menu_fun(id){
+            testConfirmMsg('/AdminDataAE/Del_Admin_Menu', id)
+
+
+        }
+
+        function batch_all_admin_menu_fun(){
+
+
+            delAllConfirmMsg('/AdminDataAE/Del_All_Admin_Menu')
+        }
+        function  batch_admin_menu_fun(){
+
+            var admin_menu_ck=   $(".admin_menu_ck:checked ");
+
+            var arrid=[];
+            for(var i=0;i<admin_menu_ck.length;i++){
+                var id=$(admin_menu_ck[i]).val();
+                arrid.push(id);
+
+
+            }
+
+
+            if(arrid.length>0){
+            
+                delAnySelectedConfirmMsg('/AdminDataAE/Del_Admin_Menu',arrid)
+            
+            }
+            else
+            {
+                alertMsg.info("请选择")
+            
+            }
+
+          
+
+
+
+        }
+        function add_admin_menu_fun(that){
+
+            // var tabs_admin_user=   $("#tabs_admin_user")
+
+            $(".admin_menu_ae_ui").click();
+            $.extend($,{'AddOrEidtNum':1 })
+
+            $(".admin_menu_h1").html("增加数据");
+            $("#btn_@{@DBName}_op span").html("增加");
+        }
+        //function navTabSearch(form){
+
+        //    navTab.reload(form.action, $(form).serializeArray());
+
+        //    return false;
+
+        //}
+
+     
+
+        //function dialogSearch(form){
+
+        //    $.pdialog.reload(form.action, $(form).serializeArray());
+
+        //    return false;
+
+        //}
+
+ 
+
+        function refresh_admin_menu(that){
+        
+          var form=  $("#admin_menu_pagerForm")
+            navTab.reload(form.action, $(form).serializeArray());
+        }
+
+
+    </script>
+
+
+
+
+
+    <script>
+
+        function fun_select_icon(e) {
+
+
+
+            var rdoval = $(".tb_cw_icon input[name='rdo_createworld']:checked").val();
+
+
+            $("#menu_img_url").val(rdoval);
+
+        }
+
+
+        function Set_Admin_MenuXYZ(menu_x, menu_y, menu_z, menu_id) {
+
+            $("#menu_x").val(menu_x);
+            $("#menu_y").val(menu_y);
+            $("#menu_z").val(menu_z);
+
+        }
+        $("._Munber").NIsNunberChange(0);
+    </script>
+
+

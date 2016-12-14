@@ -1,0 +1,2089 @@
+﻿
+
+@{
+    
+    Layout = "";
+}
+@model NModel.NewsPager
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    @Html.Partial("_PartialHead")
+
+
+
+     @{ var links=Model.IDictLink["友情链接"];}
+    <link type="text/css" rel="stylesheet" href="/content/news/css/zixun.css">
+
+
+
+
+
+    <link type="text/css" rel="stylesheet" href="/content/News/css/bottombar.css">
+    <link type="text/css" rel="stylesheet" href="/content/News/css/bdsstyle.css">
+    @*<script src="/content/News/js/loader.js" type="text/javascript"></script>*@
+
+
+
+
+
+
+
+
+    <style type="text/css">
+        .bdyt, .bdyt * {
+            box-sizing: content-box;
+            margin: 0;
+            padding: 0;
+            float: none;
+            clear: none;
+            overflow: hidden;
+            word-wrap: normal;
+            border: 0;
+            background: none;
+            width: auto;
+            height: auto;
+            max-width: none;
+            min-width: none;
+            max-height: none;
+            min-height: none;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
+            font: 12px/1.5 Helvetica, Arial, \5b8b\4f53, sans-serif;
+            text-shadow: none;
+            text-decoration: none;
+            text-align: left;
+            text-indent: 0;
+        }
+
+            .bdyt table {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            .bdyt img {
+                border: 0;
+                display: block;
+            }
+
+            .bdyt ol, .bdyt ul {
+                list-style: none;
+            }
+
+            .bdyt li {
+                display: block;
+                list-style: none;
+            }
+
+            .bdyt h1, .bdyt h2, .bdyt h3, .bdyt h4 {
+                font-size: 100%;
+            }
+
+            .bdyt i, .bdyt em {
+                font-style: normal;
+                font-weight: normal;
+            }
+
+            .bdyt button, .bdyt input, .bdyt select, .bdyt textarea {
+                font: 12px/1.5 Helvetica, Arial, \5b8b\4f53, sans-serif;
+            }
+
+            .bdyt .clearfix:after {
+                content: '';
+                display: block;
+                clear: both;
+                height: 0;
+            }
+
+            .bdyt .clearfix {
+                zoom: 1;
+            }
+
+        .bdyt-index {
+            z-index: 2147483645;
+        }
+
+        .bdyt-layer {
+            z-index: 2147483647;
+        }
+
+        .bdyt-ending {
+            z-index: 2147483647;
+        }
+
+        #bdyt_mouse_hover_tip {
+            display: none;
+            position: fixed;
+            z-index: 2147483647;
+            border: 1px solid #000;
+            padding: 2px 5px 3px 5px;
+            white-space: nowrap;
+            background: #ffffe1;
+            color: #000;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+        }
+
+        *html {
+            background-image: url(css-style/about:blank);
+            background-attachment: fixed;
+        }
+
+        div.bdyt-index {
+            overflow: visible;
+        }
+
+        .bdyt-index .rec-flow-layer {
+            position: absolute;
+            overflow: visible;
+            cursor: url(http://static.yuntu.baidu.com/1201/img/bdyt-index/big.cur),auto;
+            cursor: url(http://static.yuntu.baidu.com/1201/img/bdyt-index/big_ie.cur),auto \9;
+            background-image: url('http://static.yuntu.baidu.com/1201/img/bdyt-base/null.png');
+        }
+
+        .bdyt-index .content-wrapper {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            height: 120px;
+            width: 100%;
+            overflow: visible;
+            display: none;
+            background: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-index-bg.png') repeat 0 0;
+            transition: box-shadow .255s;
+            -moz-transition: box-shadow .255s;
+            -webkit-transition: box-shadow .255s;
+            cursor: default;
+        }
+
+        .bdyt-index .bdyt-bottom-content-wrapper {
+            position: fixed;
+            overflow: visible;
+            bottom: 0px;
+            _position: absolute;
+            _bottom: 0px;
+            _top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight- this.offsetHeight-(parseInt(this.currentStyle.marginBottom,10)||0)));
+            width: 100%;
+        }
+
+        .bdyt-index .content-wrapper:hover {
+            box-shadow: 0 0 8px black;
+            transition: box-shadow .255s;
+            -moz-transition: box-shadow .255s;
+            -webkit-transition: box-shadow .255s;
+        }
+
+        .bdyt-index .head-wrapper {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px;
+            height: 24px;
+        }
+
+            .bdyt-index .head-wrapper a {
+                display: block;
+                width: 100%;
+                height: 24px;
+                background: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-index-btn-show-layer.png') no-repeat 0 0;
+                opacity: 0.5;
+                filter: alpha(opacity=50);
+                cursor: pointer;
+                transition: opacity .255s;
+                -moz-transition: opacity .255s;
+                -webkit-transition: opacity .255s;
+            }
+
+                .bdyt-index .head-wrapper a:hover {
+                    opacity: 1.0;
+                    filter: none;
+                    background: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-index-btn-show-layer.png') no-repeat -80px 0;
+                }
+
+                .bdyt-index .head-wrapper a.head-wrapper-hover {
+                    opacity: 1.0;
+                    filter: none;
+                    transition: opacity .255s;
+                    -moz-transition: opacity .255s;
+                    -webkit-transition: opacity .255s;
+                }
+
+        .head-right-wrapper {
+            position: absolute;
+            top: 0px;
+            right: -22px;
+            width: 22px;
+        }
+
+            .head-right-wrapper a {
+                padding: 20px 0px 5px 0px;
+                font-weight: bold;
+                text-align: center;
+                color: white;
+                background-image: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-index-show-layer-img.png);
+                _background-image: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-index-show-layer-img_ie6.png);
+                _filter: alpha(opacity:100);
+                background-repeat: no-repeat;
+                background-color: rgb(184, 0, 15);
+            }
+
+                .head-right-wrapper a:hover {
+                    background-color: rgb(250, 9, 9);
+                    color: white;
+                    text-decoration: none;
+                }
+
+        .bdyt-index .rec-flow-layer .button-wrapper, .bdyt-index .bdyt-bottom-content-wrapper .button-wrapper {
+            position: relative;
+            width: 100%;
+            height: 15px;
+            overflow: hidden;
+            padding-top: 5px;
+        }
+
+        .bdyt-index .button-wrapper span {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bdyt-index .button-wrapper a {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bdyt-index .button-wrapper .bdlogo {
+            float: left;
+            width: 14px;
+            margin-left: 13px;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-index .button-wrapper .label {
+            float: left;
+            margin-left: 5px;
+            color: white;
+            font: bold 12px/17px SimSun;
+        }
+
+        .bdyt-index .button-wrapper .close {
+            float: right;
+            cursor: pointer;
+            width: 10px;
+            margin-right: 10px;
+            background-repeat: no-repeat;
+        }
+
+            .bdyt-index .button-wrapper .close:hover {
+                float: right;
+                width: 10px;
+                height: 100%;
+                background-repeat: no-repeat;
+            }
+
+        .bdyt-index .rec-flow-layer .main-wrapper, .bdyt-index .bdyt-bottom-content-wrapper .main-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 82px;
+            overflow: hidden;
+            margin: 10px 0px 0px;
+        }
+
+        .bdyt-index .main-wrapper .button-slide {
+            position: relative;
+            width: 23px;
+            height: 80px;
+            border: 1px solid #000;
+            background-color: #292929;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .bdyt-index .button-slide span {
+            width: 22px;
+            height: 78px;
+            border: 1px solid #313131;
+            position: relative;
+        }
+
+        .bdyt-index .main-wrapper .left {
+            float: left;
+            border-left: none;
+        }
+
+        .bdyt-index .main-wrapper .right {
+            float: right;
+            border-right: none;
+        }
+
+        .bdyt-index .button-slide div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -5px;
+            width: 11px;
+            height: 16px;
+        }
+
+        .bdyt-index .button-slide .left div {
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-index .button-slide .left:hover div {
+            zoom: 1;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-index .button-slide .right div {
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-index .button-slide .right:hover div {
+            zoom: 1;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-index .rec-flow-layer .img-list, .bdyt-index .bdyt-bottom-content-wrapper .img-list {
+            position: absolute;
+            left: 24px;
+            top: 0px;
+            height: 80px;
+            width: 9999px;
+        }
+
+        .bdyt-index .rec-flow-layer .img-container, .bdyt-index .bdyt-bottom-content-wrapper .img-container {
+            float: left;
+            width: 100px;
+            height: 80px;
+            border: 1px solid #222;
+            margin-left: 8px;
+            _display: inline;
+        }
+
+        .bdyt-index .rec-flow-layer a, .bdyt-index .bdyt-bottom-content-wrapper a {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .bdyt-index .img-container a, .bdyt-index .bdyt-bottom-content-wrapper .img-container a {
+            width: 98px;
+            height: 77px;
+            border: 1px solid #333;
+            _zoom: 1;
+        }
+
+            .bdyt-index .img-container a:hover, .bdyt-index .bdyt-bottom-content-wrapper .img-container a:hover {
+                border: 1px solid #ff9900;
+                text-decoration: none;
+            }
+
+            .bdyt-index .img-container a.bdyt-img-search-border:hover {
+                border: 1px solid #fa5353;
+            }
+
+        .bdyt-index .rec-flow-layer img, .bdyt-index .bdyt-bottom-content-wrapper img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bdyt-index .title-flow-layer::before {
+            content: 'test';
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bdyt-index .rec-flow-layer .title-flow-layer, .bdyt-index .bdyt-bottom-content-wrapper .title-flow-layer {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            font-size: 0;
+            background-color: rgba(0,0,0,0.8);
+            background-color: #000\9;
+            filter: alpha(opacity=80);
+            -webkit-transition: height 0.3s ease;
+            -moz-transition: height 0.3s ease;
+            -ms-transition: height 0.3s ease;
+            -o-transition: height 0.3s ease;
+            transition: height 0.3s ease;
+        }
+
+            .bdyt-index .rec-flow-layer .title-flow-layer span, .bdyt-index .bdyt-bottom-content-wrapper .title-flow-layer span {
+                text-indent: 5px;
+                text-align: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                color: #fff;
+                display: inline-block;
+                vertical-align: middle;
+                width: 100%;
+            }
+
+        .bdyt-index .bdyt-img-item {
+            display: block;
+            position: relative;
+        }
+
+        .bdyt .bdyt-ad-icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font: 12px/12px 'Arial Normal','Arial';
+            color: #444;
+            padding: 3px 5px;
+            border: 1px solid #e4e4e4;
+            background-color: #f2f2f2;
+        }
+
+        .bdyt .bdyt-img-search-icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 27px;
+            height: 27px;
+            background: url('http://static.yuntu.baidu.com/1201/img/bdyt-index/hot-icon.png') repeat 0 0;
+        }
+
+        .bdyt-index .rec-flow-layer .bdyt-img-item:hover .title-flow-layer, .bdyt-index .bdyt-bottom-content-wrapper .bdyt-img-item:hover .title-flow-layer {
+            height: 100%;
+        }
+
+        .bdyt-index .rec-flow-layer .bdyt-img-item:hover span, .bdyt-index .bdyt-bottom-content-wrapper .bdyt-img-item:hover span {
+            white-space: normal;
+            text-overflow: initial;
+        }
+
+        .bdyt-index .bdyt-bottom-content-wrapper .animation-wrapper {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            display: none;
+            left: 0;
+            bottom: 0;
+            background: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-index-bg.png') repeat 0 0;
+            transition: box-shadow .255s;
+            -moz-transition: box-shadow .255s;
+            -webkit-transition: box-shadow .255s;
+        }
+
+            .bdyt-index .bdyt-bottom-content-wrapper .animation-wrapper:hover {
+            }
+
+        .bdyt-index .bdyt-bottom-content-wrapper .bdyt-bottom-content-wrapper-btn {
+            height: 23px;
+            position: relative;
+            width: 130px;
+            background-position: 0px -3px;
+            background-repeat: no-repeat;
+            top: 0;
+            left: 50%;
+            margin-left: -75px;
+        }
+
+        .bdyt-index .bdyt-bottom-content-wrapper-btn:hover {
+            background-position: 0px -81px;
+            color: white;
+        }
+
+        .bdyt-index .bdyt-bottom-content-wrapper .bdyt-index-foot-layer-close {
+            background-position: 0px -54px;
+        }
+
+            .bdyt-index .bdyt-bottom-content-wrapper .bdyt-index-foot-layer-close:hover {
+                background-position: 0px -28px;
+            }
+
+        .bdyt-index .button-wrapper .bdlogo {
+            background-position: -9px -81px;
+        }
+
+        .bdyt-index .button-wrapper .close {
+            background-position: -23px -81px;
+        }
+
+            .bdyt-index .button-wrapper .close:hover {
+                background-position: -34px -81px;
+            }
+
+        .bdyt-index .button-slide .left div {
+            background-position: 0px -145px;
+        }
+
+        .bdyt-index .button-slide .left:hover div {
+            background-position: -11px -145px;
+        }
+
+        .bdyt-index .button-slide .right div, .bdyt {
+            background-position: -22px -145px;
+        }
+
+        .bdyt-index .button-slide .right:hover div {
+            background-position: -33px -145px;
+        }
+
+        .bdyt-index .fr-left:hover .left div {
+            background-position: 0px -145px;
+        }
+
+        .bdyt-index .fr-right:hover .right div {
+            background-position: -22px -145px;
+        }
+
+        .bdyt-index .button-wrapper .bdlogo, .bdyt-index .button-wrapper .close, .bdyt-index .button-wrapper .close:hover, .bdyt-index .button-slide .left div, .bdyt-index .button-slide .left:hover div, .bdyt-index .button-slide .right div, .bdyt-index .button-slide .right:hover div {
+            background-image: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-index-sprite_z.png');
+            _background-image: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-index-sprite_z_ie6.png');
+        }
+
+        .bdyt-index .bdyt-bottom-content-wrapper .bdyt-bottom-content-wrapper-btn, .bdyt-index .bdyt-bottom-content-wrapper .bdyt-index-foot-layer-close {
+            background-image: url('http://static.yuntu.baidu.com/1201/img/bdyt-index/bdyt-index-content-wrapper.png');
+            */ _background-image:url('http://static.yuntu.baidu.com/1201/img/bdyt-index/bdyt-index-content-wrapper_ie6.png');
+            */;
+        }
+
+        .bdyt-ending {
+            position: fixed;
+            _position: absolute;
+            top: 0;
+            _top: expression(eval(document.documentElement.scrollTop));
+            left: 0;
+            _left: expression(eval(document.documentElement.scrollLeft));
+            width: 0;
+            height: 0;
+            background: rgba(0,0,0,0.8);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000,endColorstr=#cc000000);
+            zoom: 1;
+            background-color: #333\9;
+            _zoom: 1;
+        }
+
+            .bdyt-ending a {
+                text-decoration: none !important;
+            }
+
+        :root .bdyt-ending {
+            filter: none\9;
+        }
+
+        .bdyt-ending .bdyt-ending-wrap {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            margin-top: -250px;
+            margin-left: -450px;
+            padding: 20px;
+            width: 870px;
+            height: 460px;
+            overflow: visible;
+            background-color: #111111;
+            color: white;
+        }
+
+        .bdyt-ending-wrap a {
+            cursor: pointer;
+        }
+
+        .bdyt-ending-btn-close {
+            display: block;
+            position: absolute;
+            top: -24px;
+            right: -24px;
+            width: 48px;
+            height: 48px;
+            background-repeat: no-repeat;
+        }
+
+            .bdyt-ending-btn-close:hover {
+                background-repeat: no-repeat;
+            }
+
+        .bdyt-ending-wrap div {
+            float: left;
+        }
+
+        .bdyt-ending-left {
+            width: 708px;
+            height: 100%;
+            position: relative;
+        }
+
+        .bdyt-ending-head-wrap {
+            height: 30px;
+        }
+
+            .bdyt-ending-head-wrap h3 {
+                float: left;
+                font: bold 18px/30px Microsoft Yahei;
+                color: white;
+            }
+
+            .bdyt-ending-head-wrap .title {
+                line-height: 35px;
+            }
+
+            .bdyt-ending-head-wrap .heading {
+                font-size: 24px;
+                margin-left: 20px;
+                padding-left: 25px;
+                background-repeat: no-repeat;
+            }
+
+        .bdyt-ending-img-list {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+
+        .bdyt-ending-img-item {
+            float: left;
+            margin-right: 3px;
+            margin-bottom: 2px;
+            overflow: visible;
+        }
+
+            .bdyt-ending-img-item a {
+                display: block;
+                position: relative;
+                transition: .255s;
+                -moz-transition: .255s;
+                -webkit-transition: .255s;
+            }
+
+                .bdyt-ending-img-item a:hover {
+                    opacity: 0.8;
+                    filter: alpha(opacity=80);
+                    transition: .255s;
+                    -moz-transition: .255s;
+                    -webkit-transition: .255s;
+                }
+
+            .bdyt-ending-img-item img {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+        .bdyt-ending-img-big {
+            width: 351px;
+            height: 240px;
+        }
+
+        .bdyt-ending-img-medium {
+            width: 233px;
+            height: 162px;
+        }
+
+        .bdyt-ending-img-mask {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 24px;
+            text-align: center;
+            color: white;
+            font: 14px/24px Microsoft YaHei, Hiragino Sans GB W3, Tahoma, Arial;
+            background-color: rgba(0,0,0,0.6);
+            background-color: #000\9;
+            filter: alpha(opacity=60);
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-decoration: none;
+        }
+
+        .bdyt-ending .bdyt-ending-right {
+            width: 140px;
+            margin-left: 18px;
+            height: 100%;
+        }
+
+        .bdyt-ending-right li {
+            display: block;
+        }
+
+        .bdyt-ending-right a {
+            display: block;
+        }
+
+        .bdyt-ending .bdyt-ending-btn {
+            color: #aaa;
+        }
+
+            .bdyt-ending .bdyt-ending-btn:hover {
+                color: #fff;
+                text-decoration: none;
+            }
+
+        .bdyt-ending .bdyt-ending-review {
+            margin-top: 10px;
+        }
+
+            .bdyt-ending .bdyt-ending-review a {
+                color: #aaa;
+                display: inline;
+                margin-left: 30px;
+                padding-left: 23px;
+                font: 14px/16px Microsoft YaHei, Hiragino Sans GB W3, Tahoma, Arial;
+                background-repeat: no-repeat;
+            }
+
+        .bdyt-ending-review a:hover {
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-ending-img-last a:hover .bdyt-ending-next {
+            color: #fff;
+            text-decoration: none;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-ending-img-last {
+            overflow: visible;
+            margin-top: 170px;
+        }
+
+            .bdyt-ending-img-last a {
+                text-decoration: none;
+                display: block;
+                position: relative;
+                transition: .255s;
+                -moz-transition: .255s;
+                -webkit-transition: .255s;
+                zoom: 1;
+                overflow: visible;
+                width: 140px;
+                height: 140px;
+            }
+
+            .bdyt-ending-img-last .bdyt-ending-img-mask {
+                top: 80px;
+            }
+
+            .bdyt-ending-img-last a:hover {
+                opacity: 0.8;
+                filter: alpha(opacity=80);
+                transition: .255s;
+                -moz-transition: .255s;
+                -webkit-transition: .255s;
+                zoom: 1;
+                overflow: visible;
+            }
+
+        .bdyt-ending-next {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 115px;
+            margin-left: 25px;
+            margin-top: 20px;
+            font: 18px/20px 'Microsoft Yahei';
+            background-repeat: no-repeat;
+        }
+
+        .bdyt-ending-img-last a:hover .bdyt-ending-next {
+            visibility: visible;
+            overflow: visible;
+            zoom: 1;
+        }
+
+        .bdyt-ending-img-last img {
+            display: block;
+            width: 140px;
+            height: 100px;
+        }
+
+        .bdyt-ending-btn-close {
+            background-position: 0px 0px;
+        }
+
+            .bdyt-ending-btn-close:hover {
+                background-position: 0px -98px;
+            }
+
+        .bdyt-ending-head-wrap .heading {
+            background-position: -24px -188px;
+        }
+
+        .bdyt-ending-review a {
+            background-position: -28px -263px;
+        }
+
+            .bdyt-ending-review a:hover {
+                background-position: -28px -328px;
+            }
+
+        span.bdyt-ending-next {
+            background-position: 39px -392px;
+        }
+
+        .bdyt-ending-img-last a:hover .bdyt-ending-next {
+            background-position: 39px -460px;
+        }
+
+        .bdyt-ending-btn-close, .bdyt-ending-btn-close:hover, .bdyt-ending-head-wrap .heading, .bdyt-ending-review a, .bdyt-ending-review a:hover, span.bdyt-ending-next, .bdyt-ending-img-last a:hover .bdyt-ending-next {
+            background-image: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-ending-sprite_z.png);
+            _background-image: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-ending-sprite_z_ie6.png);
+        }
+
+        .bdyt-layer {
+            position: fixed;
+            _position: absolute;
+            top: 0;
+            _top: expression(eval(document.documentElement.scrollTop));
+            left: 0;
+            _left: expression(eval(document.documentElement.scrollLeft));
+            background-color: #000;
+            overflow: hidden;
+            z-index: 2147483647;
+        }
+
+            .bdyt-layer a {
+                text-decoration: none;
+            }
+
+        .bdyt .bdyt-layer-simsun {
+            font-family: simsun;
+        }
+
+        .bdyt-layer-bd {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            *zoom: 1;
+        }
+
+        .bdyt-layer-main-wrap {
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+
+        .bdyt-layer-main {
+            position: relative;
+            height: 100%;
+            margin-right: 310px;
+            background-color: #262626;
+        }
+
+        .bdyt .bdyt-layer-main-hd {
+            background-color: #000;
+            height: 50px;
+            color: #F4F4F4;
+            overflow: hidden;
+            *zoom: 1;
+        }
+
+        .bdyt .bdyt-layer-main-hd-title {
+            padding-left: 40px;
+            overflow: hidden;
+            padding-right: 10px;
+        }
+
+            .bdyt .bdyt-layer-main-hd-title a {
+                font: 700 16px/50px 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft YaHei', sans-serif;
+                color: #F4F4F4;
+                word-wrap: break-word;
+            }
+
+                .bdyt .bdyt-layer-main-hd-title a:hover {
+                    text-decoration: underline;
+                }
+
+        .bdyt .bdyt-layer-main-hd-tool {
+            float: right;
+            margin-right: 49px;
+            margin-top: 10px;
+        }
+
+            .bdyt .bdyt-layer-main-hd-tool a {
+                display: inline-block;
+                font-size: 14px;
+                height: 24px;
+                line-height: 24px;
+                text-align: center;
+                border: 1px solid #303030;
+                background-color: #1A1A1A;
+                color: #989898;
+                margin-right: 10px;
+            }
+
+                .bdyt .bdyt-layer-main-hd-tool a:hover {
+                    background-color: #242424;
+                    color: #EEE;
+                }
+
+        .bdyt .bdyt-layer-main-hd-tool-share {
+            padding: 0 15px 0 37px;
+            background-repeat: no-repeat;
+        }
+
+            .bdyt .bdyt-layer-main-hd-tool-share:hover {
+                background-repeat: no-repeat;
+            }
+
+        .bdyt .bdyt-layer-main-hd-tool-download {
+            padding: 0 15px 0 37px;
+            background-repeat: no-repeat;
+        }
+
+            .bdyt .bdyt-layer-main-hd-tool-download:hover {
+                background-repeat: no-repeat;
+            }
+
+        .bdyt .bdyt-layer-main-hd-tool-ori {
+            padding: 0 10px;
+        }
+
+        .bdyt .bdyt-layer-main-bd {
+            position: relative;
+            background: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-loading.gif') no-repeat center center;
+        }
+
+        .bdyt .bdyt-layer-main-bd-list {
+            padding: 0 60px;
+            height: 100%;
+        }
+
+        .bdyt .bdyt-layer-main-bd-list-item-link {
+            position: relative;
+            display: block;
+        }
+
+        .bdyt .bdyt-layer-main-bd-list-item {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+
+            .bdyt .bdyt-layer-main-bd-list-item img {
+                display: block;
+                height: 100%;
+                width: 100%;
+                cursor: pointer;
+            }
+
+        .bdyt .bdyt-layer-main-bd-list-prev {
+            display: block;
+            zoom: 1;
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            left: 0px;
+            cursor: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-sprite-prev.png),auto;
+            cursor: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-sprite-prev.ico),auto \9;
+        }
+
+        .bdyt .bdyt-layer-main-bd-list-next {
+            display: block;
+            zoom: 1;
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            right: 0px;
+            cursor: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-sprite-next.png),auto;
+            cursor: url(http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-sprite-next.ico),auto \9;
+        }
+
+        .bdyt .bdyt-layer-main-bd-detail {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 40px;
+            width: 100%;
+            color: #9A9A9A;
+            background: rgba(0,0,0,0.5);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
+            zoom: 1;
+            overflow: hidden;
+        }
+
+        :root .bdyt-layer-main-bd-detail {
+            filter: none\9;
+        }
+
+        .bdyt .bdyt-layer-main-bd-detail-content {
+            text-align: center;
+            line-height: 24px;
+            height: 24px;
+            overflow: hidden;
+            padding: 0 10px;
+            color: white;
+        }
+
+        .bdyt .bdyt-layer-main-bd-detail-num-current {
+            color: #E60012;
+            margin-right: 3px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-detail-src-article {
+            color: #E60012;
+            margin-left: 10px;
+        }
+
+        .bdyt a.bdyt-layer-main-bd-detail-src-article:hover {
+            color: #E60012;
+            text-decoration: underline;
+        }
+
+        .bdyt .bdyt-layer-main-bd-detail-num-all {
+            margin-left: 3px;
+            margin-right: 3px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-pagger-wrapper-prev {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            margin-top: -36px;
+            width: 144px;
+            height: 72px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-prev {
+            width: 72px;
+            height: 72px;
+            background-repeat: no-repeat;
+            float: left;
+        }
+
+        .bdyt .bdyt-layer-main-bd-pagger-wrapper-next {
+            overflow: visible;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -36px;
+            width: 144px;
+            height: 72px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-next {
+            width: 72px;
+            height: 72px;
+            background-repeat: no-repeat;
+            float: right;
+        }
+
+        .bdyt .bdyt-layer-main-ft {
+            height: 100px;
+            background-color: #000;
+            position: relative;
+            overflow: visible;
+        }
+
+        .bdyt .bdyt-layer-main-ft-list-wrap {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .bdyt .bdyt-layer-main-ft-list-wrap-inner {
+            overflow: hidden;
+            margin: 0 63px;
+            height: 100%;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .bdyt .bdyt-layer-main-ft-list-item {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #292929;
+            margin-right: 11px;
+            float: left;
+            background-color: #eee;
+        }
+
+        .bdyt .bdyt-layer-main-ft-list-item-current img {
+            opacity: 1 !important;
+            filter: alpha(opacity:99) !important;
+        }
+
+        .bdyt .bdyt-layer-main-ft-list-link {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: block;
+            background: rgba(0,0,0,0.9);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5000000,endColorstr=#e5000000);
+            zoom: 1;
+        }
+
+            .bdyt .bdyt-layer-main-ft-list-link:hover {
+                background: rgba(0,0,0,0.1);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000,endColorstr=#19000000);
+                zoom: 1;
+            }
+
+                .bdyt .bdyt-layer-main-ft-list-link:hover img {
+                    opacity: 0.9;
+                    filter: alpha(opacity:90);
+                }
+
+            .bdyt .bdyt-layer-main-ft-list-link img {
+                height: 80px;
+                margin-left: -10px;
+                opacity: 0.5;
+                filter: alpha(opacity:50);
+            }
+
+        .bdyt-layer-main-ft-list-item-next-img {
+            height: 80px;
+            margin-left: -10px;
+        }
+
+        .bdyt .bdyt-layer-main-ft-list-item-current {
+            border: 2px solid #FF9900;
+        }
+
+        .bdyt .bdyt-layer-main-ft-prev {
+            position: relative;
+            z-index: 1;
+            float: left;
+            width: 63px;
+            height: 100px;
+            margin-left: -100%;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt .bdyt-layer-main-ft-prev-disable {
+            cursor: default;
+            float: left;
+            width: 63px;
+            margin-left: -100%;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt .bdyt-layer-main-ft-next {
+            position: relative;
+            z-index: 1;
+            float: left;
+            width: 63px;
+            height: 100px;
+            margin-left: -63px;
+            background-repeat: no-repeat;
+            _background-color: #000;
+        }
+
+        .bdyt .bdyt-layer-main-ft-next-disable {
+            cursor: default;
+            float: left;
+            width: 63px;
+            margin-left: -63px;
+            background-repeat: no-repeat;
+        }
+
+        .bdyt .bdyt-layer-main-ft-switch {
+            display: block;
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            margin-left: -46px;
+            width: 93px;
+            height: 13px;
+            background-repeat: no-repeat;
+            _clear: both;
+        }
+
+            .bdyt .bdyt-layer-main-ft-switch:hover {
+                background-repeat: no-repeat;
+            }
+
+        .bdyt .bdyt-layer-main-ft-switch-close {
+            display: block;
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            margin-left: -46px;
+            width: 93px;
+            height: 13px;
+            background-repeat: no-repeat;
+        }
+
+            .bdyt .bdyt-layer-main-ft-switch-close:hover {
+                background-repeat: no-repeat;
+            }
+
+        .bdyt .bdyt-layer-sidebar {
+            width: 310px;
+            height: 100%;
+            float: left;
+            margin-left: -310px;
+            background-color: #444;
+            position: relative;
+        }
+
+        .bdyt .bdyt-layer-sidebar-top {
+            height: 64px;
+            background-color: #000;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec {
+            padding: 20px;
+            padding-bottom: 0;
+        }
+
+        #bdyt-layer-main-bd-list {
+            display: none;
+        }
+
+        #bdyt-layer-main-ad {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 35px;
+            overflow: visible;
+            background: transparent;
+        }
+
+        #bdyt-layer-sidebar-ad {
+            width: 310px;
+            background: transparent;
+        }
+
+        .bdyt .bdyt-layer-main-bd-detail-ad-link {
+            margin-left: 20px;
+            padding: 1px 1em;
+            color: white;
+            font: 13px/20px 'Arial Normal','Arial';
+            border: 1px solid #f00;
+            border-radius: 3px;
+            background-color: #fd3f3f;
+            background: -webkit-gradient(linear,left top,left bottom,from(#fd3f3f),to(#ea0505));
+            background: -moz-linear-gradient(top,#fd3f3f,#ea0505);
+            background: -o-linear-gradient(top,#fd3f3f,#ea0505);
+            background: -ms-linear-gradient(#fd3f3f 0%,#ea0505 100%);
+        }
+
+            .bdyt .bdyt-layer-main-bd-detail-ad-link:hover {
+                background-color: #ea0505;
+                background: -webkit-gradient(linear,left top,left bottom,from(#ea0505),to(#fd3f3f));
+                background: -moz-linear-gradient(top,#ea0505,#fd3f3f);
+                background: -o-linear-gradient(top,#ea0505,#fd3f3f);
+                background: -ms-linear-gradient(#ea0505 0%,#fd3f3f 100%);
+            }
+
+        .bdyt .bdyt-layer-sidebar-rec-link {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0px 20px 10px 0px;
+            color: #989898;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+            .bdyt .bdyt-layer-sidebar-rec-link:hover {
+                color: #fff;
+                text-decoration: underline;
+            }
+
+        .bdyt .bdyt-layer-sidebar-rec-title {
+            font-size: 14px;
+            line-height: 14px;
+            line-height: 17px\9;
+            color: #989898;
+            margin-bottom: 15px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-list {
+            margin-right: -10px;
+            width: 280px;
+            overflow: hidden;
+            *zoom: 1;
+            *margin-bottom: 10px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-item {
+            margin: 0 10px 10px 0;
+            float: left;
+            overflow: hidden;
+            border: 1px solid #444;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-item-current {
+            border: 1px solid #FF9900;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-item-link {
+            display: block;
+            position: relative;
+            width: 128px;
+            height: 98px;
+            color: #FFF;
+            _zoom: 1;
+        }
+
+            .bdyt .bdyt-layer-sidebar-rec-item-link:hover .bdyt-layer-sidebar-rec-item-title {
+                height: 100%;
+                _zoom: 1;
+            }
+
+            .bdyt .bdyt-layer-sidebar-rec-item-link:hover .bdyt-layer-sidebar-rec-item-title-inner {
+                white-space: normal;
+                text-overflow: initial;
+            }
+
+        .bdyt .bdyt-layer-sidebar-rec-item-title::before {
+            content: 'test';
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-item-title {
+            font-size: 0;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC000000, endColorstr=#CC000000);
+            background-color: rgba(0, 0, 0, 0.8);
+            -webkit-transition: height 0.3s ease;
+            -moz-transition: height 0.3s ease;
+            -ms-transition: height 0.3s ease;
+            -o-transition: height 0.3s ease;
+            transition: height 0.3s ease;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-item-title-inner {
+            text-indent: 5px;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #fff;
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-item-title:not([dummy]) {
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
+        }
+
+        .bdyt-layer-sidebar-rec-item-img {
+            width: 130px;
+            height: 100px;
+        }
+
+        .bdyt-layer-sidebar-rec-pager {
+            overflow: hidden;
+            *zoom: 1;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-pager-item {
+            float: left;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            color: #FFF;
+            margin-right: 5px;
+            border-radius: 50%;
+            text-indent: -1px;
+            font-weight: 700;
+        }
+
+        .bdyt .bdyt-layer-sidebar-rec-pager-item-current {
+            background-color: #E60012;
+        }
+
+        .bdyt .bdyt-layer-close {
+            display: block;
+            position: absolute;
+            top: -8px;
+            right: 310px;
+            width: 60px;
+            height: 60px;
+            background-repeat: no-repeat;
+        }
+
+            .bdyt .bdyt-layer-close:hover {
+                background-repeat: no-repeat;
+            }
+
+        .bdyt .bdyt-layer-main-hd-tool-share {
+            background-position: -58px 2px;
+        }
+
+            .bdyt .bdyt-layer-main-hd-tool-share:hover {
+                background-position: -58px -68px;
+            }
+
+        .bdyt .bdyt-layer-main-hd-tool-download {
+            background-position: -58px -138px;
+        }
+
+            .bdyt .bdyt-layer-main-hd-tool-download:hover {
+                background-position: -58px -208px;
+            }
+
+        .bdyt .bdyt-layer-main-bd-prev {
+            background-position: -23px -280px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-next {
+            background-position: -21px -523px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-pagger-wrapper:hover .bdyt-layer-main-bd-prev {
+            background-position: -21px -402px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-pagger-wrapper:hover a.bdyt-layer-main-bd-frg {
+            background-position: -23px -280px;
+            cursor: default;
+        }
+
+        .bdyt .bdyt-layer-main-bd-pagger-wrapper:hover .bdyt-layer-main-bd-next {
+            background-position: -21px -646px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-pagger-wrapper:hover .bdyt-layer-main-bd-tip {
+            color: white;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .bdyt .bdyt-layer-main-bd-tip-prev {
+            float: left;
+            padding-right: 10px;
+        }
+
+        .bdyt .bdyt-layer-main-bd-tip-next {
+            float: right;
+            padding-left: 10px;
+        }
+
+        -webkit-keyframes tip-animation {
+            from;
+
+        {
+            width: 0px;
+        }
+
+        to {
+            width: 62px;
+        }
+
+        }
+
+        .bdyt .bdyt-layer-main-bd-tip {
+            color: #9A9A9A;
+            height: 72px;
+            width: 62px;
+            background: none;
+            font: bold 14px/72px Simsun;
+            text-align: center;
+            display: none;
+            -webkit-animation: tip-animation .2s;
+            -moz-animation: tip-animation .2s;
+            -ms-animation: tip-animation .2s;
+            -o-animation: tip-animation .2s;
+            animation: tip-animation .2s;
+        }
+
+        .bdyt-layer-main-ft-list-item-next:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: white;
+            text-decoration: none;
+        }
+
+        .bdyt-layer-main-ft-list-item-next {
+            display: block;
+            font: bold 12px/16px Simsun;
+            text-align: center;
+            position: absolute;
+            color: white;
+            text-decoration: none;
+            padding: 32px 0px 0px 0px;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .bdyt .bdyt-layer-main-bd-key-tip {
+            display: none;
+            position: absolute;
+            top: -100px;
+            right: 0px;
+            width: 110px;
+            height: 30px;
+            background: url(http://static.yuntu.baidu.com/1201/img/bdyt-layer/keybord-tip.gif) no-repeat;
+            background-color: #444;
+            text-align: center;
+            font-size: 14px;
+            line-height: 30px;
+            padding-top: 65px;
+            color: #FFF;
+        }
+
+        .bdyt .bdyt-layer-main-ft-prev {
+            background-position: -56px -727px;
+        }
+
+        .bdyt .bdyt-layer-main-ft-prev-disable {
+            background-position: -56px -795px;
+        }
+
+        .bdyt .bdyt-layer-main-ft-next {
+            background-position: -56px -863px;
+        }
+
+        .bdyt .bdyt-layer-main-ft-next-disable {
+            background-position: -56px -931px;
+        }
+
+        .bdyt .bdyt-layer-main-ft-switch {
+            background-position: 0px -1040px;
+        }
+
+            .bdyt .bdyt-layer-main-ft-switch:hover {
+                background-position: 0px -1103px;
+            }
+
+        .bdyt .bdyt-layer-main-ft-switch-close {
+            background-position: 0px -1166px;
+        }
+
+            .bdyt .bdyt-layer-main-ft-switch-close:hover {
+                background-position: 0px -1229px;
+            }
+
+        .bdyt .bdyt-layer-sidebar-hot-rec {
+            margin: 20px 0px 0px 20px;
+            width: 270px;
+            padding: 1px 0px 1px 0px;
+        }
+
+        .bdyt .bdyt-layer-hot-top, .bdyt .bdyt-layer-hot-bottom {
+            height: 1px;
+            background-color: #4f4f4f;
+        }
+
+        .bdyt .bdyt-layer-hot-bottom {
+            margin-top: 10px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-top {
+            height: 35px;
+            line-height: 35px;
+            color: #989898;
+            font-size: 14px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-rec-1, .bdyt .bdyt-layer-sidebar-hot-rec-2, .bdyt .bdyt-layer-sidebar-hot-rec-3 {
+            position: relative;
+            height: 100%;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-rec-2, .bdyt .bdyt-layer-sidebar-hot-rec-3 {
+            height: 26px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-img-1, .bdyt .bdyt-layer-sidebar-hot-img-2, .bdyt .bdyt-layer-sidebar-hot-img-3 {
+            width: 200px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-img-1 {
+            height: 120px;
+            opacity: 1;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-img-2, .bdyt .bdyt-layer-sidebar-hot-img-3 {
+            height: 26px;
+            opacity: 0;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-title-1, .bdyt .bdyt-layer-sidebar-hot-title-2, .bdyt .bdyt-layer-sidebar-hot-title-3 {
+            width: 200px;
+            position: absolute;
+            bottom: 0px;
+            height: 26px;
+            font: normal 12px/26px SimSun;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: left;
+            color: #dcdcdc;
+            text-indent: 26px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-title-1 {
+            background-color: black;
+            opacity: 0.6;
+            filter: alpha(opacity:80);
+            color: #ffffff;
+            zoom: 1;
+            _zoom: 1;
+        }
+
+        .bdyt .bdyt-hot-num-1, .bdyt .bdyt-hot-num-2, .bdyt .bdyt-hot-num-3 {
+            width: 25px;
+            height: 26px;
+            position: absolute;
+            bottom: 0px;
+            z-index: 1;
+            background-repeat: no-repeat;
+            background-image: url('http://static.yuntu.baidu.com/1201/img/bdyt-layer/bdyt-hot-rec-num.png');
+            _background-image: url('http://static.yuntu.baidu.com/1201/img/bdyt-layer/bdyt-hot-rec-num_ie6.png');
+        }
+
+        .bdyt .bdyt-hot-num-1 {
+            background-position: 0px 0px;
+        }
+
+        .bdyt .bdyt-hot-num-2 {
+            background-position: 0px -26px;
+        }
+
+        .bdyt .bdyt-hot-num-3 {
+            background-position: 0px -50px;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-btn-1, .bdyt .bdyt-layer-sidebar-hot-btn-2, .bdyt .bdyt-layer-sidebar-hot-btn-3 {
+            text-align: left;
+            margin-left: 2px;
+            font: normal 12px/26px SimSun;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            position: fixed;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-btn-1 {
+            color: white;
+        }
+
+        .bdyt .bdyt-layer-sidebar-hot-btn-2, .bdyt .bdyt-layer-sidebar-hot-btn-3 {
+            color: black;
+        }
+
+        .bdyt .bdyt-layer-main-hd-tool-share, .bdyt .bdyt-layer-main-hd-tool-share:hover, .bdyt .bdyt-layer-main-hd-tool-download, .bdyt .bdyt-layer-main-hd-tool-download:hover, .bdyt .bdyt-layer-main-bd-prev, .bdyt .bdyt-layer-main-bd-prev:hover, .bdyt .bdyt-layer-main-bd-next, .bdyt .bdyt-layer-main-bd-next:hover, .bdyt .bdyt-layer-main-ft-prev, .bdyt .bdyt-layer-main-ft-prev-disable, .bdyt .bdyt-layer-main-ft-next, .bdyt .bdyt-layer-main-ft-next-disable, .bdyt .bdyt-layer-main-ft-switch, .bdyt .bdyt-layer-main-ft-switch:hover, .bdyt .bdyt-layer-main-ft-switch-close, .bdyt .bdyt-layer-main-ft-switch-close:hover {
+            background-image: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-sprite_z.png');
+            _background-image: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-sprite_z_ie6.png');
+        }
+
+        .bdyt-overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        .bdyt .bdyt-layer-close {
+            background-position: 20px 20px;
+        }
+
+            .bdyt .bdyt-layer-close:hover {
+                background-position: 20px -50px;
+            }
+
+            .bdyt .bdyt-layer-close, .bdyt .bdyt-layer-close:hover {
+                background-image: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-close-sprite_z.png');
+                _background-image: url('http://static.yuntu.baidu.com/1201/css-style/bdyt-layer-close-sprite_z_ie6.png');
+            }
+    </style>
+    <style>
+        .bdcs-tooltip-arrow, .bdcs-tooltip-arrowinner {
+            position: absolute;
+            font: 400 14px/18px "宋体";
+            width: 14px;
+            overflow: hidden;
+        }
+    </style>
+    <style>
+        .arrow-top {
+            top: -9px;
+            color: #ccc;
+        }
+    </style>
+    <style>
+        .arrowinner-top {
+            top: -8px;
+            color: #fff;
+        }
+    </style>
+    <style>
+        .arrow-bottom {
+            bottom: -11px;
+            color: #ccc;
+        }
+    </style>
+    <style>
+        .arrowinner-bottom {
+            bottom: -9px;
+            color: #fff;
+        }
+    </style>
+    <style>
+        .bdcs-inlineAdvlink {
+            color: #1e0fbe;
+        }
+    </style>
+    <style>
+        .bdcs-tooltip-panel {
+            height: 200px;
+            width: 260px;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid #cccccc;
+            color: inherit;
+            display: none;
+            line-height: normal;
+            _zoom: 1;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Baidu Button BEGIN -->
+    <!-- Baidu Button END -->
+    <div id="topbar">
+        <div class="w pos">
+            <div class="bar_left">
+                <h2></h2>
+                <span id="ipconfig"></span>
+            </div>
+            <div class="bar_right">
+                <div id="login">
+                    <a rel="nofollow" target="_self" href="#">登录</a><span class="gap">|</span><a rel="nofollow" target="_self" href="#">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="navlist">
+        <ul>
+            <li id="navbln">
+            </li>
+            <li><a target="_self" href="#">网站地图</a></li>
+            @*<li><a target="_self" href="#">APP大全</a></li>*@
+            <li><a target="_self" href="/main/ljob">全职招聘</a></li>
+            <li><a target="_self" href="/main/parttimejob">兼职招聘</a></li>
+            <li class="job_icon"><a target="_self" href="/main/FamousEnterprises">名企招聘</a></li>
+            <li class="sel" id="navbrn"><a href="/news">求职指南</a></li>
+        </ul>
+    </div>
+    <div id="header">
+        <div id="headerinside">
+            <div id="logo">
+                <a target="_self" href="#"><img alt="中文最大生活信息门户" src="/content/web/img/logo.gif"></a>
+                <h1>@(ViewBag.Name)</h1>
+            </div>
+            <span class="rele"><a id="fabu" rel="nofollow" href="#">在线创建简历</a><a id="zhao" rel="nofollow" href="#">我要找工作</a></span>
+        </div>
+    </div>
+    <div id="nav">
+        <div id="navin">
+            @{  string active = "class=active";
+                
+                       }
+
+            <ul>
+                <li  @{@(ViewBag.Index=="00"?active:"")}  ><a href="/news">首页</a></li>
+                <li @(ViewBag.Index == "01" ? active : "")    ><a href="/news/list/01"><span>职场资讯</span></a></li>
+                <li @(ViewBag.Index=="02"?active:"")><a href="/news/list/02"><span>简历攻略</span></a></li>
+                <li @(ViewBag.Index == "03" ? active : "")><a href="/news/list/03"><span>面试指南</span></a></li>
+                <li @(ViewBag.Index == "04" ? active : "")  ><a href ="/news/list/04"><span>薪酬福利</span></a></li>
+                <li @(ViewBag.Index == "05" ? active : "")><a href="/news/list/05"><span>身在职场</span></a></li>
+                <li @(ViewBag.Index == "06" ? active : "") ><a href="/news/list/06"><span>劳动法苑</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content ej">
+        @RenderBody()
+        <div class="box bt">
+            <div class="lanmu">
+                <ul>
+                    @{
+
+                        BLL.Admin_Menu bll_menu = new BLL.Admin_Menu();
+                        IList<NModel.Admin_Menu> menu01 = null;
+                        IList<NModel.Admin_Menu> menu02 = null;
+                        IList<NModel.Admin_Menu> menu03 = null;
+                        IList<NModel.Admin_Menu> menu04 = null;
+                        IList<NModel.Admin_Menu> menu05 = null;
+                        IList<NModel.Admin_Menu> menu06 = null;
+
+                        menu01 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "01"), 3);
+                        menu02 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "02"), 3);
+                        menu03 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "03"), 3);
+                        menu04 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "04"), 3);
+                        menu05 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "05"), 3);
+                        menu06 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "06"), 3);
+
+                    }
+
+
+                    <li><b>职场资讯</b><br> 
+                    
+                     @{ if (menu01 != null)
+                     {
+
+                         var i = 0;
+                         foreach (var model in menu01)
+                         {
+
+                             i++;
+                             if (i >= menu01.Count)
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                             }
+                             else
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                             }
+
+
+                         }
+
+
+                     }}
+ </li>
+
+
+                    <li> <b>简历攻略</b><br>
+                    
+                         @{ if (menu02 != null)
+                          {
+
+                              var i = 0;
+                              foreach (var model in menu02)
+                              {
+
+                                  i++;
+                                  if (i >= menu02.Count)
+                                  {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                                  }
+                                  else
+                                  {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                  }
+
+
+                              }
+
+
+                          }}
+                    
+
+
+
+                      
+                    
+                       </li>
+
+                    <li><b>面试指南</b><br> 
+                      @{ if (menu03 != null)
+                     {
+
+                         var i = 0;
+                         foreach (var model in menu03)
+                         {
+
+                             i++;
+                             if (i >= menu03.Count)
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                             }
+                             else
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                             }
+
+
+                         }
+
+
+                     }}
+  </li>
+
+                    <li><b>薪酬福利</b><br>  
+                    @{ if (menu04 != null)
+                     {
+
+                         var i = 0;
+                         foreach (var model in menu04)
+                         {
+
+                             i++;
+                             if (i >= menu04.Count)
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                             }
+                             else
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                             }
+
+
+                         }
+
+
+                     }}
+ </li>
+                    <li><b>身在职场</b><br> 
+                     @{ if (menu05 != null)
+                     {
+
+                         var i = 0;
+                         foreach (var model in menu05)
+                         {
+
+                             i++;
+                             if (i >= menu05.Count)
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                             }
+                             else
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                             }
+
+
+                         }
+
+
+                     }}   </li>
+                    <li><b>劳动法苑</b><br>   @{ if (menu06 != null)
+                     {
+
+                         var i = 0;
+                         foreach (var model in menu06)
+                         {
+
+                             i++;
+                             if (i >= menu06.Count)
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                             }
+                             else
+                             {
+                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                             }
+
+
+                         }
+
+
+                     }} </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div id="flink">
+
+               
+                友情链接:
+                @{ foreach (var model in links)
+                 {
+
+                    <a target="_blank" href="@(model.Link_Url)" style="margin: 4px">@(model.Link_Name)</a>
+
+                 }}
+                
+               
+               
+            </div>
+            <div id="footer">
+                @Html.Partial("_JobFooter")
+            </div>
+        </div>
+    </div>
+
+    <!--BAIDU_YUNTU_START-->
+    <!--BAIDU_YUNTU_END-->
+
+
+
+    <div style="display:none" class="bottom-bar" id="listBottomBar">
+        <a href="#" class="bottom-bar-close"></a><div class="bbcontent">
+            <span class="bottom-bar-txt">
+                没有找到合适的工作？
+            </span><a href="#" onclick='window.clickLog&amp;&amp;clickLog("from=wwwzp_bbshow_zp")' target="_blank" class="bottom-bar-btn">1分钟留下信息</a>
+            <span class="bottom-bar-txt">我们会将你推荐给优秀企业！坐等好工作来找你！</span>
+        </div>
+    </div>
+
+    <script type="text/template" id="tpl-bdyt-index">
+        <div class="content-wrapper" style='display:none'>
+            <div class="button-wrapper"> <span class="bdlogo"></span> <span class="label">相关图集推荐</span> <a href="#" class="close" act_name="close"></a> </div> <div class="main-wrapper"> <a href="#" class="button-slide left" act_name="turn" act_type="left"><span class="left"><div></div></span></a> <a href="#" class="button-slide right" act_name="turn" act_type="right"><span class="right"><div></div></span></a> <ul class="img-list slide-main"> <% _.each(data,function(value,key,list){ %> <%if(key<10){%> <li class="img-container"> <a href="#" act_name="gallery" clk_pos="<%=key%>" src-title="<%= value.page_title %>" class="bdyt-img-item <%if(value.fruit_type == 3){%>bdyt-img-search-border<%}%>" fruit_type="<%=value.fruit_type%>" rid="<%= value.rid%>" target="_blank"> <img src="<%= value.thumbnail_url %>" org-src="<%= value.first_img_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" /> <div rec_layer_index class="title-flow-layer" src-title="<%= value.page_title %>"><span><%= value.page_title %></span></div> <!--植入广告"推广"图标--> <% if(value.fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <!--图搜"热图"图标--> <% if(value.fruit_type == 3){%> <div class="bdyt-img-search-icon"></div> <%}%> </a> </li> <%}%> <% }) %> </ul> </div>
+        </div>
+    </script>
+    <script type="text/template" id="tpl-bdyt-head">
+        <div class="rec-flow-layer bdyt-bind-click-item" act_name="img" clk_pos=-1 href="#">
+            <div class="head-wrapper"> <a act_name="gallery" clk_pos=-1 href="#"></a> </div>
+        </div>
+    </script>
+    <script type="text/template" id="tpl-bdyt-bottom-content">
+        <div class="bdyt-bottom-content-wrapper" style='display:block'>
+            <a href="#" class="bdyt-bottom-content-wrapper-btn" hidefocus=true mod_id="index_bottom_rec" act_name="toggle" act_type="up" if_first="1"></a> <div class="animation-wrapper"> <div class="button-wrapper"> <span class="bdlogo"></span> <span class="label">相关图集推荐</span> <a href="#" class="close" act_name="close"></a> </div> <div class="main-wrapper"> <a href="#" class="button-slide left fr-left" act_name="turn" act_type="left"><span class="left"><div></div></span></a> <a href="#" class="button-slide right" act_name="turn" act_type="right"><span class="right"><div></div></span></a> <ul class="img-list slide-main"> <% _.each(data,function(value,key,list){ %> <%if(key<20){%> <li class="img-container"> <a href="#" act_name="gallery" clk_pos="<%=key%>" src-title="<%= value.page_title %>" class="bdyt-img-item <%if(value.fruit_type == 3){%>bdyt-img-search-border<%}%>" fruit_type="<%=value.fruit_type%>" rid="<%= value.rid%>"> <img src="<%= value.thumbnail_url %>" org-src="<%= value.first_img_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" /> <div rec_layer_index class="title-flow-layer" src-title="<%= value.page_title %>"><span><%= value.page_title %></span></div> <!--植入广告"推广"图标--> <% if(fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <% if(value.fruit_type == 3){%> <div class="bdyt-img-search-icon"></div> <%}%> </a> </li> <%}%> <% }) %> </ul> </div> </div>
+        </div>
+    </script>
+    <script type="text/template" id="tpl-bdyt-ending">
+        <div class="bdyt bdyt-ending">
+            <div class="bdyt-ending-wrap"> <a href="#" class="bdyt-ending-btn-close" act_name="close"></a> <div class="bdyt-ending-left"> <div class="bdyt-ending-head-wrap"> <h3 class="title"><%= page_title%></h1> <h3 class="heading">已阅读完毕</h1> </div> <ul class="bdyt-ending-img-list"> <% _.each(data,function(value,key,list){ %> <% if(key>=1 &&key<3){%> <li class="bdyt-ending-img-item"> <a href="#" class="bdyt-ending-img-big" act_name="gallery" clk_pos="<%=key%>"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> </a> </li> <%}%> <% if(key>=3 &&key<6){%> <li class="bdyt-ending-img-item"> <a href="#" class="bdyt-ending-img-medium" act_name="gallery" clk_pos="<%=key%>"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> </a> </li> <%}%> <% }) %> </ul> </div> <div class="bdyt-ending-right"> <li class=" bdyt-ending-review"> <a href="#" class=" bdyt-ending-btn" act_name="review">重新浏览</a> </li> <%value = data[0]%> <li class="bdyt-ending-img-last"> <a href="#" class="bdyt-ending-img-item" act_name="next" clk_pos="0"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> <span class="bdyt-ending-btn bdyt-ending-next ">下一图集</span> </a> </li> </div> </div>
+        </div>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-main-bd-list-item">
+        <li class="bdyt-layer-main-bd-list-item" data-num="<%= num %>" data-img-id="<%= img_id %>"> <img src="<%= display_img_url||img_url %>" alt="" data-ori-width="<%= img_width %>" data-ori-height="<%= img_height %>" style="width:<%= img_width %>px;height:<%= img_height %>px;" class="bdyt-layer-main-bd-list-item-img" title="查看原文"> </li>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-main-bd-detail">
+        <div class="bdyt-layer-main-bd-detail-content"> <span class="bdyt-layer-main-bd-detail-num-current"><%= num %></span>/<span class="bdyt-layer-main-bd-detail-num-all"><%= length %></span> <span><%= content_txt||page_title%></span> <% if(fruit_type == 2){%> <a href="#" rid="<%= rid%>" target="_blank" class="bdyt-layer-main-bd-detail-ad-link" mod_id="layer_ft" fruit_type="<%= fruit_type%>">去看看</a> <%}%> <% if(fruit_type != 2){%> <a href="#" rid="<%= rid%>" target="_blank" class="bdyt-layer-main-bd-detail-src-article" mod_id="layer_ft">查看原文>></a> <%}%> </div>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-main-ft-list-item">
+        <% for(var i = 0; i < length; i++) { %>
+        <li class="bdyt-layer-main-ft-list-item<% if( i+1 == num) { %> bdyt-layer-main-ft-list-item-current<% } %>" data-num="<%= i+1 %>"> <a href="#" title="" class="bdyt-layer-main-ft-list-link" data-num="<%= i+1 %>" data-img-id="<%= img_list[i].img_id%>"> <!--<div class="<% if( i+1 != num) { %> bdyt-layer-main-ft-list-float<% } %>"></div>--> <img src="<%= img_list[i].thumbnail_url%>" alt=""> </a> </li> <% } %> <% if( gallery_num < rec_list_len ){%>
+        <li class="bdyt-layer-main-ft-list-item bdyt-layer-main-ft-list-item-add" data-num="<%= newLength %>"> <a href="#" class="bdyt-layer-main-ft-list-item-next-link" title="" data-num="<%= newLength %>"> <span class="bdyt-layer-main-ft-list-item-next">下一图集</span> <img class="bdyt-layer-main-ft-list-item-next-img" src="" alt=""> </a> </li> <% } %>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-main-bd-list">
+        <ul id="bdyt-layer-main-bd-list" class="bdyt"> <% _.each(data,function(value,index,list){ %> <li class="bdyt-layer-main-bd-list-item" data-num="<%= value.num %>" data-img-id="<%= value.img_id %>"> <a class="bdyt-layer-main-bd-list-item-link" data-ori-width="<%= value.img_width %>" data-ori-height="<%= value.img_height %>" style="width:<%= value.img_width %>px; height:<%= value.img_height %>px;"> <!--植入广告"推广"图标--> <% if(fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <img org-src="<%= value.display_img_url||value.img_url %>" alt="" class="bdyt-layer-main-bd-list-item-img" src-title="查看原文" /> href="#" mod_id="layer_bd" rid="<%= rid%>" fruit_type="<%= fruit_type%>"> </a> </li> <% }) %> </ul>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-sidebar-rec-item">
+        <% for(var i = 0; i < length; i++) { %>
+        <li class="bdyt-layer-sidebar-rec-item<% if(listData[i].num==currentItemNum) {%> bdyt-layer-sidebar-rec-item-current<% } %>"> <a href="#" class="bdyt-layer-sidebar-rec-item-link" data-gallery-id="<%= listData[i].gallery_id %>" data-num="<%= listData[i].num %>" data-rele-type="<%= listData[i].rele_type %>"> <!--植入广告"推广"图标--> <!-- <% if(listData[i].fruit_type == 2){%> <span class="bdyt-ad-icon"> 推广 </span> <%}%> --> <img src="<%= listData[i].thumbnail_url %>" alt="<%= listData[i].page_title %>" class="bdyt-layer-sidebar-rec-item-img" data-img-id="<%= listData[i].img_id %>"> <div class="bdyt-layer-sidebar-rec-item-title" src-title="<%= listData[i].page_title %>"> <p class="bdyt-layer-sidebar-rec-item-title-inner"> <%= listData[i].page_title %> </p> </div> </a> </li> <% } %>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-sidebar-rec-pager-item">
+        <% if(allPageNum > 1) { %> <% for(var i = 1; i <= allPageNum; i++) { %>
+        <a href="#" class="bdyt-layer-sidebar-rec-pager-item<% if(i==pageNum) {%> bdyt-layer-sidebar-rec-pager-item-current<% } %>" data-num="<%= i %>"><%= i %></a> <% } %> <% } %>
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer">
+        <div class="bdyt-layer-bd"> <div class="bdyt-layer-main-wrap"> <div class="bdyt-layer-main"> <div class="bdyt-layer-main-hd"> <div class="bdyt-layer-main-hd-tool"> <!-- <a href="#" class="bdyt-layer-main-hd-tool-share bds_more">分享</a> --> <a href="#" target="_blank" class="bdyt-layer-main-hd-tool-download" download>下载</a> <a href="#" target="_blank" class="bdyt-layer-main-hd-tool-ori" mod_id="layer_hd">查看原文<span class="bdyt-layer-simsun">&gt;&gt;</span></a> </div> <h2 class="bdyt-layer-main-hd-title"> <a class="bdyt-layer-main-hd-title-link" mod_id="layer_hd" href="#" title="" target="_blank"></a> </h2> </div> <div class="bdyt-layer-main-bd"> <!--<a class="bdyt-layer-main-bd-list-prev"></a> <a class="bdyt-layer-main-bd-list-next"></a>--> <ul class="bdyt-layer-main-bd-list"> </ul> <div class="bdyt-layer-main-bd-detail"> </div> <div class="bdyt-layer-main-bd-pagger-wrapper-prev bdyt-layer-main-bd-pagger-wrapper"> <a href="#" class="bdyt-layer-main-bd-prev"></a> <a href="#" class="bdyt-layer-main-bd-tip bdyt-layer-main-bd-tip-prev">上一图集</a> </div> <div class="bdyt-layer-main-bd-pagger-wrapper-next bdyt-layer-main-bd-pagger-wrapper"> <a href="#" class="bdyt-layer-main-bd-next"></a> <a href="#" class="bdyt-layer-main-bd-tip bdyt-layer-main-bd-tip-next">下一图集</a> </div> </div> <div class="bdyt-layer-main-ft"> <div class="bdyt-layer-main-ft-list-wrap"> <div class="bdyt-layer-main-ft-list-wrap-inner"> <ul class="bdyt-layer-main-ft-list"></ul> </div> </div> <a href="#" class="bdyt-layer-main-ft-prev"></a> <a href="#" class="bdyt-layer-main-ft-next"></a> <a href="#" class="bdyt-layer-main-ft-switch"></a> </div> <div id="bdyt-layer-main-ad"></div> </div> </div> <div class="bdyt-layer-sidebar"> <div class="bdyt-layer-sidebar-rec"> <div class="bdyt-layer-sidebar-rec-title">推荐图集</div> <ul class="bdyt-layer-sidebar-rec-list"></ul> <div class="bdyt-layer-sidebar-rec-pager"></div> </div> <div class="bdyt-layer-sidebar-hot-rec"></div> <div id="bdyt-layer-sidebar-ad"></div> <a href="#" target="_blank" class="bdyt-layer-sidebar-rec-link">百度云图强力驱动</a> </div> </div>
+        <a href="#" class="bdyt-layer-close"></a>
+
+    </script>
+    <script type="text/template" id="tpl-bdyt-layer-hot">
+        <div class="bdyt-layer-hot-top"></div>
+        <div class="bdyt-layer-sidebar-hot-top">今日热图</div>
+
+        <% _.each(data,function(value,key,list){ %>
+        <%key++;%>
+        <div class="bdyt-layer-sidebar-hot-rec-<%= key %>" num="<%= key%>">
+            <a target="_blank" href="#"> <img src="<%= value.thumbnail_url%>" class="bdyt-layer-sidebar-hot-img-<%= key%> <%if(key == 1){%>down<%}%>" clk_pos="<%= key%>" act_name="hot_img" mod_id="layer_sidebar_img_search" /> </a> <div class="bdyt-hot-num-<%= key%>"></div> <a target="_blank" class="bdyt-layer-sidebar-hot-title-<%= key%>" num="<%= key%>" href="#" clk_pos="<%= key%>" act_name="hot_img" mod_id="layer_sidebar_img_search"><%= value.page_title%></a>
+        </div>
+        <% }) %>
+        <div class="bdyt-layer-hot-bottom"></div>
+    </script><div class="bdyt bdyt-layer" style="display:none;"></div><div id="bdcs-tooltip-panel" class="bdcs-tooltip-panel"><a id="bdcs-tooltip-adv" class="bdcs-tooltip-adv" target="_blank"><img id="bdcs-tooltip-adv-img" class="bdcs-tooltip-adv-img" style="height: 200px; width: 260px; border: 0px none; position: absolute; z-index: 4;"></a><i class="bdcs-tooltip-arrow">◆</i><i class="bdcs-tooltip-arrowinner">◆</i></div><div id="bdyt_mouse_hover_tip">点击看套图</div><div style="position: absolute; width: 100%; top: 0px; left: 0px;" class="bdyt bdyt-index"></div>
+
+</body>
+</html>

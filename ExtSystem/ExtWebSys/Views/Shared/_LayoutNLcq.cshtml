@@ -1,0 +1,148 @@
+﻿
+
+
+
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://www.jikexueyuan.com/ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    @Html.Partial("_PartialHead")
+
+
+</head>
+<body>
+    <div id="header" class="w-1000">
+        <div class="wrap">
+
+            <div class="headerlogo">
+                <a href="#">
+                    <img src="~/Content/web/img/logo.png" class="logo" alt="">
+                </a>
+
+            </div>
+            <div class="search-section">
+                <div class="headsearch" id="headsearch" action="###">
+
+
+                    <span class="searchSpan">
+                        <input class="search-text" type="text" name="q" autocomplete="off" id="web_search_header" placeholder=""
+                                onkeyup="" value="搜源码/2D/3D素材">
+                    </span>
+                    <input type="submit" class="search-btn" value="搜一下">
+
+
+
+
+                </div>
+            </div>
+
+
+
+            @{
+                
+                
+            var UserStatus=    BLL.Fun.Current_Login_DB_User();
+         
+            
+            }
+
+
+
+
+                  
+                 
+                 
+                <div class="loginbox">
+
+
+                    @{
+
+
+                        if (UserStatus == null)
+                        {
+                <div class="loginMain0">
+                    <a href="#" style="text-decoration:none;color:#333;" rel="nofollow">
+                        <span>
+                            <img src="~/content/web/img/qqlogin.png" />
+                        </span>
+                    </a>
+                    
+                </div>
+
+
+               
+                <div class="loginMain1">
+                    <span><a href="/nlcq/login" postion="index_index_header" rel="nofollow">登录</a></span><em >|</em>
+
+                </div>
+
+                        
+                <div class="loginMain2">
+                    <span><a href="/nlcq/reg" postion="index_index_header" rel="nofollow">注册</a></span>
+
+                </div>
+
+                        }else
+                        { 
+                        
+                            
+                            
+                             
+                <div class="loginMain3">
+                    <span>欢迎&nbsp;&nbsp;<a href="/member/cmember" style="color: #38a4e0"
+   postion="index_index_header" rel="nofollow">@(UserStatus.User_Name)</a>
+                    &nbsp;&nbsp;<a href="/ajax/UserLogout"> 退出</a></span>
+                    
+                    
+                    
+                    
+                  
+
+                </div>
+                        
+                        
+                        
+                        
+                        }
+                    }
+              
+               
+               
+              
+           
+          
+            </div>         
+        </div>
+    </div>
+
+
+   <div class="clear"></div>
+    <!--header end-->
+
+    <div id="loading">
+        <div class="loading-length"  ></div>
+    </div>
+    <div class="navpositon"><div id="navbox" class="">
+        <div class="nav w-1000"><div class="navbox"><a href="/">首页</a>
+            <a href="#" class="">游戏源码</a><a href="#" class="">桌面源码</a>
+            <a href="#" class="">网站源码</a><a href="#" class="">手机源码</a>
+            <a href="#" class="">设计素材</a> <a href="#" class="">音效素材</a>
+            <a href="#" class="">技术问答</a></div><div class="user-need">
+            <a href="#" class="publishbtn"><span><img src="/Content/web/img/vip-icon.png"><zbutton> 发布资源</zbutton></span></a>
+           
+            <a href="#" target="_blank"><span><img src="/Content/web/img/dl-icon.png">客户端</span></a>
+            
+            </div><!-- <span class="arrow"></span> --></div></div></div>
+
+
+    @RenderBody()
+    <div class="clear"></div>
+    <!--footer-->
+    <div id="footer" class="mar-t50">
+        <div class=" jkinfor-block"><div class="jkinfor cf"><dl><dt></dt><dd>·<a target="_blank" href="#">职业课程库</a></dd><dd>·<a target="_blank" href="#">知识体系图</a></dd><dd>·<a target="_blank" href="#">实战路径图</a></dd><dd>·<a target="_blank" href="#">企业课程</a></dd><dd>·<a target="_blank" href="#">资源下载</a></dd><dd>·<a target="_blank" href="#">课程标签</a></dd></dl><dl><dt>网站服务</dt><dd>·<a target="_blank" href="#">课程需求</a></dd><dd>·<a target="_blank" href="#">免费体验VIP</a></dd><dd>·<a target="_blank" href="#">黑板报</a></dd><dd>·<a target="_blank" href="#">网站地图</a></dd><dd>·<a target="_blank" href="#" rel="nofollow">QQ客服</a></dd></dl><dl><dt>帮助中心</dt><dd>·<a target="_blank" href="#">技术问答</a></dd><dd>·<a target="_blank" href="#">VIP权益</a></dd><dd>·<a target="_blank" href="#">常见问题</a></dd><dd>·<a target="_blank" href="#">服务条款</a></dd><dd>·<a target="_blank" href="#">版权声明</a></dd><dd>·<a target="_blank" href="#">免责声明</a></dd></dl><dl><dt>交流合作</dt><dd>·<a target="_blank" href="#">关于我们</a></dd><dd>·<a target="_blank" href="#">联系我们</a></dd><dd>·<a target="_blank" href="#">加入我们</a></dd><dd>·<a target="_blank" href="#">布道师招募</a></dd><dd>·<a target="_blank" href="#" rel="nofollow">合作咨询</a></dd><dd>·<a target="_blank" href="#">友情链接</a></dd></dl><div class="search-share"><div class="app-download"><a target="_blank" href="#"><img src="~/Content/web/img/iphone.png" width="21"><div><strong>手机客户端</strong><p>离线缓存  随时学习</p></div></a></div><div class="share"><a href="#" class="sina-icon" rel="nofollow" target="_blank"></a><a href="#" title="官方百度贴吧" class="tieba-icon" rel="nofollow" target="_blank"></a><a href="#" class="qq-icon" rel="nofollow"><img src="~/Content/web/img/weixin-pop.png" class="weinxinpop"></a></div></div></div></div><div class="w-1000 copyright">
+            Copyright © 2013-2015 <strong><a href="#" target="_blank"></a></strong>&nbsp;<strong><a href="#" target="_blank">jikexueyuan.com</a></strong> All Rights Reversed. 京ICP备11018032号-8 京公网安备11010802013056
+        </div>
+    </div><!--footer-->
+</body>
+</html>
+

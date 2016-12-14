@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BAE73404-5D70-4CB2-9077-E07B15985B77}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Model</RootNamespace>
+    <AssemblyName>Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MvcPager">
+      <HintPath>..\ExtWebSys\bin\MvcPager.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin_Menu.cs" />
+    <Compile Include="Admin_Role.cs" />
+    <Compile Include="Admin_User.cs" />
+    <Compile Include="DB_AD.cs" />
+    <Compile Include="DB_Area.cs" />
+    <Compile Include="DB_File.cs" />
+    <Compile Include="DB_File_Category.cs" />
+    <Compile Include="DB_Image.cs" />
+    <Compile Include="DB_Img_Category.cs" />
+    <Compile Include="DB_Classify.cs" />
+    <Compile Include="DB_Language.cs" />
+    <Compile Include="DB_Link.cs" />
+    <Compile Include="DB_Log.cs" />
+    <Compile Include="DB_Msg.cs" />
+    <Compile Include="DB_News.cs" />
+    <Compile Include="DB_Session.cs" />
+    <Compile Include="DB_User.cs" />
+    <Compile Include="DB_WebConfig.cs" />
+    <Compile Include="EnFont.cs" />
+    <Compile Include="EnImage.cs" />
+    <Compile Include="EnObject.cs" />
+    <Compile Include="EnWeb.cs" />
+    <Compile Include="NewsPager.cs" />
+    <Compile Include="NPagedList.cs" />
+    <Compile Include="PageData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeftModel.cs" />
+    <Compile Include="UserPager.cs" />
+    <Compile Include="WebPager.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

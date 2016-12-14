@@ -1,0 +1,390 @@
+﻿@{
+  
+    
+    ViewBag.Index = "00";
+    Layout = "~/Views/Shared/_LayoutNews.cshtml";
+   
+}
+@model NModel.NewsPager
+<div class="clear"></div>
+
+<div class="box">
+    <div class="hot fl">
+        <h2 class="jd">焦点资讯</h2>
+        <ul class="j">
+
+            @{ foreach(var model in Model.IDctNewsList["left"]){
+               
+                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+               
+               }}
+          
+        </ul>
+    </div>
+    <div class="imgs fl">
+        <div class="flashnews">
+            <!-- size: 280px * 192px -->
+            <script language="javascript">
+                linkarr = new Array();
+                picarr = new Array();
+                textarr = new Array();
+                var swf_width = 518;
+                var swf_height = 254;
+                //文字颜色|文字位置|文字背景颜色|文字背景透明度|按键文字颜色|按键默认颜色|按键当前颜色|自动播放时间|图片过渡效果|是否显示按钮|打开方式
+                var configtg = '0xffffff|0|0x3FA61F|5|0xffffff|0xC5DDBC|0x000033|2|3|1|_blank';
+                var files = "";
+                var links = "";
+                var texts = "";
+
+
+                @{ int adcount = 0;
+                   foreach (var model in Model.IDictListAd["中间广告"])
+                   {
+                       adcount++;
+                       Output.WriteLine(string.Format(" linkarr[{0}] = \"{1}\";",adcount,model.AD_URL));
+                       Output.WriteLine(string.Format(" picarr[{0}] = \"{1}\";", adcount,"http://"+ this.Request.Url.Authority+(model.AD_Img + "").Split(',')[0]));
+                       Output.WriteLine(string.Format(" textarr[{0}] = \"{1}\";",adcount,model.AD_Name));
+                      
+                       
+                    
+                   
+                   
+                   
+                   }}
+               
+               
+
+
+                for (i = 1; i < picarr.length; i++) {
+                    if (files == "")
+                        files = picarr[i];
+                    else
+                        files += "|" + picarr[i];
+                }
+                for (i = 1; i < linkarr.length; i++) {
+                    if (links == "")
+                        links = linkarr[i];
+                    else
+                        links += "|" + linkarr[i];
+                }
+                for (i = 1; i < textarr.length; i++) {
+                    if (texts == "")
+                        texts = textarr[i];
+                    else
+                        texts += "|" + textarr[i];
+                }
+                document
+                        .write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + swf_width + '" height="' + swf_height + '">');
+                document
+                        .write('<param name="movie" value="/content/swf/bcastr3.swf"><param name="quality" value="high">');
+                document
+                        .write('<param name="menu" value="false"><param name=wmode value="opaque">');
+                document
+                        .write('<param name="FlashVars" value="bcastr_file=' + files + '&bcastr_link=' + links + '&bcastr_title=' + texts + '&bcastr_config=' + configtg + '">');
+                document
+                        .write('<embed src="/content/swf/bcastr3.swf" wmode="opaque" FlashVars="bcastr_file=' + files + '&bcastr_link=' + links + '&bcastr_title=' + texts + '&bcastr_config=' + configtg + '&menu="false" quality="high" width="' + swf_width + '" height="' + swf_height + '" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+                document.write('</object>');
+            </script><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" height="254" width="518"><param name="movie" value="http://www.58.com/zp_images/bcastr3.swf"><param name="quality" value="high"><param name="menu" value="false"><param name="wmode" value="opaque"><param name="FlashVars" value="bcastr_file=http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png|http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png|http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png|http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png&amp;bcastr_link=jianlimoban/20130326438.html|jianlimoban/20130326438.html|jianlimoban/20130326438.html|jianlimoban/20130326438.html&amp;bcastr_title=声讯应聘个人简历模板|声讯应聘个人简历模板|声讯应聘个人简历模板|声讯应聘个人简历模板&amp;bcastr_config=0xffffff|0|0x3FA61F|5|0xffffff|0xC5DDBC|0x000033|2|3|1|_blank"><embed src="/content/news/img/$1" wmode="opaque" flashvars="bcastr_file=http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png|http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png|http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png|http://www.58.com/zp_images/allimg/120526/1_120526103433_1_lp.png&amp;bcastr_link=jianlimoban/20130326438.html|jianlimoban/20130326438.html|jianlimoban/20130326438.html|jianlimoban/20130326438.html&amp;bcastr_title=声讯应聘个人简历模板|声讯应聘个人简历模板|声讯应聘个人简历模板|声讯应聘个人简历模板&amp;bcastr_config=0xffffff|0|0x3FA61F|5|0xffffff|0xC5DDBC|0x000033|2|3|1|_blank&amp;menu=" false"="" quality="high" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="254" width="518"></object>
+        </div>
+    </div>
+    <div class="hot fl">
+        <h2>重点推荐</h2>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["right"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+   
+</div>
+
+<div class="clear"></div>
+<div class="box gonglue zcc">
+    <h3>职场资讯</h3>
+   
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>就业动态</h4>
+            <a rel="nofollow" href="/news/list/0101" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0101"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" middle  fl">
+        <div class="xbt">
+            <h4>政策法规</h4>
+            <a rel="nofollow" href="/news/list/0102" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0102"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>行业资讯</h4>
+            <a rel="nofollow" href="/news/list/0103" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+           @{ foreach (var model in Model.IDctNewsList["0103"])
+ {
+
+    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+ }}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="box mianshi zcc">
+    <h3>简历攻略</h3>
+    
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>简历技巧</h4>
+            <a rel="nofollow" href="/news/list/0201" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0201"])
+ {
+
+    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+ }}
+        </ul>
+    </div>
+    <div class=" middle  fl">
+        <div class="xbt">
+            <h4>简历模板</h4>
+            <a rel="nofollow" href="/news/list/0202" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+
+           
+            @{ foreach (var model in Model.IDctNewsList["0202"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>简历范文</h4>
+            <a rel="nofollow" href="/news/list/0203" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0203"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <!-- only show 3 columns -->
+    <div class="clear"></div>
+</div>
+<div class="box xinzi zcc">
+    <h3>面试指南</h3>
+    
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>面试技巧</h4>
+            <a rel="nofollow" href="/news/list/0303" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0303"])
+ {
+
+    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+ }}
+        </ul>
+    </div>
+    <div class=" middle  fl">
+        <div class="xbt">
+            <h4>面试题库</h4>
+            <a rel="nofollow" href="/news/list/0302" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0302"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>自我介绍</h4>
+            <a rel="nofollow" href="/news/list/0301" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0301"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="box shenzai zcc">
+    <h3>薪酬福利</h3>
+    
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>升职加薪</h4>
+            <a rel="nofollow" href="/news/list/0403" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0403"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" middle  fl">
+        <div class="xbt">
+            <h4>福利电台</h4>
+            <a rel="nofollow" href="/news/list/0402" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0402"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>薪情盘点</h4>
+            <a rel="nofollow" href="/news/list/0401" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0401"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="box laodong zcc">
+    <h3>身在职场</h3>
+    
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>职场充电</h4>
+            <a rel="nofollow" href="/news/list/0504" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+           @{ foreach (var model in Model.IDctNewsList["0504"])
+ {
+
+    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+ }}
+        </ul>
+    </div>
+    <div class=" middle  fl">
+        <div class="xbt">
+            <h4>跳槽策略</h4>
+            <a rel="nofollow" href="/news/list/0503" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0503"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>乐活职场</h4>
+            <a rel="nofollow" href="/news/list/0502" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0502"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <!-- only show 3 columns -->
+    <div class="clear"></div>
+</div>
+<div class="box zichang zcc">
+    <h3>劳动法苑</h3>
+    
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>规避陷阱</h4>
+            <a rel="nofollow" href="/news/list/0603" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0603"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" middle  fl">
+        <div class="xbt">
+            <h4>法律法规</h4>
+            <a rel="nofollow" href="/news/list/0602" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0602"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class=" small  fl">
+        <div class="xbt">
+            <h4>就业维权</h4>
+            <a rel="nofollow" href="/news/list/0601" target="_blank">[更多]</a>
+        </div>
+        <ul class="j">
+            @{ foreach (var model in Model.IDctNewsList["0601"])
+             {
+
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+
+             }}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
