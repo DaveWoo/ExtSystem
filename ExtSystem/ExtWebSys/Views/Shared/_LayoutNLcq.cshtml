@@ -1,7 +1,4 @@
 ﻿
-
-
-
 <!DOCTYPE html>
 <!-- saved from url=(0027)http://www.jikexueyuan.com/ -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,117 +19,74 @@
             </div>
             <div class="search-section">
                 <div class="headsearch" id="headsearch" action="###">
-
-
                     <span class="searchSpan">
                         <input class="search-text" type="text" name="q" autocomplete="off" id="web_search_header" placeholder=""
-                                onkeyup="" value="搜源码/2D/3D素材">
+                               onkeyup="" value="搜源码/2D/3D素材">
                     </span>
                     <input type="submit" class="search-btn" value="搜一下">
-
-
-
-
                 </div>
             </div>
-
-
-
             @{
-                
-                
-            var UserStatus=    BLL.Fun.Current_Login_DB_User();
-         
-            
+
+                var UserStatus = BLL.Fun.Current_Login_DB_User();
             }
+            <div class="loginbox">
+                @{
+                    if (UserStatus == null)
+                    {
+                        <div class="loginMain0">
+                            <a href="#" style="text-decoration:none;color:#333;" rel="nofollow">
+                                <span>
+                                    <img src="~/content/web/img/qqlogin.png" />
+                                </span>
+                            </a>
+                        </div>
+                        <div class="loginMain1">
+                            <span><a href="/nlcq/login" postion="index_index_header" rel="nofollow">登录</a></span><em>|</em>
+                        </div>
 
-
-
-
-                  
-                 
-                 
-                <div class="loginbox">
-
-
-                    @{
-
-
-                        if (UserStatus == null)
-                        {
-                <div class="loginMain0">
-                    <a href="#" style="text-decoration:none;color:#333;" rel="nofollow">
-                        <span>
-                            <img src="~/content/web/img/qqlogin.png" />
-                        </span>
-                    </a>
-                    
-                </div>
-
-
-               
-                <div class="loginMain1">
-                    <span><a href="/nlcq/login" postion="index_index_header" rel="nofollow">登录</a></span><em >|</em>
-
-                </div>
-
-                        
-                <div class="loginMain2">
-                    <span><a href="/nlcq/reg" postion="index_index_header" rel="nofollow">注册</a></span>
-
-                </div>
-
-                        }else
-                        { 
-                        
-                            
-                            
-                             
-                <div class="loginMain3">
-                    <span>欢迎&nbsp;&nbsp;<a href="/member/cmember" style="color: #38a4e0"
-   postion="index_index_header" rel="nofollow">@(UserStatus.User_Name)</a>
-                    &nbsp;&nbsp;<a href="/ajax/UserLogout"> 退出</a></span>
-                    
-                    
-                    
-                    
-                  
-
-                </div>
-                        
-                        
-                        
-                        
-                        }
+                        <div class="loginMain2">
+                            <span><a href="/nlcq/reg" postion="index_index_header" rel="nofollow">注册</a></span>
+                        </div>
                     }
-              
-               
-               
-              
-           
-          
-            </div>         
+                    else
+                    {
+                        <div class="loginMain3">
+                            <span>
+                                欢迎&nbsp;&nbsp;<a href="/member/cmember" style="color: #38a4e0"
+                                                 postion="index_index_header" rel="nofollow">@(UserStatus.User_Name)</a>
+                                                &nbsp;&nbsp;<a href="/ajax/UserLogout"> 退出</a>
+                                            </span>
+                                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 
-
-   <div class="clear"></div>
+    <div class="clear"></div>
     <!--header end-->
 
     <div id="loading">
-        <div class="loading-length"  ></div>
+        <div class="loading-length"></div>
     </div>
-    <div class="navpositon"><div id="navbox" class="">
-        <div class="nav w-1000"><div class="navbox"><a href="/">首页</a>
-            <a href="#" class="">游戏源码</a><a href="#" class="">桌面源码</a>
-            <a href="#" class="">网站源码</a><a href="#" class="">手机源码</a>
-            <a href="#" class="">设计素材</a> <a href="#" class="">音效素材</a>
-            <a href="#" class="">技术问答</a></div><div class="user-need">
-            <a href="#" class="publishbtn"><span><img src="/Content/web/img/vip-icon.png"><zbutton> 发布资源</zbutton></span></a>
-           
-            <a href="#" target="_blank"><span><img src="/Content/web/img/dl-icon.png">客户端</span></a>
-            
-            </div><!-- <span class="arrow"></span> --></div></div></div>
+    <div class="navpositon">
+        <div id="navbox" class="">
+            <div class="nav w-1000">
+                <div class="navbox">
+                    <a href="/">首页</a>
+                    <a href="#" class="">游戏源码</a><a href="#" class="">桌面源码</a>
+                    <a href="#" class="">网站源码</a><a href="#" class="">手机源码</a>
+                    <a href="#" class="">设计素材</a> <a href="#" class="">音效素材</a>
+                    <a href="#" class="">技术问答</a>
+                </div><div class="user-need">
+                    <a href="#" class="publishbtn"><span><img src="/Content/web/img/vip-icon.png"><zbutton> 发布资源</zbutton></span></a>
+                    <a href="#" target="_blank"><span><img src="/Content/web/img/dl-icon.png">客户端</span></a>
+
+                </div><!-- <span class="arrow"></span> -->
+            </div>
+        </div>
+    </div>
 
 
     @RenderBody()

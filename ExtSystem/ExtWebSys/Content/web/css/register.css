@@ -1,0 +1,45 @@
+.feg-header{height:80px}
+.feg-header .logo{width:113px;display:block;float:left;margin-top:20px}
+.feg-header .feg-hlep{float:right;font-size:12px;color:#666;margin-top:32.5px}
+.feg-header .feg-hlep a{font-size:12px;color:#666}
+.feg-header .feg-hlep em{padding:0 8px}
+.feg-box{border:1px solid #eaeaea;padding:40px 15px}
+.feg-box .feg-inputbox{width:625px;float:left;margin-right:30px}
+.feg-box .feg-inputbox .f-title{font-weight:700;font-size:14px;color:#333;padding-bottom:15px;border-bottom:1px solid #eaeaea}
+.feg-inputlist .inputbox input:focus{border:1px solid #35b558!important}
+.feg-inputlist .inputbox .input-name{font-size:14px;color:#666;height:38px;display:inline-block;float:left;width:80px;line-height:38px;margin-right:10px;text-align:right}
+.feg-inputlist .inputbox .input-one{padding:10px;*padding:0px;*padding-left:10px;height:38px;border:1px solid #ccc;width:240px;line-height:18px;*line-height:38px;font-size:12px;float:left;margin-right:10px}
+.feg-inputlist .inputbox .input-tow{padding:10px;*padding:0px;height:38px;border:1px solid #ccc;width:80px;line-height:18px;*line-height:38px;font-size:12px;float:left;margin-right:10px}
+.feg-inputlist .inputbox .security-code{height:38px;border:1px solid #ccc;width:60px;float:left;margin-right:10px;display:block;padding:0}
+.feg-inputlist .inputbox .security-code img{display:block;width:100%;height:100%;margin:0;cursor:pointer}
+.feg-inputlist .inputbox .warning-wrong{color:#f76874;height:38px;line-height:38px;font-size:12px;float:left}
+.feg-inputlist .inputbox .wrong-3,.feg-inputlist .inputbox .wrong-4{color:#f76874;height:38px;line-height:38px;font-size:12px;float:inherit}
+.feg-inputlist .inputbox .warning-empty{color:#2d85ca;height:38px;line-height:38px;font-size:12px;float:left}
+.feg-inputlist .inputbox .warning-empty img,.feg-inputlist .inputbox .warning-wrong img{margin-right:5px}
+.feg-inputlist .inputbox .warning-right{height:38px;line-height:38px;font-size:12px;float:left}
+.feg-inputlist .inputbox .warning-word{height:38px;line-height:38px;font-size:12px;float:left;color:#999;margin-right:10px;cursor:pointer}
+.feg-inputlist .mar-b20{margin-bottom:20px;line-height:31px;}
+.feg-inputlist .inputbox .safety{padding-left:90px;float:left;margin-top:8px;width:100%}
+.feg-inputlist .inputbox .sevenday{padding-left:80px;color:#666;font-size:12px}
+.feg-inputlist .inputbox .sevenday i{display:block;float:left;width:14px;height:14px;background:url(../images/choose-all.png) 0 0 no-repeat;overflow:hidden;margin-right:5px;cursor:pointer}
+.feg-inputlist .inputbox .sevenday i:hover{background:url(../images/choose-all.png) 0 -16px no-repeat;margin-right:5px;cursor:pointer}
+.feg-inputlist .inputbox .safety span{display:inline-block;width:60px;height:14px;line-height:14px;background:#ddd;text-align:center;float:left;margin-right:2px;font-size:12px;color:#fff}
+.feg-inputbox .greenbtn{width:190px;height:40px;border-radius:3px;color:#fff;font-size:16px;margin:40px 0 0 90px;cursor:pointer}
+.feg-inputbox .yhxy{padding-left:85px;margin-top:10px}
+.feg-inputbox .yhxy a{font-size:12px;color:#999}
+.right-loginbox{width:300px;float:left;border-left:1px dashed #eaeaea;padding-left:30px}
+.right-loginbox h3{font-size:14px;color:#666;margin-bottom:15px}
+.right-loginbox a.btn{-webkit-transition:background-color .8s;-moz-transition:background-color .8s;-ms-transition:background-color .8s;transition:background-color .8s;font-size:14px;background:#eaeaea;color:#666;text-align:center;line-height:36px;width:100px;height:36px;display:block;cursor:pointer;outline:0}
+.right-loginbox a.btn:hover{background-color:#eee}
+.right-loginbox .lgin-box3 li{margin-bottom:20px}
+.right-loginbox .lgin-box3 li img{opacity:1;cursor:pointer;-webkit-transition:opacity .8s;-moz-transition:opacity .8s;-ms-transition:opacity .8s;transition:opacity .8s}
+.right-loginbox .lgin-box3 li img:hover{opacity:.8}
+.warning a{color:#666;margin-left:-20px}
+.mar-r10{margin-right:10px}
+.sevenday{margin-top:20px;padding-left:90px;margin-bottom:0}
+.feg-inputlist .inputbox .warning{float:none!important}
+#gototop{display:none}
+label,.nodisp {
+color:#666;
+
+}

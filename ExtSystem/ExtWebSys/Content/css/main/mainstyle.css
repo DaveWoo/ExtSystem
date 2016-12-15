@@ -1,0 +1,75 @@
+
+#refresh_mainID {
+    background: url("/Content/img/cw_menu/refresh.png");
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+#searchID {
+    background: url("/Content/img/cw_menu/search.png");
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+
+#nextID {
+    background: url("/Content/img/cw_menu/next.png");
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+
+.comlist {
+    position: relative;
+}
+
+    .comlist ul {
+        display: none;
+        position: absolute;
+        border: 1px solid #0094ff;
+        z-index: 1001;
+        display: none;
+        margin-top: 20px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+        .comlist ul li {
+            float: left;
+            display: block;
+            height: 20px;
+            padding: 6px;
+            cursor: pointer;
+        }
+
+            .comlist ul li:hover {
+                text-decoration: underline;
+                color: red;
+            }
+
+.boxlist {
+    z-index: 999;
+}
+
+.ulboxlist {
+    position: absolute;
+    z-index: 999;
+    background: #fff;
+    border: 2px solid #B8D0D6;
+    overflow: hidden;
+}
+
+    .ulboxlist li {
+        width: 124px;
+        float: left;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
