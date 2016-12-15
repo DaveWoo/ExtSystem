@@ -1,34 +1,20 @@
-﻿
+﻿@{
 
-@{
-    
     Layout = "";
 }
 @model NModel.NewsPager
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     @Html.Partial("_PartialHead")
 
+    @{ var links = Model.IDictLink["友情链接"];}
+    <link type="text/css" rel="stylesheet" href="/content/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/content/news/css/zixun.css" />
 
-
-     @{ var links=Model.IDictLink["友情链接"];}
-    <link type="text/css" rel="stylesheet" href="/content/news/css/zixun.css">
-
-
-
-
-
-    <link type="text/css" rel="stylesheet" href="/content/News/css/bottombar.css">
-    <link type="text/css" rel="stylesheet" href="/content/News/css/bdsstyle.css">
+    <link type="text/css" rel="stylesheet" href="/content/News/css/bottombar.css" />
+    <link type="text/css" rel="stylesheet" href="/content/News/css/bdsstyle.css" />
     @*<script src="/content/News/js/loader.js" type="text/javascript"></script>*@
-
-
-
-
-
-
-
 
     <style type="text/css">
         .bdyt, .bdyt * {
@@ -1750,7 +1736,6 @@
 </head>
 <body>
 
-
     <!-- Baidu Button BEGIN -->
     <!-- Baidu Button END -->
     <div id="topbar">
@@ -1781,7 +1766,7 @@
     <div id="header">
         <div id="headerinside">
             <div id="logo">
-                <a target="_self" href="#"><img alt="中文最大生活信息门户" src="/content/web/img/logo.gif"></a>
+                <a target="_self" href="#"><img alt="中文最大生活信息门户" src="/content/web/img/microsoft.jpg"  /></a>
                 <h1>@(ViewBag.Name)</h1>
             </div>
             <span class="rele"><a id="fabu" rel="nofollow" href="#">在线创建简历</a><a id="zhao" rel="nofollow" href="#">我要找工作</a></span>
@@ -1789,18 +1774,16 @@
     </div>
     <div id="nav">
         <div id="navin">
-            @{  string active = "class=active";
-                
-                       }
+            @{  string active = "class=active";  }
 
             <ul>
-                <li  @{@(ViewBag.Index=="00"?active:"")}  ><a href="/news">首页</a></li>
-                <li @(ViewBag.Index == "01" ? active : "")    ><a href="/news/list/01"><span>职场资讯</span></a></li>
-                <li @(ViewBag.Index=="02"?active:"")><a href="/news/list/02"><span>简历攻略</span></a></li>
+                <li @(ViewBag.Index == "00" ? active : "")><a href="/news">首页</a></li>
+                <li @(ViewBag.Index == "01" ? active : "")><a href="/news/list/01"><span>职场资讯</span></a></li>
+                <li @(ViewBag.Index == "02" ? active : "")><a href="/news/list/02"><span>简历攻略</span></a></li>
                 <li @(ViewBag.Index == "03" ? active : "")><a href="/news/list/03"><span>面试指南</span></a></li>
-                <li @(ViewBag.Index == "04" ? active : "")  ><a href ="/news/list/04"><span>薪酬福利</span></a></li>
+                <li @(ViewBag.Index == "04" ? active : "")><a href="/news/list/04"><span>薪酬福利</span></a></li>
                 <li @(ViewBag.Index == "05" ? active : "")><a href="/news/list/05"><span>身在职场</span></a></li>
-                <li @(ViewBag.Index == "06" ? active : "") ><a href="/news/list/06"><span>劳动法苑</span></a></li>
+                <li @(ViewBag.Index == "06" ? active : "")><a href="/news/list/06"><span>劳动法苑</span></a></li>
             </ul>
         </div>
     </div>
@@ -1825,175 +1808,160 @@
                         menu04 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "04"), 3);
                         menu05 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "05"), 3);
                         menu06 = bll_menu.GetListByNumAndTop(string.Format("''{0}%''", "06"), 3);
-
                     }
 
+                    <li>
+                        <b>职场资讯</b><br />
 
-                    <li><b>职场资讯</b><br> 
-                    
-                     @{ if (menu01 != null)
-                     {
-
-                         var i = 0;
-                         foreach (var model in menu01)
+                        @{ if (menu01 != null)
                          {
 
-                             i++;
-                             if (i >= menu01.Count)
+                             var i = 0;
+                             foreach (var model in menu01)
                              {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
-                             }
-                             else
-                             {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
 
-                             }
-
-
-                         }
-
-
-                     }}
- </li>
-
-
-                    <li> <b>简历攻略</b><br>
-                    
-                         @{ if (menu02 != null)
-                          {
-
-                              var i = 0;
-                              foreach (var model in menu02)
-                              {
-
-                                  i++;
-                                  if (i >= menu02.Count)
-                                  {
+                                 i++;
+                                 if (i >= menu01.Count)
+                                 {
                                     <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
-                                  }
-                                  else
-                                  {
+                                 }
+                                 else
+                                 {
                                     <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
 
-                                  }
+                                 }
 
+                             }
 
-                              }
+                         }}
+                    </li>
 
+                    <li>
+                        <b>简历攻略</b><br />
 
-                          }}
-                    
-
-
-
-                      
-                    
-                       </li>
-
-                    <li><b>面试指南</b><br> 
-                      @{ if (menu03 != null)
-                     {
-
-                         var i = 0;
-                         foreach (var model in menu03)
+                        @{ if (menu02 != null)
                          {
 
-                             i++;
-                             if (i >= menu03.Count)
+                             var i = 0;
+                             foreach (var model in menu02)
                              {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
-                             }
-                             else
-                             {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 i++;
+                                 if (i >= menu02.Count)
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                                 }
+                                 else
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 }
 
                              }
 
+                         }}
+                    </li>
 
-                         }
-
-
-                     }}
-  </li>
-
-                    <li><b>薪酬福利</b><br>  
-                    @{ if (menu04 != null)
-                     {
-
-                         var i = 0;
-                         foreach (var model in menu04)
+                    <li>
+                        <b>面试指南</b><br />
+                        @{ if (menu03 != null)
                          {
 
-                             i++;
-                             if (i >= menu04.Count)
+                             var i = 0;
+                             foreach (var model in menu03)
                              {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
-                             }
-                             else
-                             {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 i++;
+                                 if (i >= menu03.Count)
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                                 }
+                                 else
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 }
 
                              }
 
+                         }}
+                    </li>
 
-                         }
-
-
-                     }}
- </li>
-                    <li><b>身在职场</b><br> 
-                     @{ if (menu05 != null)
-                     {
-
-                         var i = 0;
-                         foreach (var model in menu05)
+                    <li>
+                        <b>薪酬福利</b><br />
+                        @{ if (menu04 != null)
                          {
 
-                             i++;
-                             if (i >= menu05.Count)
+                             var i = 0;
+                             foreach (var model in menu04)
                              {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
-                             }
-                             else
-                             {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 i++;
+                                 if (i >= menu04.Count)
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                                 }
+                                 else
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 }
 
                              }
 
-
-                         }
-
-
-                     }}   </li>
-                    <li><b>劳动法苑</b><br>   @{ if (menu06 != null)
-                     {
-
-                         var i = 0;
-                         foreach (var model in menu06)
+                         }}
+                    </li>
+                    <li>
+                        <b>身在职场</b><br />
+                        @{ if (menu05 != null)
                          {
 
-                             i++;
-                             if (i >= menu06.Count)
+                             var i = 0;
+                             foreach (var model in menu05)
                              {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+
+                                 i++;
+                                 if (i >= menu05.Count)
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                                 }
+                                 else
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 }
+
                              }
-                             else
+
+                         }}
+                    </li>
+                    <li>
+                        <b>劳动法苑</b><br />   @{ if (menu06 != null)
+                         {
+
+                             var i = 0;
+                             foreach (var model in menu06)
                              {
-                                <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 i++;
+                                 if (i >= menu06.Count)
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a>
+                                 }
+                                 else
+                                 {
+                                    <a href="/news/list/@(model.Menu_Num)" target="_blank">@(model.Menu_Name)</a> <br />
+
+                                 }
 
                              }
 
-
-                         }
-
-
-                     }} </li>
+                         }}
+                    </li>
                 </ul>
                 <div class="clear"></div>
             </div>
             <div id="flink">
-
-               
                 友情链接:
                 @{ foreach (var model in links)
                  {
@@ -2001,9 +1969,6 @@
                     <a target="_blank" href="@(model.Link_Url)" style="margin: 4px">@(model.Link_Name)</a>
 
                  }}
-                
-               
-               
             </div>
             <div id="footer">
                 @Html.Partial("_JobFooter")
@@ -2013,8 +1978,6 @@
 
     <!--BAIDU_YUNTU_START-->
     <!--BAIDU_YUNTU_END-->
-
-
 
     <div style="display:none" class="bottom-bar" id="listBottomBar">
         <a href="#" class="bottom-bar-close"></a><div class="bbcontent">
@@ -2027,7 +1990,7 @@
 
     <script type="text/template" id="tpl-bdyt-index">
         <div class="content-wrapper" style='display:none'>
-            <div class="button-wrapper"> <span class="bdlogo"></span> <span class="label">相关图集推荐</span> <a href="#" class="close" act_name="close"></a> </div> <div class="main-wrapper"> <a href="#" class="button-slide left" act_name="turn" act_type="left"><span class="left"><div></div></span></a> <a href="#" class="button-slide right" act_name="turn" act_type="right"><span class="right"><div></div></span></a> <ul class="img-list slide-main"> <% _.each(data,function(value,key,list){ %> <%if(key<10){%> <li class="img-container"> <a href="#" act_name="gallery" clk_pos="<%=key%>" src-title="<%= value.page_title %>" class="bdyt-img-item <%if(value.fruit_type == 3){%>bdyt-img-search-border<%}%>" fruit_type="<%=value.fruit_type%>" rid="<%= value.rid%>" target="_blank"> <img src="<%= value.thumbnail_url %>" org-src="<%= value.first_img_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" /> <div rec_layer_index class="title-flow-layer" src-title="<%= value.page_title %>"><span><%= value.page_title %></span></div> <!--植入广告"推广"图标--> <% if(value.fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <!--图搜"热图"图标--> <% if(value.fruit_type == 3){%> <div class="bdyt-img-search-icon"></div> <%}%> </a> </li> <%}%> <% }) %> </ul> </div>
+            <div class="button-wrapper"> <span class="bdlogo"></span> <span class="label">相关图集推荐</span> <a href="#" class="close" act_name="close"></a> </div> <div class="main-wrapper"> <a href="#" class="button-slide left" act_name="turn" act_type="left"><span class="left"><div></div></span></a> <a href="#" class="button-slide right" act_name="turn" act_type="right"><span class="right"><div></div></span></a> <ul class="img-list slide-main"> <% _.each(data,function(value,key,list){ %> <%if(key<10){%> <li class="img-container"> <a href="#" act_name="gallery" clk_pos="<%=key%>" src-title="<%= value.page_title %>" class="bdyt-img-item <%if(value.fruit_type == 3){%>bdyt-img-search-border<%}%>" fruit_type="<%=value.fruit_type%>" rid="<%= value.rid%>" target="_blank"> <img src="<%= value.thumbnail_url %>" org-src="<%= value.first_img_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" /> <div rec_layer_index=rec_layer_index class="title-flow-layer" src-title="<%= value.page_title %>"><span><%= value.page_title %></span></div> <!--植入广告"推广"图标--> <% if(value.fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <!--图搜"热图"图标--> <% if(value.fruit_type == 3){%> <div class="bdyt-img-search-icon"></div> <%}%> </a> </li> <%}%> <% }) %> </10){%></ul> </div>
         </div>
     </script>
     <script type="text/template" id="tpl-bdyt-head">
@@ -2037,40 +2000,39 @@
     </script>
     <script type="text/template" id="tpl-bdyt-bottom-content">
         <div class="bdyt-bottom-content-wrapper" style='display:block'>
-            <a href="#" class="bdyt-bottom-content-wrapper-btn" hidefocus=true mod_id="index_bottom_rec" act_name="toggle" act_type="up" if_first="1"></a> <div class="animation-wrapper"> <div class="button-wrapper"> <span class="bdlogo"></span> <span class="label">相关图集推荐</span> <a href="#" class="close" act_name="close"></a> </div> <div class="main-wrapper"> <a href="#" class="button-slide left fr-left" act_name="turn" act_type="left"><span class="left"><div></div></span></a> <a href="#" class="button-slide right" act_name="turn" act_type="right"><span class="right"><div></div></span></a> <ul class="img-list slide-main"> <% _.each(data,function(value,key,list){ %> <%if(key<20){%> <li class="img-container"> <a href="#" act_name="gallery" clk_pos="<%=key%>" src-title="<%= value.page_title %>" class="bdyt-img-item <%if(value.fruit_type == 3){%>bdyt-img-search-border<%}%>" fruit_type="<%=value.fruit_type%>" rid="<%= value.rid%>"> <img src="<%= value.thumbnail_url %>" org-src="<%= value.first_img_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" /> <div rec_layer_index class="title-flow-layer" src-title="<%= value.page_title %>"><span><%= value.page_title %></span></div> <!--植入广告"推广"图标--> <% if(fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <% if(value.fruit_type == 3){%> <div class="bdyt-img-search-icon"></div> <%}%> </a> </li> <%}%> <% }) %> </ul> </div> </div>
+            <a href="#" class="bdyt-bottom-content-wrapper-btn" hidefocus=true mod_id="index_bottom_rec" act_name="toggle" act_type="up" if_first="1"></a> <div class="animation-wrapper"> <div class="button-wrapper"> <span class="bdlogo"></span> <span class="label">相关图集推荐</span> <a href="#" class="close" act_name="close"></a> </div> <div class="main-wrapper"> <a href="#" class="button-slide left fr-left" act_name="turn" act_type="left"><span class="left"><div></div></span></a> <a href="#" class="button-slide right" act_name="turn" act_type="right"><span class="right"><div></div></span></a> <ul class="img-list slide-main"> <% _.each(data,function(value,key,list){ %> <%if(key<20){%> <li class="img-container"> <a href="#" act_name="gallery" clk_pos="<%=key%>" src-title="<%= value.page_title %>" class="bdyt-img-item <%if(value.fruit_type == 3){%>bdyt-img-search-border<%}%>" fruit_type="<%=value.fruit_type%>" rid="<%= value.rid%>"> <img src="<%= value.thumbnail_url %>" org-src="<%= value.first_img_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" /> <div rec_layer_index=rec_layer_index class="title-flow-layer" src-title="<%= value.page_title %>"><span><%= value.page_title %></span></div> <!--植入广告"推广"图标--> <% if(fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <% if(value.fruit_type == 3){%> <div class="bdyt-img-search-icon"></div> <%}%> </a> </li> <%}%> <% }) %> </20){%></ul> </div> </div>
         </div>
     </script>
     <script type="text/template" id="tpl-bdyt-ending">
         <div class="bdyt bdyt-ending">
-            <div class="bdyt-ending-wrap"> <a href="#" class="bdyt-ending-btn-close" act_name="close"></a> <div class="bdyt-ending-left"> <div class="bdyt-ending-head-wrap"> <h3 class="title"><%= page_title%></h1> <h3 class="heading">已阅读完毕</h1> </div> <ul class="bdyt-ending-img-list"> <% _.each(data,function(value,key,list){ %> <% if(key>=1 &&key<3){%> <li class="bdyt-ending-img-item"> <a href="#" class="bdyt-ending-img-big" act_name="gallery" clk_pos="<%=key%>"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> </a> </li> <%}%> <% if(key>=3 &&key<6){%> <li class="bdyt-ending-img-item"> <a href="#" class="bdyt-ending-img-medium" act_name="gallery" clk_pos="<%=key%>"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> </a> </li> <%}%> <% }) %> </ul> </div> <div class="bdyt-ending-right"> <li class=" bdyt-ending-review"> <a href="#" class=" bdyt-ending-btn" act_name="review">重新浏览</a> </li> <%value = data[0]%> <li class="bdyt-ending-img-last"> <a href="#" class="bdyt-ending-img-item" act_name="next" clk_pos="0"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> <span class="bdyt-ending-btn bdyt-ending-next ">下一图集</span> </a> </li> </div> </div>
+            <div class="bdyt-ending-wrap"> <a href="#" class="bdyt-ending-btn-close" act_name="close"></a> <div class="bdyt-ending-left"> <div class="bdyt-ending-head-wrap"> <h3 class="title"><%= page_title%></h1> <h3 class="heading">已阅读完毕</h1> </h3></h3></div> <ul class="bdyt-ending-img-list"> <% _.each(data,function(value,key,list){ %> <% if(key>=1 &&key<3){%> <li class="bdyt-ending-img-item"> <a href="#" class="bdyt-ending-img-big" act_name="gallery" clk_pos="<%=key%>"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> </a> </li> <%}%> <% if(key>=3 &&key<6){%> <li class="bdyt-ending-img-item"> <a href="#" class="bdyt-ending-img-medium" act_name="gallery" clk_pos="<%=key%>"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> </a> </li> <%}%> <% }) %> </6){%></3){%></ul> </div> <div class="bdyt-ending-right"> <li class=" bdyt-ending-review"> <a href="#" class=" bdyt-ending-btn" act_name="review">重新浏览</a> </li> <%value = data[0]%> <li class="bdyt-ending-img-last"> <a href="#" class="bdyt-ending-img-item" act_name="next" clk_pos="0"> <img src="<%= value.thumbnail_url %>" bdyt_gallery_id="<%= value.gallery_id %>" bdyt_page_url="<%= value.page_url %>" bdyt_rele_type="<%= value.rele_type %>" title="<%= value.page_title %>" /> <span class="bdyt-ending-img-mask"><%= value.page_title %></span> <span class="bdyt-ending-btn bdyt-ending-next ">下一图集</span> </a> </li> </div> </div>
         </div>
     </script>
     <script type="text/template" id="tpl-bdyt-layer-main-bd-list-item">
-        <li class="bdyt-layer-main-bd-list-item" data-num="<%= num %>" data-img-id="<%= img_id %>"> <img src="<%= display_img_url||img_url %>" alt="" data-ori-width="<%= img_width %>" data-ori-height="<%= img_height %>" style="width:<%= img_width %>px;height:<%= img_height %>px;" class="bdyt-layer-main-bd-list-item-img" title="查看原文"> </li>
+        <li class="bdyt-layer-main-bd-list-item" data-num="<%= num %>" data-img-id="<%= img_id %>"> <img src="<%= display_img_url||img_url %>" alt="" data-ori-width="<%= img_width %>" data-ori-height="<%= img_height %>" style="width:<%= img_width %>px;height:<%= img_height %>px;" class="bdyt-layer-main-bd-list-item-img" title="查看原文" /> </li>
     </script>
     <script type="text/template" id="tpl-bdyt-layer-main-bd-detail">
         <div class="bdyt-layer-main-bd-detail-content"> <span class="bdyt-layer-main-bd-detail-num-current"><%= num %></span>/<span class="bdyt-layer-main-bd-detail-num-all"><%= length %></span> <span><%= content_txt||page_title%></span> <% if(fruit_type == 2){%> <a href="#" rid="<%= rid%>" target="_blank" class="bdyt-layer-main-bd-detail-ad-link" mod_id="layer_ft" fruit_type="<%= fruit_type%>">去看看</a> <%}%> <% if(fruit_type != 2){%> <a href="#" rid="<%= rid%>" target="_blank" class="bdyt-layer-main-bd-detail-src-article" mod_id="layer_ft">查看原文>></a> <%}%> </div>
     </script>
     <script type="text/template" id="tpl-bdyt-layer-main-ft-list-item">
         <% for(var i = 0; i < length; i++) { %>
-        <li class="bdyt-layer-main-ft-list-item<% if( i+1 == num) { %> bdyt-layer-main-ft-list-item-current<% } %>" data-num="<%= i+1 %>"> <a href="#" title="" class="bdyt-layer-main-ft-list-link" data-num="<%= i+1 %>" data-img-id="<%= img_list[i].img_id%>"> <!--<div class="<% if( i+1 != num) { %> bdyt-layer-main-ft-list-float<% } %>"></div>--> <img src="<%= img_list[i].thumbnail_url%>" alt=""> </a> </li> <% } %> <% if( gallery_num < rec_list_len ){%>
-        <li class="bdyt-layer-main-ft-list-item bdyt-layer-main-ft-list-item-add" data-num="<%= newLength %>"> <a href="#" class="bdyt-layer-main-ft-list-item-next-link" title="" data-num="<%= newLength %>"> <span class="bdyt-layer-main-ft-list-item-next">下一图集</span> <img class="bdyt-layer-main-ft-list-item-next-img" src="" alt=""> </a> </li> <% } %>
+        <li class="bdyt-layer-main-ft-list-item<% if( i+1 == num) { %> bdyt-layer-main-ft-list-item-current<% } %>" data-num="<%= i+1 %>"> <a href="#" title="" class="bdyt-layer-main-ft-list-link" data-num="<%= i+1 %>" data-img-id="<%= img_list[i].img_id%>"> <!--<div class="<% if( i+1 != num) { %> bdyt-layer-main-ft-list-float<% } %>"></div>--> <img src="<%= img_list[i].thumbnail_url%>" alt="" /> </a> </li> <% } %> <% if( gallery_num < rec_list_len ){%>
+        <li class="bdyt-layer-main-ft-list-item bdyt-layer-main-ft-list-item-add" data-num="<%= newLength %>"> <a href="#" class="bdyt-layer-main-ft-list-item-next-link" title="" data-num="<%= newLength %>"> <span class="bdyt-layer-main-ft-list-item-next">下一图集</span> <img class="bdyt-layer-main-ft-list-item-next-img" src="" alt="" /> </a> </li> <% } %>
     </script>
     <script type="text/template" id="tpl-bdyt-layer-main-bd-list">
         <ul id="bdyt-layer-main-bd-list" class="bdyt"> <% _.each(data,function(value,index,list){ %> <li class="bdyt-layer-main-bd-list-item" data-num="<%= value.num %>" data-img-id="<%= value.img_id %>"> <a class="bdyt-layer-main-bd-list-item-link" data-ori-width="<%= value.img_width %>" data-ori-height="<%= value.img_height %>" style="width:<%= value.img_width %>px; height:<%= value.img_height %>px;"> <!--植入广告"推广"图标--> <% if(fruit_type == 2){%> <span class="bdyt-ad-icon" img_id="<%= value.img_id%>"> 推广 </span> <%}%> <img org-src="<%= value.display_img_url||value.img_url %>" alt="" class="bdyt-layer-main-bd-list-item-img" src-title="查看原文" /> href="#" mod_id="layer_bd" rid="<%= rid%>" fruit_type="<%= fruit_type%>"> </a> </li> <% }) %> </ul>
     </script>
     <script type="text/template" id="tpl-bdyt-layer-sidebar-rec-item">
         <% for(var i = 0; i < length; i++) { %>
-        <li class="bdyt-layer-sidebar-rec-item<% if(listData[i].num==currentItemNum) {%> bdyt-layer-sidebar-rec-item-current<% } %>"> <a href="#" class="bdyt-layer-sidebar-rec-item-link" data-gallery-id="<%= listData[i].gallery_id %>" data-num="<%= listData[i].num %>" data-rele-type="<%= listData[i].rele_type %>"> <!--植入广告"推广"图标--> <!-- <% if(listData[i].fruit_type == 2){%> <span class="bdyt-ad-icon"> 推广 </span> <%}%> --> <img src="<%= listData[i].thumbnail_url %>" alt="<%= listData[i].page_title %>" class="bdyt-layer-sidebar-rec-item-img" data-img-id="<%= listData[i].img_id %>"> <div class="bdyt-layer-sidebar-rec-item-title" src-title="<%= listData[i].page_title %>"> <p class="bdyt-layer-sidebar-rec-item-title-inner"> <%= listData[i].page_title %> </p> </div> </a> </li> <% } %>
+        <li class="bdyt-layer-sidebar-rec-item<% if(listData[i].num==currentItemNum) {%> bdyt-layer-sidebar-rec-item-current<% } %>"> <a href="#" class="bdyt-layer-sidebar-rec-item-link" data-gallery-id="<%= listData[i].gallery_id %>" data-num="<%= listData[i].num %>" data-rele-type="<%= listData[i].rele_type %>"> <!--植入广告"推广"图标--> <!-- <% if(listData[i].fruit_type == 2){%> <span class="bdyt-ad-icon"> 推广 </span> <%}%> --> <img src="<%= listData[i].thumbnail_url %>" alt="<%= listData[i].page_title %>" class="bdyt-layer-sidebar-rec-item-img" data-img-id="<%= listData[i].img_id %>" /> <div class="bdyt-layer-sidebar-rec-item-title" src-title="<%= listData[i].page_title %>"> <p class="bdyt-layer-sidebar-rec-item-title-inner"> <%= listData[i].page_title %> </p> </div> </a> </li> <% } %>
     </script>
     <script type="text/template" id="tpl-bdyt-layer-sidebar-rec-pager-item">
         <% if(allPageNum > 1) { %> <% for(var i = 1; i <= allPageNum; i++) { %>
         <a href="#" class="bdyt-layer-sidebar-rec-pager-item<% if(i==pageNum) {%> bdyt-layer-sidebar-rec-pager-item-current<% } %>" data-num="<%= i %>"><%= i %></a> <% } %> <% } %>
     </script>
     <script type="text/template" id="tpl-bdyt-layer">
-        <div class="bdyt-layer-bd"> <div class="bdyt-layer-main-wrap"> <div class="bdyt-layer-main"> <div class="bdyt-layer-main-hd"> <div class="bdyt-layer-main-hd-tool"> <!-- <a href="#" class="bdyt-layer-main-hd-tool-share bds_more">分享</a> --> <a href="#" target="_blank" class="bdyt-layer-main-hd-tool-download" download>下载</a> <a href="#" target="_blank" class="bdyt-layer-main-hd-tool-ori" mod_id="layer_hd">查看原文<span class="bdyt-layer-simsun">&gt;&gt;</span></a> </div> <h2 class="bdyt-layer-main-hd-title"> <a class="bdyt-layer-main-hd-title-link" mod_id="layer_hd" href="#" title="" target="_blank"></a> </h2> </div> <div class="bdyt-layer-main-bd"> <!--<a class="bdyt-layer-main-bd-list-prev"></a> <a class="bdyt-layer-main-bd-list-next"></a>--> <ul class="bdyt-layer-main-bd-list"> </ul> <div class="bdyt-layer-main-bd-detail"> </div> <div class="bdyt-layer-main-bd-pagger-wrapper-prev bdyt-layer-main-bd-pagger-wrapper"> <a href="#" class="bdyt-layer-main-bd-prev"></a> <a href="#" class="bdyt-layer-main-bd-tip bdyt-layer-main-bd-tip-prev">上一图集</a> </div> <div class="bdyt-layer-main-bd-pagger-wrapper-next bdyt-layer-main-bd-pagger-wrapper"> <a href="#" class="bdyt-layer-main-bd-next"></a> <a href="#" class="bdyt-layer-main-bd-tip bdyt-layer-main-bd-tip-next">下一图集</a> </div> </div> <div class="bdyt-layer-main-ft"> <div class="bdyt-layer-main-ft-list-wrap"> <div class="bdyt-layer-main-ft-list-wrap-inner"> <ul class="bdyt-layer-main-ft-list"></ul> </div> </div> <a href="#" class="bdyt-layer-main-ft-prev"></a> <a href="#" class="bdyt-layer-main-ft-next"></a> <a href="#" class="bdyt-layer-main-ft-switch"></a> </div> <div id="bdyt-layer-main-ad"></div> </div> </div> <div class="bdyt-layer-sidebar"> <div class="bdyt-layer-sidebar-rec"> <div class="bdyt-layer-sidebar-rec-title">推荐图集</div> <ul class="bdyt-layer-sidebar-rec-list"></ul> <div class="bdyt-layer-sidebar-rec-pager"></div> </div> <div class="bdyt-layer-sidebar-hot-rec"></div> <div id="bdyt-layer-sidebar-ad"></div> <a href="#" target="_blank" class="bdyt-layer-sidebar-rec-link">百度云图强力驱动</a> </div> </div>
+        <div class="bdyt-layer-bd"> <div class="bdyt-layer-main-wrap"> <div class="bdyt-layer-main"> <div class="bdyt-layer-main-hd"> <div class="bdyt-layer-main-hd-tool"> <!-- <a href="#" class="bdyt-layer-main-hd-tool-share bds_more">分享</a> --> <a href="#" target="_blank" class="bdyt-layer-main-hd-tool-download" download=download>下载</a> <a href="#" target="_blank" class="bdyt-layer-main-hd-tool-ori" mod_id="layer_hd">查看原文<span class="bdyt-layer-simsun">&gt;&gt;</span></a> </div> <h2 class="bdyt-layer-main-hd-title"> <a class="bdyt-layer-main-hd-title-link" mod_id="layer_hd" href="#" title="" target="_blank"></a> </h2> </div> <div class="bdyt-layer-main-bd"> <!--<a class="bdyt-layer-main-bd-list-prev"></a> <a class="bdyt-layer-main-bd-list-next"></a>--> <ul class="bdyt-layer-main-bd-list"> </ul> <div class="bdyt-layer-main-bd-detail"> </div> <div class="bdyt-layer-main-bd-pagger-wrapper-prev bdyt-layer-main-bd-pagger-wrapper"> <a href="#" class="bdyt-layer-main-bd-prev"></a> <a href="#" class="bdyt-layer-main-bd-tip bdyt-layer-main-bd-tip-prev">上一图集</a> </div> <div class="bdyt-layer-main-bd-pagger-wrapper-next bdyt-layer-main-bd-pagger-wrapper"> <a href="#" class="bdyt-layer-main-bd-next"></a> <a href="#" class="bdyt-layer-main-bd-tip bdyt-layer-main-bd-tip-next">下一图集</a> </div> </div> <div class="bdyt-layer-main-ft"> <div class="bdyt-layer-main-ft-list-wrap"> <div class="bdyt-layer-main-ft-list-wrap-inner"> <ul class="bdyt-layer-main-ft-list"></ul> </div> </div> <a href="#" class="bdyt-layer-main-ft-prev"></a> <a href="#" class="bdyt-layer-main-ft-next"></a> <a href="#" class="bdyt-layer-main-ft-switch"></a> </div> <div id="bdyt-layer-main-ad"></div> </div> </div> <div class="bdyt-layer-sidebar"> <div class="bdyt-layer-sidebar-rec"> <div class="bdyt-layer-sidebar-rec-title">推荐图集</div> <ul class="bdyt-layer-sidebar-rec-list"></ul> <div class="bdyt-layer-sidebar-rec-pager"></div> </div> <div class="bdyt-layer-sidebar-hot-rec"></div> <div id="bdyt-layer-sidebar-ad"></div> <a href="#" target="_blank" class="bdyt-layer-sidebar-rec-link">百度云图强力驱动</a> </div> </div>
         <a href="#" class="bdyt-layer-close"></a>
-
     </script>
     <script type="text/template" id="tpl-bdyt-layer-hot">
         <div class="bdyt-layer-hot-top"></div>
@@ -2083,7 +2045,6 @@
         </div>
         <% }) %>
         <div class="bdyt-layer-hot-bottom"></div>
-    </script><div class="bdyt bdyt-layer" style="display:none;"></div><div id="bdcs-tooltip-panel" class="bdcs-tooltip-panel"><a id="bdcs-tooltip-adv" class="bdcs-tooltip-adv" target="_blank"><img id="bdcs-tooltip-adv-img" class="bdcs-tooltip-adv-img" style="height: 200px; width: 260px; border: 0px none; position: absolute; z-index: 4;"></a><i class="bdcs-tooltip-arrow">◆</i><i class="bdcs-tooltip-arrowinner">◆</i></div><div id="bdyt_mouse_hover_tip">点击看套图</div><div style="position: absolute; width: 100%; top: 0px; left: 0px;" class="bdyt bdyt-index"></div>
-
+    </script><div class="bdyt bdyt-layer" style="display:none;"></div><div id="bdcs-tooltip-panel" class="bdcs-tooltip-panel"><a id="bdcs-tooltip-adv" class="bdcs-tooltip-adv" target="_blank"><img id="bdcs-tooltip-adv-img" class="bdcs-tooltip-adv-img" style="height: 200px; width: 260px; border: 0px none; position: absolute; z-index: 4;" /></a><i class="bdcs-tooltip-arrow">◆</i><i class="bdcs-tooltip-arrowinner">◆</i></div><div id="bdyt_mouse_hover_tip">点击看套图</div><div style="position: absolute; width: 100%; top: 0px; left: 0px;" class="bdyt bdyt-index"></div>
 </body>
 </html>

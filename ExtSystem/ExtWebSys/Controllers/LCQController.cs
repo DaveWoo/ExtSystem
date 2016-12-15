@@ -1,78 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ExtWebSys.Controllers
 {
-    public class LCQController : Controller
-    {
-       
+	public class LCQController : Controller
+	{
+		public ActionResult Index()
+		{
+			return View();
+		}
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+		public ActionResult Login()
+		{
+			byte bt = BLL.Fun.Auto_Login_Admin();
+			switch (bt)
+			{
+				case 1:
 
+					return RedirectToAction("main", "LCQ");
 
-    
-        public ActionResult Login()
-        {
+				case 2:
 
-          
-            byte bt = BLL.Fun.Auto_Login_Admin();
-            switch (bt)
-            {
+					return RedirectToAction("main", "LCQ");
 
-                case 1:
+				default:
 
-                    return RedirectToAction("main", "LCQ");
+					break;
+			}
 
+			return View();
+		}
 
+		public ActionResult Main()
+		{
+			byte bt = BLL.Fun.Auto_Login_Admin();
+			switch (bt)
+			{
+				case 1:
 
+					return View();
 
-                case 2:
+				case 2:
 
+					return View();
 
-                    return RedirectToAction("main", "LCQ");
-
-
-                default:
-
-
-                    break;
-
-            }
-
-            return View();
-        }
-        public ActionResult Main()
-        {
-            byte bt = BLL.Fun.Auto_Login_Admin();
-            switch (bt)
-            {
-
-                case 1:
-
-
-                    return View();
-
-
-
-                case 2:
-
-                    return View();
-                 
-
-
-                default:
-                    return RedirectToAction("login", "LCQ");
-
-            
-
-            }
-           
-        }
-    }
+				default:
+					return RedirectToAction("login", "LCQ");
+			}
+		}
+	}
 }

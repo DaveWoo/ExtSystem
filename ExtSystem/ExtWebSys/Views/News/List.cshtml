@@ -1,17 +1,17 @@
 ﻿@{
     ViewBag.Title = "list";
-   
+
     Layout = "~/Views/Shared/_LayoutNews.cshtml";
 }
 
 @model NModel.NewsPager
+@using Webdiyer.WebControls.Mvc;
 <div class="erji">
 
-  @{var newsClassify = Model.IDictMenu["新闻分类"]; 
-    var newsListPager=Model.IDctPagedNews["新闻列表"];
-    
+    @{var newsClassify = Model.IDictMenu["新闻分类"];
+    var newsListPager = Model.IDctPagedNews["新闻列表"];
+
     }
-   
 
     @{ foreach (var model in newsClassify)
      {
@@ -22,14 +22,9 @@
          }
          else
          {
-            <a  href="/news/list/@(model.Menu_Num)">@(model.Menu_Name)</a>
+            <a href="/news/list/@(model.Menu_Num)">@(model.Menu_Name)</a>
          }
-
-
      } }
- 
-  
-   
 </div>
 
 <div class="box">
@@ -39,33 +34,43 @@
         </h2>
         <ul class="pdlist">
 
+            @{
+                if (newsListPager != null)
+                {
+                    foreach (var list in newsListPager)
+                    {
 
-              @{ 
-                  if (newsListPager != null) { 
-                  foreach (var list in newsListPager)
-               {
+                        <li>
+                            <p>
+                                <span>@(list.News_AddTime) 阅读(@(list.News_ClickRate))</span><a target="_blank" href="/news/Detailed/@(list.News_ID)"><strong>@(list.News_Title)</strong></a>
+                            </p>
+                            <p class="f12">
+                                @(Tool.NFactory.NohtmlStrFormat((list.News_Summary + ""), 80, ""))
+                                <a target="_blank" href="/news/Detailed/@(list.News_ID)" rel="nofollow">[详情]</a>
+                            </p>
+                        </li>
 
-                <li>
-                    <p>
-                        <span>@(list.News_AddTime) 阅读(@(list.News_ClickRate))</span><a target="_blank" href="/news/Detailed/@(list.News_ID)"><strong>@(list.News_Title)</strong></a>
-                    </p>
-                    <p class="f12">
-                        @(Tool.NFactory.NohtmlStrFormat((list.News_Summary+""),80,""))
-                        <a target="_blank" href="/news/Detailed/@(list.News_ID)" rel="nofollow">[详情]</a>
-                    </p>
-                </li>
-
-               }
-                  }}
-           
+                    }
+                }}
         </ul>
         <p class="paging mar_t30">
 
-            @Html.Pager(newsListPager, new PagerOptions { PageIndexParameterName = "pageindex", PagerItemsSeperator = "", CurrentPagerItemWrapperFormatString = "<span class=\"current\">{0}</span>" }, new { id = "badoopager" })
+            @Html.Pager(newsListPager, new PagerOptions
+       {
+           PageIndexParameterName = "pageindex",
+           FirstPageText = "<<",
+           LastPageText = ">>",
+           NextPageText = ">",
+           PrevPageText = "<",
+           ContainerTagName = "ul",
+           CssClass = "pagination pagination-sm",
+           CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+           DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+           PagerItemTemplate = "<li>{0}</li>"
+       })
         </p>
         <p></p>
         <!-- 热门职位推荐 start -->
-       
         <!-- 热门职位推荐 end -->
     </div>
     @Html.Partial("_PartialNewsRight")

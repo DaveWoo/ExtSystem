@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NModel
+﻿namespace NModel
 {
-    public class UserPager : NModel.NewsPager
-    {
-
-     
-    }
+	public class UserPager : NModel.NewsPager
+	{
+	}
 }

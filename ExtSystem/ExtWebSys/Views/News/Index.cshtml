@@ -1,9 +1,6 @@
 ﻿@{
-  
-    
     ViewBag.Index = "00";
     Layout = "~/Views/Shared/_LayoutNews.cshtml";
-   
 }
 @model NModel.NewsPager
 <div class="clear"></div>
@@ -13,12 +10,10 @@
         <h2 class="jd">焦点资讯</h2>
         <ul class="j">
 
-            @{ foreach(var model in Model.IDctNewsList["left"]){
-               
-                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-               
-               }}
-          
+            @{ foreach (var model in Model.IDctNewsList["left"])
+             {
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+             }}
         </ul>
     </div>
     <div class="imgs fl">
@@ -36,7 +31,6 @@
                 var links = "";
                 var texts = "";
 
-
                 @{ int adcount = 0;
                    foreach (var model in Model.IDictListAd["中间广告"])
                    {
@@ -44,16 +38,8 @@
                        Output.WriteLine(string.Format(" linkarr[{0}] = \"{1}\";",adcount,model.AD_URL));
                        Output.WriteLine(string.Format(" picarr[{0}] = \"{1}\";", adcount,"http://"+ this.Request.Url.Authority+(model.AD_Img + "").Split(',')[0]));
                        Output.WriteLine(string.Format(" textarr[{0}] = \"{1}\";",adcount,model.AD_Name));
-                      
-                       
-                    
-                   
-                   
-                   
-                   }}
-               
-               
 
+                   }}
 
                 for (i = 1; i < picarr.length; i++) {
                     if (files == "")
@@ -92,19 +78,16 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["right"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
-   
 </div>
 
 <div class="clear"></div>
 <div class="box gonglue zcc">
     <h3>职场资讯</h3>
-   
+
     <div class=" small  fl">
         <div class="xbt">
             <h4>就业动态</h4>
@@ -113,9 +96,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0101"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -127,9 +108,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0102"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -139,19 +118,17 @@
             <a rel="nofollow" href="/news/list/0103" target="_blank">[更多]</a>
         </div>
         <ul class="j">
-           @{ foreach (var model in Model.IDctNewsList["0103"])
- {
-
-    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
- }}
+            @{ foreach (var model in Model.IDctNewsList["0103"])
+             {
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+             }}
         </ul>
     </div>
     <div class="clear"></div>
 </div>
 <div class="box mianshi zcc">
     <h3>简历攻略</h3>
-    
+
     <div class=" small  fl">
         <div class="xbt">
             <h4>简历技巧</h4>
@@ -159,11 +136,9 @@
         </div>
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0201"])
- {
-
-    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
- }}
+             {
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+             }}
         </ul>
     </div>
     <div class=" middle  fl">
@@ -173,12 +148,9 @@
         </div>
         <ul class="j">
 
-           
             @{ foreach (var model in Model.IDctNewsList["0202"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -190,9 +162,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0203"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -201,7 +171,7 @@
 </div>
 <div class="box xinzi zcc">
     <h3>面试指南</h3>
-    
+
     <div class=" small  fl">
         <div class="xbt">
             <h4>面试技巧</h4>
@@ -209,11 +179,9 @@
         </div>
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0303"])
- {
-
-    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
- }}
+             {
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+             }}
         </ul>
     </div>
     <div class=" middle  fl">
@@ -224,9 +192,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0302"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -238,9 +204,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0301"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -248,7 +212,7 @@
 </div>
 <div class="box shenzai zcc">
     <h3>薪酬福利</h3>
-    
+
     <div class=" small  fl">
         <div class="xbt">
             <h4>升职加薪</h4>
@@ -257,9 +221,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0403"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -271,9 +233,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0402"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -285,9 +245,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0401"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -295,19 +253,17 @@
 </div>
 <div class="box laodong zcc">
     <h3>身在职场</h3>
-    
+
     <div class=" small  fl">
         <div class="xbt">
             <h4>职场充电</h4>
             <a rel="nofollow" href="/news/list/0504" target="_blank">[更多]</a>
         </div>
         <ul class="j">
-           @{ foreach (var model in Model.IDctNewsList["0504"])
- {
-
-    <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
- }}
+            @{ foreach (var model in Model.IDctNewsList["0504"])
+             {
+                <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
+             }}
         </ul>
     </div>
     <div class=" middle  fl">
@@ -318,9 +274,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0503"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -332,9 +286,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0502"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -343,7 +295,7 @@
 </div>
 <div class="box zichang zcc">
     <h3>劳动法苑</h3>
-    
+
     <div class=" small  fl">
         <div class="xbt">
             <h4>规避陷阱</h4>
@@ -352,9 +304,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0603"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>
@@ -366,9 +316,7 @@
         <ul class="j">
             @{ foreach (var model in Model.IDctNewsList["0602"])
              {
-
                 <li><a href="/news/Detailed/@(model.News_ID)">@(model.News_Title)</a></li>
-
              }}
         </ul>
     </div>

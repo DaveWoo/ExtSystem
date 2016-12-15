@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ExtWebSys.Controllers
 {
-    public class AdminSelectItemController : Controller
-    {
-        //
-        // GET: /Select_item_tree/
+	public class AdminSelectItemController : Controller
+	{
+		//
+		// GET: /Select_item_tree/
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+		public ActionResult Index()
+		{
+			return View();
+		}
 
-        public ActionResult Select_item_tree_admin_role() {
+		public ActionResult Select_item_tree_admin_role()
+		{
+			return View();
+		}
 
-            return View();
-        }
-        public ActionResult Select_item_tree()
-        {
-            return View();
-        }
-    }
+		public ActionResult Select_item_tree()
+		{
+			return View();
+		}
+	}
 }

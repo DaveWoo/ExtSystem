@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DAL;
+﻿using DAL;
 
 namespace BLL
 {
-    public  class Admin_Menu:NSPMsSql<NModel.Admin_Menu>
-    {
-
-
-
-    }
+	public class Admin_Menu : NSPMsSql<NModel.Admin_Menu>
+	{
+	}
 }
