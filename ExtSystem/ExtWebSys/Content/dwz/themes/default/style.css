@@ -25,7 +25,7 @@
 /* TabsPage */
 .tabsPage .tabsPageHeader, .tabsPage .tabsPageHeader li, .tabsPage .tabsPageHeader li a, .tabsPage .tabsPageHeader li span { background:url(./images/tabs/tabspage.png) no-repeat;}
 .tabsPage .tabsPageHeader { background-color:#e9f0f2;}
-.tabsPage .tabsPageHeader { border-color:#b8d0d6;}
+
 .tabsPage .tabsPageHeader li a { color:#183152;}
 .tabsPage .tabsLeft, .tabsPage .tabsRight, .tabsPage .tabsMore { background:url(./images/tabs/tabscontrol.png) no-repeat;}
 .tabsPage .tabsMoreList { border-color:#b8d0d6; background:#FFF;}

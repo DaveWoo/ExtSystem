@@ -8,19 +8,12 @@
 <script>
     $(function () {
         var treeOneByOne = $(".treeOneByOne");
-
-
         function toJsonOneByOneTree(dataRows) {
-        
-            var htmlStr="";
+
+            var htmlStr = "";
             if (!dataRows) return "";
 
             for (var i = 0; i < dataRows.length; i++) {
-                
-               
-               
-                
-               
                 var menu_id = dataRows[i].menu_id;
                 var menu_name = dataRows[i].menu_name;
                 var menu_url = dataRows[i].menu_url;
@@ -36,21 +29,16 @@
                 var menu_addtime = dataRows[i].menu_addtime;
                 var menu_edittime = dataRows[i].menu_edittime;
                 var iconCls = dataRows[i].iconCls;
-                htmlStr+='<div class="accordionHeader">';
+                htmlStr += '<div class="accordionHeader">';
                 htmlStr += '<h2><span style="height: 16px; margin-right: 2px; margin-top: 4px;width: 16px;background-position: 0 0;background:url(/Content/img/cw_icon/' + menu_img_url.replace("cw_", "") + '.png)">Folder</span>' + menu_name + '</h2>';
-                htmlStr+='</div><div class="accordionContent">';
+                htmlStr += '</div><div class="accordionContent">';
 
-                htmlStr += '<ul class="tree treeFolder collapse">  '
-          
+                htmlStr += '<ul class="tree treeFolder">  '
+
                 var _rchildren = dataRows[i].children;
                 htmlStr += ToJsonShowTree(_rchildren);
-                   
+
                 htmlStr += '</ul></div>'
-                
-               
-
-
-
             }
 
             return htmlStr;
@@ -58,15 +46,10 @@
 
         var stylecol = "";
         function ToJsonShowTree(dt) {
-
-
             var htmlTree = "";
-
             var rows = dt;
             if (!rows) return "";
             for (var i = 0; i < rows.length; i++) {
-
-            
                 var menu_id = rows[i].menu_id;
                 var menu_name = rows[i].menu_name;
                 var menu_url = rows[i].menu_url;
@@ -83,32 +66,28 @@
                 var menu_edittime = rows[i].menu_edittime;
                 var iconCls = rows[i].iconCls;
 
-
                 stylecol += '<style>.menu_' + menu_id + ' .folder_collapsable,.menu_' + menu_id + '  .file{height: 16px; margin-right: 2px; margin-top: 2px;width: 16px; background-position: 0 0;background-position: 0 0;background:url(/Content/img/cw_icon/' + menu_img_url.replace("cw_", "") + '.png)  </style> '
                 htmlTree += "<li class='menu_" + menu_id + "' >"
                 {
-                var n_url = "";
-                var _html=""
-                if (menu_url != null && (menu_url + "").trim() != '') {
-                    if ((menu_url + "").indexOf("?") != -1) {
+                    var n_url = "";
+                    var _html = ""
+                    if (menu_url != null && (menu_url + "").trim() != '') {
+                        if ((menu_url + "").indexOf("?") != -1) {
 
-                        n_url = menu_url + "&nnn_menuID=" + menu_id;
+                            n_url = menu_url + "&nnn_menuID=" + menu_id;
 
-                    } else {
+                        } else {
 
 
-                        n_url = menu_url + "?nnn_menuID=" + menu_id;
+                            n_url = menu_url + "?nnn_menuID=" + menu_id;
+                        }
+                        _html = ' href="' + n_url + '"  target="navTab"'
                     }
-                    _html=' href="' + n_url + '"  target="navTab"'
-                }
-                else {
+                    else {
+                    }
 
 
-
-                }
-
-
-                htmlTree += '<a  id="nnn_menu_'+menu_id+'"   '+_html+'   rel="nnn_menu_' + menu_id + '" >' + menu_name + '</a>';
+                    htmlTree += '<a  id="nnn_menu_' + menu_id + '"   ' + _html + '   rel="nnn_menu_' + menu_id + '" >' + menu_name + '</a>';
                 }
                 var children = rows[i].children
                 if (children != null && children.length > 0) {
@@ -153,25 +132,15 @@
                                 _html = ' href="' + n_url + '"  target="navTab"'
                             }
                             else {
-
-
-
                             }
-
-
                             htmlTree += '<a  ' + _html + '   rel="nnn_menu_' + children_id + '" >' + children_name + '</a>';
                         }
                         if (_rchildren != null && _rchildren.length > 0) {
-
-
                             htmlTree += "<ul>";
                             htmlTree += ToJsonShowTree(_rchildren)
 
                             htmlTree += "</ul>";
                         } else {
-
-
-
                         }
 
                         htmlTree += "</li>";
@@ -188,7 +157,6 @@
             return htmlTree;
         }
 
-
         $.ajax({
             url: "/AdminData/Data_Left_Admin_Menu", async: false, success: function (data) {
 
@@ -196,13 +164,11 @@
 
                 if (dt == null) return;
                 var pageSize = dt.total;
-                var htmlContent =toJsonOneByOneTree(dt.rows)
-                
+                var htmlContent = toJsonOneByOneTree(dt.rows)
+
                 treeOneByOne.html(htmlContent + stylecol);
             }
         })
-
-
     })
 
 
@@ -210,19 +176,11 @@
 
 <div id="sidebar">
     <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
-
-    <div class="accordion  treeOneByOne"    fillspace="sidebar">
-       
-     
+    <div class="accordion  treeOneByOne" fillspace="sidebar">
         <div class="accordionContent">
             <ul class="tree treeFolder   ">
                 <li><a href="@Url.Content("/AdminItem/Item_admin_menu")" rel="AdminItem" target="navTab">菜单设置</a></li>
-
-
-
             </ul>
-
         </div>
-
     </div>
 </div>

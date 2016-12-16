@@ -173,6 +173,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\jike-header.css" />
     <Content Include="Content\css\Validform\images\arrow1.gif" />
     <Content Include="Content\css\Validform\images\arrow2.gif" />
     <Content Include="Content\css\Validform\images\error.png" />
@@ -2948,6 +2949,7 @@
     <Content Include="Html\LocalCity.html" />
     <Content Include="Html\Upload.html" />
     <Content Include="Html\w_removeSelected.html" />
+    <Content Include="JiKe.html" />
     <Content Include="plupload\js\i18n\ar.js" />
     <Content Include="plupload\js\i18n\az.js" />
     <Content Include="plupload\js\i18n\bs.js" />
@@ -3050,6 +3052,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\NLCQ\T1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3373,7 +3376,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>45749</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54660/</IISUrl>
+          <IISUrl>http://localhost:54661/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

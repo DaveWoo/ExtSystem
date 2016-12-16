@@ -24,7 +24,6 @@
 
 /* TabsPage */
 .tabsPage .tabsPageHeader, .tabsPage .tabsPageHeader li, .tabsPage .tabsPageHeader li a, .tabsPage .tabsPageHeader li span { background:url(./images/tabs/tabspage.png) no-repeat;}
-.tabsPage .tabsPageHeader { background-color:#e9f0f2;}
 .tabsPage .tabsPageHeader { border-color:#99bbe8;}
 .tabsPage .tabsPageHeader li a { color:#15428B;}
 .tabsPage .tabsLeft, .tabsPage .tabsRight, .tabsPage .tabsMore { background:url(./images/tabs/tabscontrol.png) no-repeat;}

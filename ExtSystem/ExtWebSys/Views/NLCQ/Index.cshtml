@@ -1,12 +1,8 @@
 ﻿@{
     ViewBag.Title = "Index";
 
-
     ViewBag.Index = "00";
     Layout = "~/Views/Shared/_LayoutNLcq.cshtml";
-    
-    
-   
 }
 @model NModel.NewsPager
 @{
@@ -21,27 +17,16 @@
 
         $(".CodeCatalogs .sw li").mouseenter(function () {
 
-
             $(".CodeCatalogs .sw li").css("background", "");
             $(this).css("background", "#38A4E0");
             $(".CodeCatalogs .sw li a").css("color", "");
             $(this).find("a").css("color", "#fff");
 
             var index = $(".CodeCatalogs .sw li").index(this);
-           
-
             var ullang = $(".ullang");
             ullang.hide();
             $(ullang[index]).show();
-           
-           
-
-
         })
-
-
-       
-
 
         function ScrollAuto(adcount) {
             var RunTime = 3000;
@@ -55,7 +40,6 @@
                 $("#banner-left").show();
                 ClearAutoScroll();
 
-    
             }).mouseleave(function () {
 
                 RunScroll();
@@ -64,20 +48,17 @@
             })
             $("#banner-left").click(function () {
                 if (IndexAd >= adcount - 1) {
-
-
                     return;
                 }
 
-             
                 IndexAd++;
 
                 $(".swiper-wrapper").animate({ right: IndexAd * ImgW }, "slow")
-               
+
                 bottomBarSelected(IndexAd)
             })
 
-            var btmBar=$(".swiper-pagination-switch");
+            var btmBar = $(".swiper-pagination-switch");
             function bottomBarSelected(idx) {
 
                 btmBar.removeClass("swiper-visible-switch");
@@ -88,9 +69,7 @@
                 $(btmBar[idx]).addClass("swiper-visible-switch");
             }
             $("#banner-right").click(function () {
-                if (IndexAd <=0) {
-
-
+                if (IndexAd <= 0) {
                     return;
                 }
 
@@ -98,43 +77,35 @@
 
                 $(".swiper-wrapper").animate({ right: IndexAd * ImgW }, "slow")
                 bottomBarSelected(IndexAd)
-
             })
-
-         
-
-
-
             bottomBarSelected(0)
             $(".swiper-wrapper").width(ImgW * adcount);
             function AutoScroll() {
-               
-                if (adcount-1 <= IndexAd) {
+
+                if (adcount - 1 <= IndexAd) {
                     isLeftRight = 1;
-                    IndexAd = adcount-1;
+                    IndexAd = adcount - 1;
                 }
 
                 if (IndexAd <= 0) {
                     isLeftRight = 0;
                     IndexAd = 0;
                 }
-              
+
                 if (isLeftRight == 1) {
 
                     IndexAd--;
                 } else {
-
                     IndexAd++;
-
                 }
-          
+
                 $(".swiper-wrapper").animate({ right: IndexAd * ImgW }, "slow")
                 bottomBarSelected(IndexAd)
             }
             function ClearAutoScroll() {
 
                 if (ObjInt != null) {
-                   
+
                     clearInterval(ObjInt);
 
                     ObjInt = null;
@@ -142,7 +113,7 @@
             }
 
             function RunScroll() {
-                if (ObjInt == null) { 
+                if (ObjInt == null) {
                     ObjInt = setInterval(function () { AutoScroll() }, RunTime)
                 }
             }
@@ -150,92 +121,77 @@
         }
 
         new ScrollAuto(4);
-
     })
-
 </script>
 <link href="~/Content/web/css/index.css" rel="stylesheet" />
 
-<div class="CodeCatalogs">
-    <ol class="sw">
-        <li ref="lang_catalogs" style="background:#38A4E0" class="tab on"><a style="color:#fff" href="?show=time">代码分类</a></li>
-
-       @{
-
-    {
-        IList<NModel.DB_Classify> modelOneLevel = materialClassify.Where(a => a.Classify_Z == 1).ToList();
-        foreach (var model in modelOneLevel)
-        {
-
-
-            <li ref="code_catalogs" class="tab"><a href="#">@(model.Classify_Name)</a></li>
-
-        }
-
-    }
-
-}
-       
-
-    </ol>
-
-    <div class="clear"></div>
-    <ul style="display: block;" class="lang_catalogs ullang">
-
-
-        @{
-            
-            { 
-            IList<NModel.DB_Classify>   modelOneLevel=   codeClassify.Where(a => a.Classify_Z == 1).ToList();
-            foreach (var model in modelOneLevel)
-            { 
-            
-              
-             <li><a href="#">@(model.Classify_Name)</a></li>
-            
-            }
-            
-            }
-            
-        }
-       
-       
-     
-        <div class="clear"></div>
-    </ul>
-  
-        @{
-
-      {
-        IList<NModel.DB_Classify> modelOneLevel = materialClassify.Where(a => a.Classify_Z == 1).ToList();
-        foreach (var model in modelOneLevel)
-        {
-            <ul class="code_catalogs ullang" style="display: none;">
+<div class="clear"></div>
+@*<ol class="sw">
+    <div class="CodeCatalogs">
+                <li ref="lang_catalogs" style="background:#38A4E0" class="tab on"><a style="color:#fff" href="?show=time">代码分类</a></li>
 
                 @{
-            foreach (var _model in materialClassify.Where(a => a.Classify_Z == 2 && a.Classify_X == model.Classify_X).ToList())
-             { 
-                      <li><a href="#">@(_model.Classify_Name)</a></li>
-                 }   
-                  }
-               
-              
+
+                    {
+                        IList<NModel.DB_Classify> modelOneLevel = materialClassify.Where(a => a.Classify_Z == 1).ToList();
+                        foreach (var model in modelOneLevel)
+                        {
+                <li ref="code_catalogs" class="tab"><a href="#">@(model.Classify_Name)</a></li>
+                        }
+                    }
+
+                }
+            </ol>
+
+            <div class="clear"></div>
+            <ul style="display: block;" class="lang_catalogs ullang">
+                @{
+
+                    {
+                        IList<NModel.DB_Classify> modelOneLevel = codeClassify.Where(a => a.Classify_Z == 1).ToList();
+                        foreach (var model in modelOneLevel)
+                        {
+
+                <li><a href="#">@(model.Classify_Name)</a></li>
+
+                        }
+
+                    }
+
+                }
+
                 <div class="clear"></div>
             </ul>
+
+        @{
+
+            {
+                IList<NModel.DB_Classify> modelOneLevel = materialClassify.Where(a => a.Classify_Z == 1).ToList();
+                foreach (var model in modelOneLevel)
+                {
+                    <ul class="code_catalogs ullang" style="display: none;">
+
+                        @{
+                    foreach (var _model in materialClassify.Where(a => a.Classify_Z == 2 && a.Classify_X == model.Classify_X).ToList())
+                    {
+                        <li><a href="#">@(_model.Classify_Name)</a></li>
+                    }
+                        }
+
+                        <div class="clear"></div>
+                    </ul>
+                }
+
+            }
+
         }
 
-    }
-
-}
-       
-    <div class="clear"></div>
-</div>
-
-
+        <div class="clear"></div>
+    </div>
+*@
 <div class="clear"></div>
 <div class="w-1000 mar-t20 cf">
     <!--nav-->
-
     <!--nav end-->
     <!--banner-->
     <div class="index-banner">
@@ -243,50 +199,34 @@
             <span class="arrow-left" id="banner-left" style="display: none;"></span>
             <span class="arrow-right" id="banner-right" style="display: none;"></span>
             <div class="swiper-wrapper" style="width:3414px; height: 298px; ">
-                
+
                 @{ int adcount = indexAdOne.Count;
-                   foreach (var model in indexAdOne)
+                 foreach (var model in indexAdOne)
                  {
-                     
+
                      //Output.WriteLine(string.Format(" linkarr[{0}] = \"{1}\";", adcount, model.AD_URL));
                      //Output.WriteLine(string.Format(" picarr[{0}] = \"{1}\";", adcount, "http://" + this.Request.Url.Authority + (model.AD_Img + "").Split(',')[0]));
                      //Output.WriteLine(string.Format(" textarr[{0}] = \"{1}\";", adcount, model.AD_Name));
 
-                         
-                <a style="background: url(@((model.AD_Img + "").Split(',')[0])); width: 778px; height: 298px;" class="swiper-slide swiper-slide2 swiper-slide-duplicate" target="_blank" href="#">
-                    <div class="swiper-box">
-                        <div class="banner-infor">
+                    <a style="background: url(@((model.AD_Img + "").Split(',')[0])); width: 778px; height: 298px;" class="swiper-slide swiper-slide2 swiper-slide-duplicate" target="_blank" href="#">
+                        <div class="swiper-box">
+                            <div class="banner-infor">
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-
-
+                    </a>
 
                  }}
-
-
-
-
-
-                
-              
             </div>
             <div class="pagination">
-            @{
-    for (var i = 0; i < adcount; i++)
-    {
+                @{
+                    for (var i = 0; i < adcount; i++)
+                    {
 
-        <span class="swiper-pagination-switch"></span>
+                        <span class="swiper-pagination-switch"></span>
 
-    }
+                    }
 
-
-}
-           
-          
-            
-            
+                }
             </div>
         </div>
     </div>
@@ -313,9 +253,9 @@
         </div>
     </div>
     <!--lesson-right-show end-->
-
-   
 </div>
+
+
 
 <div id="recommendName" class="hot-lesson w-1000 mar-t30">
     <ul class="cf">
@@ -327,7 +267,6 @@
         <li positionid="12">企业合作</li>
     </ul>
 </div>
-
 
 <div class="mar-t20 w-1000" id="hot-lessonbox">
     <div class="one-classfiy-lesson lesson-list" style="display: block;">
@@ -603,7 +542,6 @@
         </ul>
     </div>
 </div>
-
 
 <div class="mar-t20 w-1000" id="hot-lessonbox">
     <div style="display: none;" class="one-classfiy-lesson lesson-list">

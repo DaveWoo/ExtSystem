@@ -4,13 +4,8 @@
 }
 
 <link href="~/Content/web/css/register.css" rel="stylesheet" />
-
-
 <script src="~/Content/js/Validform_v5.3.2_min.js"></script>
 <link href="~/Content/css/Validform/style.css" rel="stylesheet" />
-
-
-
 
 <div class="clear" style="height:20px;"> </div>
 <div id="loginbox" class="feg-box w-1000 cf">
@@ -18,43 +13,43 @@
         <h2 class="f-title">会员登录</h2><div class="feg-inputlist mar-t40">
 
 
-                                         <form id="idform" method="post" action="/nlcq/login">
-                                             <input type="hidden" id="verifypwd" name="verifypwd" class="verifypwd" value="15162d86f9b1d8ea6d7af67ad1badca2">
-                                             <div class="inputbox cf mar-b20">
-                                                 <span class="input-name">邮箱/用户名</span>
-                                                 <input type="text" errormsg="用户名至少6个字符,最多18个字符！" datatype="s6-18"
-                                                         tip="请输入邮箱/用户名" value="请输入邮箱/用户名" altercss="gray" class="input-one inputxt" name="User_ID">
+            <form id="idform" method="post" action="/nlcq/login">
+                <input type="hidden" id="verifypwd" name="verifypwd" class="verifypwd" value="15162d86f9b1d8ea6d7af67ad1badca2">
+                <div class="inputbox cf mar-b20">
+                    <span class="input-name">邮箱/用户名</span>
+                    <input type="text" errormsg="用户名至少6个字符,最多18个字符！" datatype="s6-18"
+                           tip="请输入邮箱/用户名" value="请输入邮箱/用户名" altercss="gray" class="input-one inputxt" name="User_ID">
 
-                                                 <div class="Validform_checktip"></div>
-                                             </div>
-                                             <div class="inputbox cf mar-b20 password">
-                                                 <span class="input-name">密码</span>
-                                                 <input type="password" size="32" placeholder="" errormsg="用户名至少6个字符,最多18个字符！" 
-                                                        datatype="s6-18" tip="请输入密码" value="请输入密码" altercss="gray" class="input-one inputxt"
-                                                         name="User_Pw">
+                    <div class="Validform_checktip"></div>
+                </div>
+                <div class="inputbox cf mar-b20 password">
+                    <span class="input-name">密码</span>
+                    <input type="password" size="32" placeholder="" errormsg="用户名至少6个字符,最多18个字符！"
+                           datatype="s6-18" tip="请输入密码" value="请输入密码" altercss="gray" class="input-one inputxt"
+                           name="User_Pw">
 
-                                                 <div  class="Validform_checktip"></div>
-                                             </div>
+                    <div class="Validform_checktip"></div>
+                </div>
 
-                                             <div class="inputbox cf">
-                                                 <span class="input-name">验证码</span> 
-                                                 <input type="text" ajaxurl="/ajax/NUserYesNoCode" tip="请输入验证码" value="请输入验证码"
-                                                        datatype="s4-5" name="loginCaptcha"
-                                                        class="input-tow safe-number inputxt">
-                                                 <div class="security-code">
+                <div class="inputbox cf">
+                    <span class="input-name">验证码</span>
+                    <input type="text" ajaxurl="/ajax/NUserYesNoCode" tip="请输入验证码" value="请输入验证码"
+                           datatype="s4-5" name="loginCaptcha"
+                           class="input-tow safe-number inputxt">
+                    <div class="security-code">
 
-                                                     <img id="loginCaptcha" src="/Ajax/ImgCaptcha">
-                                                 </div><span class="warning-word" id="refresh_mainID">
-                                                     看不清楚？换一张
-                                                 </span>
+                        <img id="loginCaptcha" src="/Ajax/ImgCaptcha">
+                    </div><span class="warning-word" id="refresh_mainID">
+                        看不清楚？换一张
+                    </span>
 
-                                                 <div class="Validform_checktip"></div>
-                                             </div><div class="sevenday"><i class="choose-this checkbox"></i><input type="checkbox" name="isCutLoginStatus" value="1" />  6天内免登录</div><button type="submit" class="greenbtn">
-                                                 登录
-                                             </button><!--<div class="yhxy"><a href="#">《源码China用户协议》</a></div>-->
-                                             <a target="_blank" href="#">忘记密码</a>
+                    <div class="Validform_checktip"></div>
+                </div><div class="sevenday"><i class="choose-this checkbox"></i><input type="checkbox" name="isCutLoginStatus" value="1" />  6天内免登录</div><button type="submit" class="greenbtn">
+                    登录
+                </button><!--<div class="yhxy"><a href="#">《源码China用户协议》</a></div>-->
+                <a target="_blank" href="#">忘记密码</a>
 
-                                         </form>
+            </form>
         </div>
     </div><!--loginbox--><div class="right-loginbox"><h3>没有源码China账号？</h3><a class="btn" href="/nlcq/reg">立即注册</a><h3 class="mar-t50">用第三方账号登录</h3><ul class="lgin-box3"><li><a href="#"><img alt="qq登录" src="~/Content/web/img/qq-btn.png"></a></li><li><a href="#"><img alt="微博登录" src="~/Content/web/img/sina-btn.png"></a></li><li><a href="#"><img alt="eoe社区登录" src="~/Content/web/img/eoe-btn.png"></a></li></ul></div><!--loginbox-->
 </div>
@@ -76,17 +71,15 @@
                     objtip.text(msg);
                 }
             }
-       
+
     });
     $("#refresh_mainID").click(function () {
 
         RefreshCaptcha("#loginCaptcha");
-    
+
     })
     //刷新验证码
     function RefreshCaptcha(a) {
-
         $(a).attr("src", "/ajax/imgCaptcha?rn=" + Math.random());
-
     }
 </script>

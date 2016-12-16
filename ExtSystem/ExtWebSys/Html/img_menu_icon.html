@@ -1,58 +1,30 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
 </head>
 <body>
     <div class="pageContent">
-       
-
-
-            <div class="pageFormContent"  layouth="58" >
-               
-                <span style="  display:block" id="img_menu_icon"></span>
-               
-                
-
-                <script>
-
-                  
-                    $.ajax({
-                        url:"/Html/img_menu.html" , async: true, success: function (dt) {
-
-                            $("#img_menu_icon").html(dt);
-
-                        }
-                    })
-
-                </script>
-
-
-             
-
-
-
-
-
-
-
-            </div>
-
-
-
-            <div class="formBar">
-                <ul>
-                    <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
-                    <li><div class="buttonActive"><div class="buttonContent"><button onclick="fun_select_icon(this)" type="submit" class="close">选择</button></div></div></li>
-                    <li>
-                        <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
-                    </li>
-                </ul>
-            </div>
-          
+        <div class="pageFormContent" layouth="58">
+            <span style="  display:block" id="img_menu_icon"></span>
+            <script>
+                $.ajax({
+                    url: "/Html/img_menu.html", async: true, success: function (dt) {
+                        $("#img_menu_icon").html(dt);
+                    }
+                })
+            </script>
         </div>
-   
-
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button onclick="fun_select_icon(this)" type="submit" class="close">选择</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>

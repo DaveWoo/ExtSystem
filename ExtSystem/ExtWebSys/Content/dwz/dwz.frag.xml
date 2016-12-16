@@ -2,12 +2,13 @@
 <_AJAX_>
 
 <!-- dwz.dialog -->
-<_PAGE_ id="dialogFrag"><![CDATA[
+<_PAGE_ id="dialogFrag">
+                <![CDATA[
 <div class="dialog" style="top:150px; left:300px;">
 	<div class="dialogHeader" onselectstart="return false;" oncopy="return false;" onpaste="return false;" oncut="return false;">
 		<div class="dialogHeader_r">
 			<div class="dialogHeader_c">
-				<a class="close" href="#close">close</a>
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<a class="maximize" href="#maximize">maximize</a>
 				<a class="restore" href="#restore">restore</a>
 				<a class="minimize" href="#minimize">minimize</a>
@@ -29,12 +30,13 @@
 </div>
 ]]></_PAGE_>
 <!-- dwz.dialog shadow -->
-<_PAGE_ id="dialogProxy"><![CDATA[
+<_PAGE_ id="dialogProxy">
+                <![CDATA[
 <div id="dialogProxy" class="dialog dialogProxy">
 	<div class="dialogHeader">
 		<div class="dialogHeader_r">
 			<div class="dialogHeader_c">
-				<a class="close" href="#close">close</a>
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<a class="maximize" href="#maximize">maximize</a>
 				<a class="minimize" href="#minimize">minimize</a>
 				<h1></h1>
@@ -128,7 +130,8 @@
 <li><a class="button" rel="#callback#" onclick="alertMsg.close()" href="javascript:"><span>#butMsg#</span></a></li>
 ]]></_PAGE_>
 
-<_PAGE_ id="calendarFrag"><![CDATA[
+<_PAGE_ id="calendarFrag">
+                    <![CDATA[
 <div id="calendar">
 	<div class="main">
 		<div class="head">
@@ -136,7 +139,7 @@
 			<tr>
 				<td><select name="year"></select></td>
 				<td><select name="month"></select></td>
-				<td width="20"><span class="close">×</span></td>
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			</tr>
 			</table>
 		</div>

@@ -78,10 +78,6 @@ a:hover {text-decoration:underline;}
 .tabsPage .tabsPageHeader li.selected { background-position:0 -400px; background-repeat:repeat-x;}
 .tabsPage .tabsPageHeader li.selected a { font-weight:bold; background-position:0 -300px;}
 .tabsPage .tabsPageHeader li.selected span { background-position:100% -350px;}
-
-.tabsPage .tabsPageHeader li .close { display:block; overflow:hidden; width:11px; height:11px; padding:0; text-indent:-1000px; position:absolute; top:3px; right:2px;}
-.tabsPage .tabsPageHeader li .close:hover { background-position:0 -50px;}
-
 .tabsPage .tabsPageHeader li.main span { padding:2px 8px 0 3px;}
 .tabsPage .tabsPageHeader li .home_icon,
 .tabsPage .tabsPageHeader li.main .home_icon { width:auto; padding:0 0 0 15px; background-position:0 3px;}
