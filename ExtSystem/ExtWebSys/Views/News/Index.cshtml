@@ -2,6 +2,21 @@
     ViewBag.Index = "00";
     Layout = "~/Views/Shared/_LayoutNews.cshtml";
 }
+<style>
+    h4 {
+        border-left: 4px solid #3aa60d;
+        color: #333;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 20px;
+        overflow: hidden;
+        padding-left: 10px;
+        padding-right: 70px;
+        position: relative;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
 @model NModel.NewsPager
 <div class="clear"></div>
 
@@ -86,11 +101,12 @@
 
 <div class="clear"></div>
 <div class="box gonglue zcc">
-    <h3>职场资讯</h3>
-
+    <h3>
+        职场资讯
+    </h3>
     <div class=" small  fl">
         <div class="xbt">
-            <h4>就业动态</h4>
+            <h4 class="hd-title">就业动态</h4>
             <a rel="nofollow" href="/news/list/0101" target="_blank">[更多]</a>
         </div>
         <ul class="j">

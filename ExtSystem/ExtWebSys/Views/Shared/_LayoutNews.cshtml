@@ -1738,52 +1738,53 @@
 
     <!-- Baidu Button BEGIN -->
     <!-- Baidu Button END -->
-    <div id="topbar">
-        <div class="w pos">
-            <div class="bar_left">
-                <h2></h2>
-                <span id="ipconfig"></span>
-            </div>
-            <div class="bar_right">
-                <div id="login">
-                    <a rel="nofollow" target="_self" href="#">登录</a><span class="gap">|</span><a rel="nofollow" target="_self" href="#">注册</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="navlist">
-        <ul>
-            <li id="navbln">
-            </li>
-            <li><a target="_self" href="#">网站地图</a></li>
-            @*<li><a target="_self" href="#">APP大全</a></li>*@
-            <li><a target="_self" href="/main/ljob">全职招聘</a></li>
-            <li><a target="_self" href="/main/parttimejob">兼职招聘</a></li>
-            <li class="job_icon"><a target="_self" href="/main/FamousEnterprises">名企招聘</a></li>
-            <li class="sel" id="navbrn"><a href="/news">求职指南</a></li>
-        </ul>
-    </div>
+    @* <div id="topbar">
+              <div class="w pos">
+                  <div class="bar_left">
+                      <h2></h2>
+                      <span id="ipconfig"></span>
+                  </div>
+                  <div class="bar_right">
+                      <div id="login">
+                          <a rel="nofollow" target="_self" href="#">登录</a><span class="gap">|</span><a rel="nofollow" target="_self" href="#">注册</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <div id="navlist">
+              <ul>
+                  <li id="navbln">
+                  </li>
+                  <li><a target="_self" href="#">网站地图</a></li>
+                <li><a target="_self" href="#">APP大全</a></li>
+                      <li><a target="_self" href="/main/ljob">全职招聘</a></li>
+                      <li><a target="_self" href="/main/parttimejob">兼职招聘</a></li>
+                      <li class="job_icon"><a target="_self" href="/main/FamousEnterprises">名企招聘</a></li>
+                      <li class="sel" id="navbrn"><a href="/news">求职指南</a></li>
+                  </ul>
+              </div>    *@
     <div id="header">
         <div id="headerinside">
             <div id="logo">
-                <a target="_self" href="#"><img alt="中文最大生活信息门户" src="/content/web/img/microsoft.jpg"  /></a>
+                <a target="_self" href="#"><img alt="中文最大生活信息门户" src="/content/web/img/microsoft.jpg" /></a>
                 <h1>@(ViewBag.Name)</h1>
             </div>
-            <span class="rele"><a id="fabu" rel="nofollow" href="#">在线创建简历</a><a id="zhao" rel="nofollow" href="#">我要找工作</a></span>
+            @*<div class="rele"><a id="fabu" rel="nofollow" href="#">在线创建简历</a><a id="zhao" rel="nofollow" href="#">我要找工作</a></div>*@
         </div>
     </div>
-    <div id="nav">
-        <div id="navin">
+    <div id="navin">
+        <div id="nav">
+
             @{  string active = "class=active";  }
 
             <ul>
-                <li @(ViewBag.Index == "00" ? active : "")><a href="/news">首页</a></li>
-                <li @(ViewBag.Index == "01" ? active : "")><a href="/news/list/01"><span>职场资讯</span></a></li>
-                <li @(ViewBag.Index == "02" ? active : "")><a href="/news/list/02"><span>简历攻略</span></a></li>
-                <li @(ViewBag.Index == "03" ? active : "")><a href="/news/list/03"><span>面试指南</span></a></li>
-                <li @(ViewBag.Index == "04" ? active : "")><a href="/news/list/04"><span>薪酬福利</span></a></li>
-                <li @(ViewBag.Index == "05" ? active : "")><a href="/news/list/05"><span>身在职场</span></a></li>
-                <li @(ViewBag.Index == "06" ? active : "")><a href="/news/list/06"><span>劳动法苑</span></a></li>
+                <li @(ViewBag.Index == "00" ? active : "")=)><a href="/news">首页</a></li>
+                <li @(ViewBag.Index == "01" ? active : "")=)><a href="/news/list/01"><span>职场资讯</span></a></li>
+                <li @(ViewBag.Index == "02" ? active : "")=)><a href="/news/list/02"><span>简历攻略</span></a></li>
+                <li @(ViewBag.Index == "03" ? active : "")=)><a href="/news/list/03"><span>面试指南</span></a></li>
+                <li @(ViewBag.Index == "04" ? active : "")=)><a href="/news/list/04"><span>薪酬福利</span></a></li>
+                <li @(ViewBag.Index == "05" ? active : "")=)><a href="/news/list/05"><span>身在职场</span></a></li>
+                <li @(ViewBag.Index == "06" ? active : "")=)><a href="/news/list/06"><span>劳动法苑</span></a></li>
             </ul>
         </div>
     </div>

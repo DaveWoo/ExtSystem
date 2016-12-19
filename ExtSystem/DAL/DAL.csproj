@@ -70,9 +70,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tool">
-      <HintPath>..\Tool\bin\Debug\Tool.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +90,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{BAE73404-5D70-4CB2-9077-E07B15985B77}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tool\Tool.csproj">
+      <Project>{622794be-58c7-4cc5-a3d1-824b3c4df81c}</Project>
+      <Name>Tool</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
