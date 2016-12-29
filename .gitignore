@@ -1,0 +1,23 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/BLL/bin/Debug
+/src/BLL/obj/Debug
+/src/DAL/bin
+/src/DAL/obj/Debug
+/src/DAL/obj/Release
+/src/ExtWebSys/bin
+/src/ExtWebSys/obj
+/src/IDAL/bin/Debug
+/src/IDAL/obj/Debug
+/src/Model/bin
+/src/Model/obj
+/src/packages
+/src/Tool/bin
+/src/Tool/obj
+/src/IDAL/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+/src/BLL/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+/src/Model/Model.csproj.user
+/src/ExtWebSys/ExtWebSys.csproj.user
+*.suo
