@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "MainLeft";
+
+    Layout = "";
+}
+
+
+<script>
+    $(function () {
+        var treeOneByOne = $(".treeOneByOne");
+        function toJsonOneByOneTree(dataRows) {
+
+            var htmlStr = "";
+            if (!dataRows) return "";
+
+            for (var i = 0; i < dataRows.length; i++) {
+                var menu_id = dataRows[i].menu_id;
+                var menu_name = dataRows[i].menu_name;
+                var menu_url = dataRows[i].menu_url;
+                var menu_status_show = dataRows[i].menu_status_show;
+                var menu_status = dataRows[i].menu_status;
+                var menu_x = dataRows[i].menu_x;
+                var menu_y = dataRows[i].menu_y;
+                var menu_z = dataRows[i].menu_z;
+                var menu_sortno = dataRows[i].menu_sortno;
+                var menu_operate = dataRows[i].menu_operate;
+                var menu_operate_show = dataRows[i].menu_operate_show;
+                var menu_img_url = dataRows[i].menu_img_url;
+                var menu_addtime = dataRows[i].menu_addtime;
+                var menu_edittime = dataRows[i].menu_edittime;
+                var iconCls = dataRows[i].iconCls;
+                htmlStr += '<div class="accordionHeader">';
+                htmlStr += '<h2><span style="height: 16px; margin-right: 2px; margin-top: 4px;width: 16px;background-position: 0 0;background:url(/Content/img/cw_icon/' + menu_img_url.replace("cw_", "") + '.png)">Folder</span>' + menu_name + '</h2>';
+                htmlStr += '</div><div class="accordionContent">';
+
+                htmlStr += '<ul class="tree treeFolder">  '
+
+                var _rchildren = dataRows[i].children;
+                htmlStr += ToJsonShowTree(_rchildren);
+
+                htmlStr += '</ul></div>'
+            }
+
+            return htmlStr;
+        }
+
+        var stylecol = "";
+        function ToJsonShowTree(dt) {
+            var htmlTree = "";
+            var rows = dt;
+            if (!rows) return "";
+            for (var i = 0; i < rows.length; i++) {
+                var menu_id = rows[i].menu_id;
+                var menu_name = rows[i].menu_name;
+                var menu_url = rows[i].menu_url;
+                var menu_status_show = rows[i].menu_status_show;
+                var menu_status = rows[i].menu_status;
+                var menu_x = rows[i].menu_x;
+                var menu_y = rows[i].menu_y;
+                var menu_z = rows[i].menu_z;
+                var menu_sortno = rows[i].menu_sortno;
+                var menu_operate = rows[i].menu_operate;
+                var menu_operate_show = rows[i].menu_operate_show;
+                var menu_img_url = rows[i].menu_img_url;
+                var menu_addtime = rows[i].menu_addtime;
+                var menu_edittime = rows[i].menu_edittime;
+                var iconCls = rows[i].iconCls;
+
+                stylecol += '<style>.menu_' + menu_id + ' .folder_collapsable,.menu_' + menu_id + '  .file{height: 16px; margin-right: 2px; margin-top: 2px;width: 16px; background-position: 0 0;background-position: 0 0;background:url(/Content/img/cw_icon/' + menu_img_url.replace("cw_", "") + '.png)  </style> '
+                htmlTree += "<li class='menu_" + menu_id + "' >"
+                {
+                    var n_url = "";
+                    var _html = ""
+                    if (menu_url != null && (menu_url + "").trim() != '') {
+                        if ((menu_url + "").indexOf("?") != -1) {
+
+                            n_url = menu_url + "&nnn_menuID=" + menu_id;
+
+                        } else {
+
+
+                            n_url = menu_url + "?nnn_menuID=" + menu_id;
+                        }
+                        _html = ' href="' + n_url + '"  target="navTab"'
+                    }
+                    else {
+                    }
+
+
+                    htmlTree += '<a  id="nnn_menu_' + menu_id + '"   ' + _html + '   rel="nnn_menu_' + menu_id + '" >' + menu_name + '</a>';
+                }
+                var children = rows[i].children
+                if (children != null && children.length > 0) {
+
+                    htmlTree += "<ul>";
+                }
+                if (children != null)
+                    for (var j = 0; j < children.length; j++) {
+
+                        var children_id = children[j].menu_id;
+                        var children_name = children[j].menu_name;
+                        var children_url = children[j].menu_url;
+                        var children_status_show = children[j].menu_status_show;
+                        var children_status = children[j].menu_status;
+                        var children_x = children[j].menu_x;
+                        var children_y = children[j].menu_y;
+                        var children_z = children[j].menu_z;
+                        var children_sortno = children[j].menu_sortno;
+                        var children_operate = children[j].menu_operate;
+                        var children_operate_show = children[j].menu_operate_show;
+                        var children_img_url = children[j].menu_img_url;
+                        var children_addtime = children[j].menu_addtime;
+                        var children_edittime = children[j].menu_edittime;
+                        var iconCls = children[j].iconCls;
+
+                        var _rchildren = children[j].children;
+                        stylecol += '<style>.menu_' + children_id + ' .folder_collapsable,.menu_' + children_id + '  .file{ height: 16px; margin-right: 2px; margin-top: 2px;width: 16px;background-position: 0 0;background-position: 0 0;background:url(/Content/img/cw_icon/' + children_img_url.replace("cw_", "") + '.png)  </style> '
+                        htmlTree += "<li class='menu_" + children_id + "'>";
+                        {
+                            var n_url = "";
+                            var _html = ""
+                            if (children_url != null && (children_url + "").trim() != '') {
+                                if ((children_url + "").indexOf("?") != -1) {
+
+                                    n_url = children_url + "&nnn_menuID=" + children_id;
+
+                                } else {
+
+
+                                    n_url = children_url + "?nnn_menuID=" + children_id;
+                                }
+                                _html = ' href="' + n_url + '"  target="navTab"'
+                            }
+                            else {
+                            }
+                            htmlTree += '<a  ' + _html + '   rel="nnn_menu_' + children_id + '" >' + children_name + '</a>';
+                        }
+                        if (_rchildren != null && _rchildren.length > 0) {
+                            htmlTree += "<ul>";
+                            htmlTree += ToJsonShowTree(_rchildren)
+
+                            htmlTree += "</ul>";
+                        } else {
+                        }
+
+                        htmlTree += "</li>";
+
+                    }
+                if (children != null)
+                    if (children.length > 0) {
+
+                        htmlTree += "</ul>";
+                    }
+                htmlTree += "</li>"
+            }
+
+            return htmlTree;
+        }
+
+        $.ajax({
+            url: "/AdminData/Data_Left_Admin_Menu", async: false, success: function (data) {
+
+                var dt = eval('(' + data + ')');
+
+                if (dt == null) return;
+                var pageSize = dt.total;
+                var htmlContent = toJsonOneByOneTree(dt.rows)
+
+                treeOneByOne.html(htmlContent + stylecol);
+            }
+        })
+    })
+
+
+</script>
+
+<div id="sidebar">
+    <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
+    <div class="accordion  treeOneByOne" fillspace="sidebar">
+        <div class="accordionContent">
+            <ul class="tree treeFolder   ">
+                <li><a href="@Url.Content("/AdminItem/Item_admin_menu")" rel="AdminItem" target="navTab">菜单设置</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

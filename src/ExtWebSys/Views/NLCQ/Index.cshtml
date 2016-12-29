@@ -1,0 +1,1007 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+    ViewBag.Index = "00";
+    Layout = "~/Views/Shared/_LayoutNLcq.cshtml";
+}
+@model NModel.NewsPager
+@{
+    var codeClassify = Model.IDictClassify["代码分类"];
+    var materialClassify = Model.IDictClassify["素材分类"];
+    var indexAdOne = Model.IDictListAd["首页广告一"];
+}
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $(".CodeCatalogs .sw li").mouseenter(function () {
+
+            $(".CodeCatalogs .sw li").css("background", "");
+            $(this).css("background", "#38A4E0");
+            $(".CodeCatalogs .sw li a").css("color", "");
+            $(this).find("a").css("color", "#fff");
+
+            var index = $(".CodeCatalogs .sw li").index(this);
+            var ullang = $(".ullang");
+            ullang.hide();
+            $(ullang[index]).show();
+        })
+
+        function ScrollAuto(adcount) {
+            var RunTime = 3000;
+            var ObjInt = null;
+            var ImgW = 778;
+            var IndexAd = 0;
+            var isLeftRight = 0;
+
+            $(".index-banner").mouseenter(function () {
+                $("#banner-right").show();
+                $("#banner-left").show();
+                ClearAutoScroll();
+
+            }).mouseleave(function () {
+
+                RunScroll();
+                $("#banner-right").hide();
+                $("#banner-left").hide();
+            })
+            $("#banner-left").click(function () {
+                if (IndexAd >= adcount - 1) {
+                    return;
+                }
+
+                IndexAd++;
+
+                $(".swiper-wrapper").animate({ right: IndexAd * ImgW }, "slow")
+
+                bottomBarSelected(IndexAd)
+            })
+
+            var btmBar = $(".swiper-pagination-switch");
+            function bottomBarSelected(idx) {
+
+                btmBar.removeClass("swiper-visible-switch");
+                btmBar.removeClass("swiper-active-switch");
+
+                $(btmBar[idx]).addClass("swiper-active-switch");
+
+                $(btmBar[idx]).addClass("swiper-visible-switch");
+            }
+            $("#banner-right").click(function () {
+                if (IndexAd <= 0) {
+                    return;
+                }
+
+                IndexAd--;
+
+                $(".swiper-wrapper").animate({ right: IndexAd * ImgW }, "slow")
+                bottomBarSelected(IndexAd)
+            })
+            bottomBarSelected(0)
+            $(".swiper-wrapper").width(ImgW * adcount);
+            function AutoScroll() {
+
+                if (adcount - 1 <= IndexAd) {
+                    isLeftRight = 1;
+                    IndexAd = adcount - 1;
+                }
+
+                if (IndexAd <= 0) {
+                    isLeftRight = 0;
+                    IndexAd = 0;
+                }
+
+                if (isLeftRight == 1) {
+
+                    IndexAd--;
+                } else {
+                    IndexAd++;
+                }
+
+                $(".swiper-wrapper").animate({ right: IndexAd * ImgW }, "slow")
+                bottomBarSelected(IndexAd)
+            }
+            function ClearAutoScroll() {
+
+                if (ObjInt != null) {
+
+                    clearInterval(ObjInt);
+
+                    ObjInt = null;
+                }
+            }
+
+            function RunScroll() {
+                if (ObjInt == null) {
+                    ObjInt = setInterval(function () { AutoScroll() }, RunTime)
+                }
+            }
+            RunScroll();
+        }
+
+        new ScrollAuto(4);
+    })
+</script>
+<link href="~/Content/web/css/index.css" rel="stylesheet" />
+
+<div class="clear"></div>
+@*<ol class="sw">
+    <div class="CodeCatalogs">
+                <li ref="lang_catalogs" style="background:#38A4E0" class="tab on"><a style="color:#fff" href="?show=time">代码分类</a></li>
+
+                @{
+
+                    {
+                        IList<NModel.DB_Classify> modelOneLevel = materialClassify.Where(a => a.Classify_Z == 1).ToList();
+                        foreach (var model in modelOneLevel)
+                        {
+                <li ref="code_catalogs" class="tab"><a href="#">@(model.Classify_Name)</a></li>
+                        }
+                    }
+
+                }
+            </ol>
+
+            <div class="clear"></div>
+            <ul style="display: block;" class="lang_catalogs ullang">
+                @{
+
+                    {
+                        IList<NModel.DB_Classify> modelOneLevel = codeClassify.Where(a => a.Classify_Z == 1).ToList();
+                        foreach (var model in modelOneLevel)
+                        {
+
+                <li><a href="#">@(model.Classify_Name)</a></li>
+
+                        }
+
+                    }
+
+                }
+
+                <div class="clear"></div>
+            </ul>
+
+        @{
+
+            {
+                IList<NModel.DB_Classify> modelOneLevel = materialClassify.Where(a => a.Classify_Z == 1).ToList();
+                foreach (var model in modelOneLevel)
+                {
+                    <ul class="code_catalogs ullang" style="display: none;">
+
+                        @{
+                    foreach (var _model in materialClassify.Where(a => a.Classify_Z == 2 && a.Classify_X == model.Classify_X).ToList())
+                    {
+                        <li><a href="#">@(_model.Classify_Name)</a></li>
+                    }
+                        }
+
+                        <div class="clear"></div>
+                    </ul>
+                }
+
+            }
+
+        }
+
+        <div class="clear"></div>
+    </div>
+*@
+<div class="clear"></div>
+<div class="w-1000 mar-t20 cf">
+    <!--nav-->
+    <!--nav end-->
+    <!--banner-->
+    <div class="index-banner">
+        <div class="swiper-container banner-box" style="cursor: grab;">
+            <span class="arrow-left" id="banner-left" style="display: none;"></span>
+            <span class="arrow-right" id="banner-right" style="display: none;"></span>
+            <div class="swiper-wrapper" style="width:3414px; height: 298px; ">
+
+                @{ int adcount = indexAdOne.Count;
+                 foreach (var model in indexAdOne)
+                 {
+
+                     //Output.WriteLine(string.Format(" linkarr[{0}] = \"{1}\";", adcount, model.AD_URL));
+                     //Output.WriteLine(string.Format(" picarr[{0}] = \"{1}\";", adcount, "http://" + this.Request.Url.Authority + (model.AD_Img + "").Split(',')[0]));
+                     //Output.WriteLine(string.Format(" textarr[{0}] = \"{1}\";", adcount, model.AD_Name));
+
+                    <a style="background: url(@((model.AD_Img + "").Split(',')[0])); width: 778px; height: 298px;" class="swiper-slide swiper-slide2 swiper-slide-duplicate" target="_blank" href="#">
+                        <div class="swiper-box">
+                            <div class="banner-infor">
+                            </div>
+                        </div>
+                    </a>
+
+                 }}
+            </div>
+            <div class="pagination">
+                @{
+                    for (var i = 0; i < adcount; i++)
+                    {
+
+                        <span class="swiper-pagination-switch"></span>
+
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+    <!--banner end-->
+    <!--lesson-right-show-->
+    <div class="lesson-right-show">
+        <div class="free-box">
+            <a target="_blank" href="#">
+                <h2>编译中国 让学习更有效</h2>
+                <p>
+                    <span>最新</span>|<span>系统</span>|<span>实战</span>
+                </p>
+                <button class="greenbtn3">了解编译中国</button>
+            </a>
+        </div>
+        <div class="free-box">
+            <a target="_blank" href="#">
+                <h2>成为VIP 极客启程</h2>
+                <p style="line-height: 1.6;margin: 10px 0 2px">
+                    √&nbsp;全部课程&nbsp;&nbsp;√&nbsp;高清视频<br>√&nbsp;问答服务&nbsp;&nbsp;√&nbsp;课程资料
+                </p>
+                <button class="greenbtn2">了解VIP权益</button>
+            </a>
+        </div>
+    </div>
+    <!--lesson-right-show end-->
+</div>
+
+
+
+<div id="recommendName" class="hot-lesson w-1000 mar-t30">
+    <ul class="cf">
+        <li positionid="9" class="on">热门推荐</li>
+        <li positionid="8" class="">最新课程</li>
+        <li positionid="7">免费课程</li>
+        <li positionid="11">项目实战</li>
+        <li positionid="10">全球首发</li>
+        <li positionid="12">企业合作</li>
+    </ul>
+</div>
+
+<div class="mar-t20 w-1000" id="hot-lessonbox">
+    <div class="one-classfiy-lesson lesson-list" style="display: block;">
+        <ul class="cf">
+            <li courseid="117" deg="" stop="1">
+                <div class="lessonimg-box">
+                    <i class="free-icon"></i>					<a target="_blank" href="#">
+                        <img alt="Android L最新版本开发环境搭建" title="Android L最新版本开发环境搭建" class="lessonimg" src="http://a1.jikexueyuan.com/home/201406/30/06c8/53b172d757472.jpg">
+                        <div class="lessonplay" style="opacity: 0;">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="117" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor" style="height: 88px;">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">Android L最新版本开发环境搭建</a></h2>
+                    <p style="opacity: 0; height: 0px; display: none;">本课学习最新安卓Android L SDK和虚拟机的下载安装和配置方法，最新Android...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>1课时  10分钟</em></dd>
+                                <dd class="zhongji" style="display: none;">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number" style="display: none;">14864人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box" style="bottom: 4px;">
+                                <a href="#">
+                                    <img width="16" title="新酷技术" alt="新酷技术" src="http://a1.jikexueyuan.com/home/201411/27/e06f/5476eee9d3d63.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="156" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="CSS入门基础知识" title="CSS入门基础知识" class="lessonimg" src="http://a1.jikexueyuan.com/home/201412/03/3785/547ea8f5505a5.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="156" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">CSS入门基础知识</a></h2>
+                    <p>本课讲解CSS语法，并掌握基本选择器的使用。</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>5课时  21分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">9321人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="HTML5" alt="HTML5" src="http://a1.jikexueyuan.com/home/201411/03/171a/54578ddd8e62a.png">
+                                </a><a href="#">
+                                    <img width="16" title="CSS" alt="CSS" src="http://a1.jikexueyuan.com/home/201502/26/de40/54eeb7acd577e.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="422" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="C语言介绍" title="C语言介绍" class="lessonimg" src="http://a1.jikexueyuan.com/home/201412/22/9ab2/5498281d8d681.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="422" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">C语言介绍</a></h2>
+                    <p>本课对C语言进行全面介绍，内容包括认识C语言、C语言的历史、C语言相关的常识、选择合适的软...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>4课时  29分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">7385人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="C" alt="C" src="http://a1.jikexueyuan.com/home/201412/31/5d76/54a367ad6bae6.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="144" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="Java开发调试技巧及Eclipse快捷键使用方法" title="Java开发调试技巧及Eclipse快捷键使用方法" class="lessonimg" src="http://a1.jikexueyuan.com/home/201407/22/6c67/53cda76fb71d7.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="144" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">Java开发调试技巧及Eclipse快捷键使用方法</a></h2>
+                    <p>掌握在Java语言中调试的技巧及Eclipse中的快捷操作技巧。</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>2课时  24分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">10540人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="Java" alt="Java" src="http://a1.jikexueyuan.com/home/201411/03/7630/54578dd427722.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="377" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="PHP 开发环境搭建" title="PHP 开发环境搭建" class="lessonimg" src="http://a1.jikexueyuan.com/home/201411/27/ee33/547689593741c.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="377" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">PHP 开发环境搭建</a></h2>
+                    <p>本套课程讲解如何在 Windows、Linux、OSX 系统下搭建 PHP 的集成开发环境...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>4课时  37分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">5486人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="PHP" alt="PHP" src="http://a1.jikexueyuan.com/home/201502/04/d12f/54d1c99185f23.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="179" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="JavaScript基础教程" title="JavaScript基础教程" class="lessonimg" src="http://a1.jikexueyuan.com/home/201408/07/cc68/53e37a8089faa.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="179" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">JavaScript基础教程</a></h2>
+                    <p>本课讲解JavaScript基础知识，让学员了解到什么是JavaScript，并且了解它的...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>3课时  25分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">8465人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="HTML5" alt="HTML5" src="http://a1.jikexueyuan.com/home/201411/03/171a/54578ddd8e62a.png">
+                                </a><a href="#">
+                                    <img width="16" title="JavaScript" alt="JavaScript" src="http://a1.jikexueyuan.com/home/201502/26/5c02/54eeb768593c6.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="483" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="微信内网页开发工具包(微信JS-SDK)" title="微信内网页开发工具包(微信JS-SDK)" class="lessonimg" src="http://a1.jikexueyuan.com/home/201501/12/ab0a/54b3b89a5882c.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="483" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">微信内网页开发工具包(微信JS-SDK)</a></h2>
+                    <p>本套课程主要了解微信公众平台面向开发者开放微信内网页开发工具包（微信JS-SDK），主要包...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>3课时  26分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">6633人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="HTML5" alt="HTML5" src="http://a1.jikexueyuan.com/home/201411/03/171a/54578ddd8e62a.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="530" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="Java 反射机制" title="Java 反射机制" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/05/90bf/54d312ffc5901.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="530" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">Java 反射机制</a></h2>
+                    <p>本课讲解了 Java 的反射机制，认识反射机制中的常用对象，并学会使用。最后通过实现 Ex...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>6课时  59分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">2432人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="Java" alt="Java" src="http://a1.jikexueyuan.com/home/201411/03/7630/54578dd427722.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="mar-t20 w-1000" id="hot-lessonbox">
+    <div style="display: none;" class="one-classfiy-lesson lesson-list">
+        <ul class="cf">
+            <li courseid="568" deg="" stop="1">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="C# 的反射机制" title="C# 的反射机制" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/26/7306/54ee7e9984528.jpg">
+                        <div class="lessonplay" style="opacity: 0;">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="568" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor" style="height: 88px;">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">C# 的反射机制</a></h2>
+                    <p style="opacity: 0; height: 0px; display: none;">本套课程讲解内容为 C# 语言的反射 Reflection。先介绍了关于 System.T...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>3课时  24分钟</em></dd>
+                                <dd class="zhongji" style="display: none;">
+                                    <i class="xinhao-icon2"></i><em>中级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number" style="display: none;">2165人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box" style="bottom: 4px;">
+                                <a href="#">
+                                    <img width="16" title="C#" alt="C#" src="http://a1.jikexueyuan.com/home/201411/12/e08c/546251c929174.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="567" deg="" stop="1">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="Android UiAutomator UiSelector API 详细介绍" title="Android UiAutomator UiSelector API 详细介绍" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/26/65e1/54ee7ce3a8407.jpg">
+                        <div class="lessonplay" style="opacity: 0;">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="567" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor" style="height: 88px;">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">Android UiAutomator UiSelector API 详细介绍</a></h2>
+                    <p style="opacity: 0; height: 0px; display: none;">本课学习 UiAutomator UiSelector， UI元素的搜索向来是UI自动化测...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>8课时  62分钟</em></dd>
+                                <dd class="zhongji" style="display: none;">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number" style="display: none;">2232人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box" style="bottom: 4px;">
+                                <a href="#">
+                                    <img width="16" title="Android" alt="Android" src="http://a1.jikexueyuan.com/home/201411/03/00a1/54578d8e652c3.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="566" deg="" stop="1">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="JDBC 编程" title="JDBC 编程" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/25/c306/54ed249786dd8.jpg">
+                        <div class="lessonplay" style="opacity: 0;">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="566" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor" style="height: 88px;">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">JDBC 编程</a></h2>
+                    <p style="opacity: 0; height: 0px; display: none;">本套课程首先介绍了一下 JDBC 的基本概念，然后通过若干实例讲解了如何使用 JDBC 对...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>9课时  60分钟</em></dd>
+                                <dd class="zhongji" style="display: none;">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number" style="display: none;">2167人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box" style="bottom: 4px;">
+                                <a href="#">
+                                    <img width="16" title="J2EE" alt="J2EE" src="http://a1.jikexueyuan.com/home/201502/26/8cb0/54eeb77cb6992.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="564" deg="" stop="1">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="Bootstrap 过渡效果、模态框和下拉菜单" title="Bootstrap 过渡效果、模态框和下拉菜单" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/24/8ed4/54ebdfa7a3bab.jpg">
+                        <div class="lessonplay" style="opacity: 0;">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="564" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor" style="height: 88px;">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">Bootstrap 过渡效果、模态框和下拉菜单</a></h2>
+                    <p style="opacity: 0; height: 0px; display: none;">本套课程主要了解 Bootstrap 过渡效果、模态框和下拉菜单，通过对过渡效果可以有更好...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>3课时  28分钟</em></dd>
+                                <dd class="zhongji" style="display: none;">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number" style="display: none;">2225人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box" style="bottom: 4px;">
+                                <a href="#">
+                                    <img width="16" title="Bootstrap" alt="Bootstrap" src="http://a1.jikexueyuan.com/home/201502/26/c2a9/54eeb7cba8791.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="563" deg="" stop="1">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="类型与变量" title="类型与变量" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/24/4f4e/54ebdf1855814.jpg">
+                        <div class="lessonplay" style="opacity: 0;">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="563" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor" style="height: 88px;">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">类型与变量</a></h2>
+                    <p style="opacity: 0; height: 0px; display: none;">本课学习 Go 语言有哪些基本类型，类型的零值、别名的用法和变量的声明和赋值，并进行类型转...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>3课时  23分钟</em></dd>
+                                <dd class="zhongji" style="display: none;">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number" style="display: none;">2127人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box" style="bottom: 4px;">
+                                <a href="#">
+                                    <img width="16" title="Go" alt="Go" src="http://a1.jikexueyuan.com/home/201502/26/5fe1/54eeb78557895.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="561" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="利用反射完成初级万能 DAO" title="利用反射完成初级万能 DAO" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/27/bf14/54f03ee3d11f6.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="561" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">利用反射完成初级万能 DAO</a></h2>
+                    <p>本课讲解了利用 Java 反射机制编写基础通用 DAO 的意义和实现，并详细介绍了增、删、...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>5课时  57分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon2"></i><em>中级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">2149人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="MySQL" alt="MySQL" src="http://a1.jikexueyuan.com/home/201502/26/1071/54eeb611e94c5.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="562" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="C# 的 Attribute" title="C# 的 Attribute" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/23/38fe/54eafa7a7c481.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="562" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">C# 的 Attribute</a></h2>
+                    <p>本套课程讲解内容为 C# 语言的 Attribute。先介绍了 .Net Framewor...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>3课时  20分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon2"></i><em>中级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">2097人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="C#" alt="C#" src="http://a1.jikexueyuan.com/home/201411/12/e08c/546251c929174.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li courseid="560" deg="">
+                <div class="lessonimg-box">
+                    <a target="_blank" href="#">
+                        <img alt="Cocos2d-x Box2D 物理世界初探" title="Cocos2d-x Box2D 物理世界初探" class="lessonimg" src="http://a1.jikexueyuan.com/home/201502/20/5d57/54e69c965b689.jpg">
+                        <div class="lessonplay">
+                            <i class="playericon"></i>
+                        </div>
+                    </a>
+                    <img style="display:none;" id="do_favorit" oper="favorites" clsn="" clsy="" s="1" oid="560" mid="1" src="http://s1.jikexueyuan.com/current/static/images/close_vip.png" class="cancel-favorites cancel-stop user-action">
+                </div>
+                <div class="lesson-infor">
+                    <h2 class="lesson-info-h2"><a target="_blank" href="#">Cocos2d-x Box2D 物理世界初探</a></h2>
+                    <p>本课程主要对 Box2D 进行初步的讲解，并在 Cocos2d-x 中创建 Box2d 物...</p>
+                    <div class="timeandicon">
+                        <div class="cf">
+                            <dl>
+                                <dd class="mar-b8"><i class="time-icon"></i><em>5课时  27分钟</em></dd>
+                                <dd class="zhongji">
+                                    <i class="xinhao-icon"></i><em>初级</em>
+                                </dd>
+                            </dl>
+                            <em class="learn-number">2223人学习</em>
+                        </div>
+                        <div class="cf">
+                            <div class="lessonicon-box">
+                                <a href="#">
+                                    <img width="16" title="Cocos2d-x" alt="Cocos2d-x" src="http://a1.jikexueyuan.com/home/201411/03/08f1/54578dc0421ad.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="learnbox w-1000 mar-t20" id="learn-way">
+    <div class="index-public-title cf">
+        <strong>实战路径图</strong><i class="way">?</i><span class="way-infor"><i></i>适合新人系统化学习的最佳实践</span><a target="_blank" class="more-lesson" href="#">更多&gt;&gt;</a>
+    </div>
+    <div class="learn-card cf">
+        <a target="_blank" href="#" style="border-width: 1px medium 1px 1px; border-style: solid none solid solid; border-color: rgb(228, 228, 228) -moz-use-text-color rgb(228, 228, 228) rgb(228, 228, 228); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none;">
+            <img height="70" width="70" alt="Android路径图" src="http://wirrorcdn.jikexueyuan.com/picture/android.png">
+            <h2>Android路径图</h2>
+            <p>迅速掌握核心知识</p><p>提升自身竞争力</p><p>成为Android开发高手</p>                    <button class="greenbtn2">立即学习</button>
+        </a>
+        <a target="_blank" href="#" style="border-width: 1px medium 1px 1px; border-style: solid none solid solid; border-color: rgb(228, 228, 228) -moz-use-text-color rgb(228, 228, 228) rgb(228, 228, 228); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none;">
+            <img height="70" width="70" alt="iOS路径图" src="http://wirrorcdn.jikexueyuan.com/picture/ios.png">
+            <h2>iOS路径图</h2>
+            <p>课程讲解细致入微</p><p>迅速将知识应用到实战</p><p>成为iOS开发工程师</p>                    <button class="greenbtn2">立即学习</button>
+        </a>
+        <a target="_blank" href="#" style="border-left: 1px solid rgb(228, 228, 228);">
+            <img height="70" width="70" alt="HTML5路径图" src="http://wirrorcdn.jikexueyuan.com/picture/html.png">
+            <h2>HTML5路径图</h2>
+            <p>由易到难的实战案例</p><p>迅速掌握技术精髓</p><p>成为HTML5开发工程师</p>                    <button class="greenbtn2">立即学习</button>
+        </a>
+        <a target="_blank" href="#">
+            <img height="70" width="70" alt="Cocos2d-x路径图" src="http://a1.jikexueyuan.com/home/201502/03/6d2b/54cfb5358d927.png">
+            <h2>Cocos2d-x路径图</h2>
+            <p>最小可执行单元</p><p>学习节奏灵活掌握</p><p>变身Cocos2d-x游戏开发工程师</p>                    <button class="greenbtn2">立即学习</button>
+        </a>
+        <a target="_blank">
+            <img height="70" width="70" alt="Unity3D" src="http://wirrorcdn.jikexueyuan.com/picture/unity3d.png">
+            <h2>Unity3D</h2>
+            <p>精英海归布道师</p><p>讲授国外最先进技术</p><p>让你从“小白”一跃成为“大拿”</p>                    <button style="cursor:default !important;" id="Waiting-btn" class="greenbtn2">敬请期待</button>
+        </a>
+    </div>
+</div>
+
+<div class="learnbox w-1000 mar-t40">
+    <div class="index-public-title cf">
+        <strong>知识体系图</strong><i class="way">?</i><span class="way-infor"><i></i>更快速找到你需要的课程</span><a target="_blank" class="more-lesson" href="#">更多&gt;&gt;</a>
+    </div>
+    <div class="mapbox cf">
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="Android开发" src="http://wirrorcdn.jikexueyuan.com/picture/android.png">
+                    <h2>Android开发</h2>
+                    <span>52门课程</span>
+                </div>
+                <div class="back"><strong>321374</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="iOS开发" src="http://wirrorcdn.jikexueyuan.com/picture/ios.png">
+                    <h2>iOS开发</h2>
+                    <span>86门课程</span>
+                </div>
+                <div class="back"><strong>149021</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="HTML5开发" src="http://wirrorcdn.jikexueyuan.com/picture/html.png">
+                    <h2>HTML5开发</h2>
+                    <span>145门课程</span>
+                </div>
+                <div class="back"><strong>365206</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="Cocos2d-x游戏开发" src="http://wirrorcdn.jikexueyuan.com/picture/Cocos2d-x.png">
+                    <h2>Cocos2d-x游戏开发</h2>
+                    <span>180门课程</span>
+                </div>
+                <div class="back"><strong>130369</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform" style="border-right: 1px solid rgb(228, 228, 228);">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="C语言" src="http://wirrorcdn.jikexueyuan.com/picture/c.png">
+                    <h2>C语言</h2>
+                    <span>195门课程</span>
+                </div>
+                <div class="back"><strong>51907</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="Java语言" src="http://wirrorcdn.jikexueyuan.com/picture/Java.png">
+                    <h2>Java语言</h2>
+                    <span>235门课程</span>
+                </div>
+                <div class="back"><strong>167939</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="PHP语言" src="http://wirrorcdn.jikexueyuan.com/picture/php.png">
+                    <h2>PHP语言</h2>
+                    <span>245门课程</span>
+                </div>
+                <div class="back"><strong>40590</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="Swift语言" src="http://wirrorcdn.jikexueyuan.com/picture/swift.png">
+                    <h2>Swift语言</h2>
+                    <span>251门课程</span>
+                </div>
+                <div class="back"><strong>41748</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="Egret" src="http://a1.jikexueyuan.com/home/201501/26/5e2f/54c5ebe62c7e9.png">
+                    <h2>Egret</h2>
+                    <span>258门课程</span>
+                </div>
+                <div class="back"><strong>16278</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+        <div class="card-transform" style="border-right: 1px solid rgb(228, 228, 228);">
+            <a target="_blank" class="flipper" href="#">
+                <div class="front">
+                    <img width="52" alt="C#" src="http://a1.jikexueyuan.com/home/201502/03/de90/54cfb5a451bbd.png">
+                    <h2>C#</h2>
+                    <span>275门课程</span>
+                </div>
+                <div class="back"><strong>47266</strong><span>人已学习</span><button class="greenbtn">立即学习</button></div>
+            </a>
+        </div>
+    </div>
+    <div class="more-lesson-list cf">
+        <a target="_blank" href="#">Bootstrap </a>
+    </div>    <!--all-lesoon-->
+    <div class="all-lesson">
+        <a target="_blank" href="#">查看全部课程</a>
+        <a target="_blank" href="#">
+            <span class="all-lesson-infor"><i></i>现在加入，<em class="color-red">可获赠15天VIP</em>，立即学习全部课程</span>
+        </a>
+    </div>
+    <!--all-lesoon end-->
+</div>
+
+<div class="learnbox w-1000 mar-t40">
+    <div class="index-public-title cf">
+        <strong>战略合作企业</strong>
+        <a target="_blank" class="more-lesson" href="#">更多&gt;&gt;</a>
+    </div>
+    <div class="strategy w-1000">
+        <div class="startegy-box">
+            <span style="display: none;" class="arrow-left" id="banner-left3"></span>
+            <span style="display: none;" class="arrow-right" id="banner-right3"></span>
+            <div class="swiper-container swiper-strategy">
+                <div style="width: 3353px; height: 50px; transform: translate3d(-958px, 0px, 0px); transition-duration: 0s;" class="swiper-wrapper">
+                    <a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="微软开放技术" src="http://a1.jikexueyuan.com/home/201502/04/9621/54d18f3f14fd6.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="AMD" src="http://a1.jikexueyuan.com/home/201502/04/9fd6/54d1d9f50e1af.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="科大讯飞" src="http://wirrorcdn.jikexueyuan.com/picture/keda.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="图灵机器人" src="http://wirrorcdn.jikexueyuan.com/picture/tuling.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="听云" src="http://wirrorcdn.jikexueyuan.com/picture/tingyun.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="聚合数据" src="http://wirrorcdn.jikexueyuan.com/picture/juhe.jpg"> </a>
+                    <a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-visible swiper-slide-active" style="width: 159.667px; height: 50px;"> <img alt="微软" src="http://wirrorcdn.jikexueyuan.com/picture/microsoft.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-visible" style="width: 159.667px; height: 50px;"> <img alt="腾讯" src="http://wirrorcdn.jikexueyuan.com/picture/tengxun.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-visible" style="width: 159.667px; height: 50px;"> <img alt="Cocos" src="http://wirrorcdn.jikexueyuan.com/picture/chukong.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-visible" style="width: 159.667px; height: 50px;"> <img alt="微软开放技术" src="http://a1.jikexueyuan.com/home/201502/04/9621/54d18f3f14fd6.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-visible" style="width: 159.667px; height: 50px;"> <img alt="AMD" src="http://a1.jikexueyuan.com/home/201502/04/9fd6/54d1d9f50e1af.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-visible" style="width: 159.667px; height: 50px;"> <img alt="科大讯飞" src="http://wirrorcdn.jikexueyuan.com/picture/keda.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide" style="width: 159.667px; height: 50px;"> <img alt="图灵机器人" src="http://wirrorcdn.jikexueyuan.com/picture/tuling.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide" style="width: 159.667px; height: 50px;"> <img alt="听云" src="http://wirrorcdn.jikexueyuan.com/picture/tingyun.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide" style="width: 159.667px; height: 50px;"> <img alt="聚合数据" src="http://wirrorcdn.jikexueyuan.com/picture/juhe.jpg"> </a>                <a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="微软" src="http://wirrorcdn.jikexueyuan.com/picture/microsoft.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="腾讯" src="http://wirrorcdn.jikexueyuan.com/picture/tengxun.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="Cocos" src="http://wirrorcdn.jikexueyuan.com/picture/chukong.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="微软开放技术" src="http://a1.jikexueyuan.com/home/201502/04/9621/54d18f3f14fd6.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="AMD" src="http://a1.jikexueyuan.com/home/201502/04/9fd6/54d1d9f50e1af.jpg"> </a><a target="_blank" href="#" class="swiper-slide red-slide swiper-slide-duplicate" style="width: 159.667px; height: 50px;"> <img alt="科大讯飞" src="http://wirrorcdn.jikexueyuan.com/picture/keda.jpg"> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="learnbox w-1000 mar-t40">
+    <div class="index-public-title cf">
+        <strong>合作院校</strong>
+    </div>
+    <div class="swiper-car-box ">
+        <span style="display: none;" class="arrow-left" id="banner-left2"></span>
+        <span style="display: none;" class="arrow-right" id="banner-right2"></span>
+        <div class="swiper-container swiper-car">
+            <div style="width: 3010.86px; height: 110px; transform: translate3d(-958px, 0px, 0px); transition-duration: 0s;" class="swiper-wrapper">
+                <a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="河北工业大学" src="http://wirrorcdn.jikexueyuan.com/picture/hbgydx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="东北大学" src="http://wirrorcdn.jikexueyuan.com/picture/dbdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津理工大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjlgdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津城建大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjcjdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津农学院" src="http://wirrorcdn.jikexueyuan.com/picture/tjnxy.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="天津职业技术师范大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjzyjssfdx.jpg"> </a>
+                <a class="swiper-slide red-slide swiper-slide-visible swiper-slide-active" style="width: 136.857px; height: 110px;"> <img alt="北京邮电大学   " src="http://wirrorcdn.jikexueyuan.com/picture/bjyd.jpg"> </a><a class="swiper-slide red-slide swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="天津大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="河北工业大学" src="http://wirrorcdn.jikexueyuan.com/picture/hbgydx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="东北大学" src="http://wirrorcdn.jikexueyuan.com/picture/dbdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="天津理工大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjlgdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="天津城建大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjcjdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-visible" style="width: 136.857px; height: 110px;"> <img alt="天津农学院" src="http://wirrorcdn.jikexueyuan.com/picture/tjnxy.jpg"> </a><a class="swiper-slide red-slide" style="width: 136.857px; height: 110px;"> <img alt="天津职业技术师范大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjzyjssfdx.jpg"> </a>            <a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="北京邮电大学   " src="http://wirrorcdn.jikexueyuan.com/picture/bjyd.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="河北工业大学" src="http://wirrorcdn.jikexueyuan.com/picture/hbgydx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="东北大学" src="http://wirrorcdn.jikexueyuan.com/picture/dbdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津理工大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjlgdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津城建大学" src="http://wirrorcdn.jikexueyuan.com/picture/tjcjdx.jpg"> </a><a class="swiper-slide red-slide swiper-slide-duplicate" style="width: 136.857px; height: 110px;"> <img alt="天津农学院" src="http://wirrorcdn.jikexueyuan.com/picture/tjnxy.jpg"> </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="friend-link w-1000 mar-t40">
+    <strong>友情链接:</strong>
+    <div>
+        <a href="#" target="_blank">eoe开发者社区</a><a href="#" target="_blank">招聘网</a><a href="#" target="_blank">互联网创业者社区</a><a href="#" target="_blank">招聘</a><a href="#" target="_blank">9Ria游戏开发者社区 </a><a href="#" target="_blank">中国大学生创业培训网</a><a href="#" target="_blank">酷开智能电视</a><a href="#" target="_blank">IT教程网</a><a href="#" target="_blank">java1234</a><a href="#" target="_blank">电脑玩手游</a><a href="#" target="_blank">深圳猎聘网</a><a href="#" target="_blank">手机APP开发</a><a href="#" target="_blank">摄影后期培训</a><a href="#" target="_blank">在职研究生</a><a href="#" target="_blank">留学预科班</a><a href="#" target="_blank">阿里云开发者论坛</a><a href="#" target="_blank">Java学习者论坛</a><a href="#" target="_blank">九秒社团</a><a href="#" target="_blank">腾讯精品课</a><a href="#" target="_blank">Apple TV</a>
+        <a target="_blank" href="#">更多</a>
+    </div>
+</div>

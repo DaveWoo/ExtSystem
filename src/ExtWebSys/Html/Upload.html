@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+
+    <script src="/Content/js/jquery11-1-min.js"></script>
+
+    <script src="/Content/plupload/js/plupload.full.min.js"></script>
+
+
+    <script src="/Content/Ui/jquery-ui.js"></script>
+
+    <link href="/Content/Ui/jquery-ui.css" rel="stylesheet" />
+
+
+<pre id="console"></pre>
+
+    <div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+    <br />
+
+    <div style="clear:both;"></div>
+    <div id="container">
+        <div id="pickfiles" style="background: url('/content/web/img/postimgupload.png') ;
+ background-position:0 398px; height:120px; width:120px;"></div>
+       
+    </div>
+    <br />
+
+
+    <style type="text/css">
+        .ui-progressbar {
+    margin-left:auto;
+    margin-right:auto;
+        
+        }
+
+
+        .img_file {
+            position: relative;
+            width: 160px;
+            height: 135px;
+            border: 1px solid #DCDCDC;
+
+           float:left;
+           margin-right:15px;
+        }
+      
+
+        .ko {
+        
+        position:absolute;
+        right:0px;
+        top:0px;
+        
+        } .kok {
+
+              margin-top:60px;
+            float: left;
+        }
+    </style>
+   
+    <script type="text/javascript">
+        // Custom example logic
+
+
+        var _files = [];
+
+        var uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles', // you can pass in id...
+            container: document.getElementById('container'), // ... or DOM Element itself
+            url: '/UploadFile/UploadFile?cid=33&&type=img',
+            flash_swf_url: '/Content/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/Content/plupload/js/Moxie.xap',
+
+            filters: {
+                max_file_size: '2mb',
+                mime_types: [
+                    { title: "Image files", extensions: "jpg,gif,png" },
+                    { title: "Zip files", extensions: "zip" }
+                ]
+            },
+
+            init: {
+                PostInit: function () {
+                    document.getElementById('filelist').innerHTML = '';
+
+                    //document.getElementById('uploadfiles').onclick = function () {
+                    //    uploader.start();
+                    //    return false;
+                    //};
+
+                },
+
+                FilesAdded: function (up, files) {
+
+                    var i = 0;
+                    plupload.each(files, function (file) {
+                   
+                        document.getElementById('filelist').innerHTML += '<div id="' + file.id + '" class="img_file" ><div title=".ui-icon-closethick" style="width:16px; height:16px;" onclick="RemoveFile('+ i + ',\'' + file.id + '\')"  class="ui-state-default ui-corner-all ko"><span class="ui-icon ui-icon-closethick"></span></div> <img src="" id="img_' + file.id + '"   style="display:none;" /> <div id="pbar' + file.id + '"  class="kok" style="width:110px; height:14px; margin-left:15px;"></div><span class="djb kok" ></span> </div>';
+                        //uploader.removeFile(file)
+
+                        _files[i] = file;
+                        i++;
+                    });
+                    uploader.start();
+
+                 
+                },
+
+                UploadProgress: function (up, file) {
+                 
+                  
+                    //file.percent
+           
+                    $('#pbar' + file.id + '').progressbar({
+                        value:file.percent 
+                    });
+                    $("#" + file.id + "").children(".djb").html(file.percent+"%");
+                   
+                },
+
+                Error: function (up, err) {
+                    document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+                },
+                FileUploaded: function (up, file, info) {
+                    // Called when file has finished uploading
+                    var img = info["response"];
+
+            
+                    var jsonobj = JSON.parse(img);
+
+                
+                    if (img != null) {
+                        var imgObj = $("#img_" + file.id);
+                        imgObj.show();
+                        $("#" + file.id).children(".kok").hide();
+                        imgObj.attr("src", "/upload/imgPath" + jsonobj.msg);
+
+
+                    }
+
+
+                }
+
+
+            }
+        });
+
+
+        function RemoveFile(i,id) {
+            uploader.removeFile(_files[i])
+            $("#" + id).remove();
+        }
+
+        uploader.init();
+
+    </script>
+</body>
+</html>

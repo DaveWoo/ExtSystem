@@ -1,0 +1,861 @@
+﻿@{
+
+    Layout = "";
+    ViewBag.Title = "用户角色管理";
+
+    string DBName = "db_img_category";
+}
+<style>
+    .db_img_category_sub a {
+        float: right;
+        margin-left: 20px;
+    }
+
+    .tab_one_span img {
+        float: left;
+        height: 18px;
+        margin-top: 5px;
+    }
+
+    .tab_one_span pre {
+        display: block;
+        height: 25px;
+        line-height: 25px;
+        padding-top: 2px;
+        padding-right: 9px;
+        padding-left: 9px;
+        float: left;
+    }
+
+    .db_img_category {
+        padding: 20px;
+        width: 850px;
+    }
+
+    .form_db_img_category h1 {
+        margin-top: 20px;
+        width: 740px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .db_img_category td {
+        padding: 10px;
+    }
+</style>
+
+@{
+    //pageNum=1  numPerPage=100  orderField=${param.orderField}  orderDirection=${param.orderDirection}
+
+    NModel.PageData<NModel.DB_Img_Category> pageData = Model;
+
+
+}
+
+
+<div class="clear   pageheader" style=" height:20px;"></div>
+<div class="pageContent">
+
+
+    <div class="tabs" currentindex="0" eventtype="click">
+        <div class="tabsHeader">
+            <div class="tabsHeaderContent">
+                <ul id="nav nav-tabs">
+                    <li>
+                        <a href="javascript:;">
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_listTable.png" /><pre>图片分类管理</pre></span>
+                        </a>
+                    </li>
+                    <li class="db_img_category_ae_ui">
+                        <a href="javascript:;">
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_add.png" /><pre>图片分类编辑</pre> </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_Statistics.png" /><pre>统计管理</pre></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+
+
+                            <span class="tab_one_span"><img src="~/Content/img/cw_menu/Fwdw_icons_help.png" /><pre>关于帮助</pre></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tabsContent" style="">
+            <div>
+                <form id="pagerForm" method="post" action="#rel#">
+                    <input type="hidden" name="pageNum" value="1" />
+                    <input type="hidden" name="numPerPage" value="@pageData.NumPerPage" />
+                    <input type="hidden" name="orderField" value="${param.orderField}" />
+                    <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+                </form>
+
+                <div class="pageHeader">
+                    <form rel="pagerForm" id="db_img_category_pagerForm" action="/DBItem/Item_db_img_category" method="post"></form>
+                </div>
+                <div class="pageContent">
+                    <div class="panelBar">
+                        <ul class="toolBar">
+                            <li><a class="add" onclick="add_db_img_category_fun(this)"><span>添加</span></a></li>
+                            <li><a class="edit" onclick="_edit_db_img_category_fun(this)" warn="请选择一个"><span>修改</span></a></li>
+                            <li><a title="确实要删除这些记录吗?" onclick="batch_all_db_img_category_fun()" class="delete"><span>批量删除全部方式</span></a></li>
+                            <li><a title="确实要删除这些记录吗?" onclick="batch_db_img_category_fun()" class="delete"><span>批量删除选择部分方式</span></a></li>
+
+                            <li class="line">line</li>
+                            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+                            <li><a class="refresh_main" onclick="refresh_db_img_category(this)"><span id="refresh_mainID">刷新</span></a></li>
+                        </ul>
+                    </div>
+                    <table class="table" width="1200" layouth="138">
+                        <thead>
+                            <tr>
+
+                               
+                                <th width="70" orderfield="Num">序号</th>
+                                <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+
+                                <th width="70" orderfield="img_category_id" class="asc">ID</th>
+                                <th width="70" orderfield="img_category_name">分类名称</th>
+                                <th width="120" orderfield="img_category_size">图片压缩尺寸</th>
+                                <th width="80" orderfield="img_category_folder">图片存放文件夹</th>
+                                <th width="60" orderfield="img_category_operate_show">操作权限</th>
+                                <th width="60" orderfield="img_category_sortno">排序号</th>
+                                <th width="100" align="center" orderfield="img_category_addtime">增加时间</th>
+
+                                <th width="70">操作</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="data_db_img_category_list"></tbody>
+                    </table>
+                    <div class="panelBar">
+                        <div class="pages">
+                            <span>显示</span>
+                            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                            </select>
+                            <span>条，共<span class="totalNum_db_img_category">@pageData.TotalPage</span>条</span>
+                        </div>
+
+                        <div class="pagination Data_db_img_category_pager" targetType="navTab" totalcount="@pageData.TotalPage" numperpage="@pageData.NumPerPage" pagenumshown="10" currentpage="@pageData.PageNum"></div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div>
+                <form class="form_@{@DBName} " method="post">
+
+                    <h1 class="db_img_category_h1">增加数据</h1>
+
+                    <table cellpadding="5" class="check_@{@DBName} @{@DBName}">
+                        <tr>
+                            <td>名称:</td>
+                            <td>
+                                <input name="img_category_name" class="db_img_category_input required " style=" width:180px; " id="img_category_name" type="text"
+                                       />
+                            </td>
+
+                            <td>图片压缩尺寸:</td>
+                            <td>
+                                
+                                    <input name="img_category_size" id="img_category_size" class="db_img_category_input " style=" width:180px; " type="text" />
+
+                                    <span> 实例：150x300;200x500;</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>名称(英文):</td>
+                            <td>
+                                <input name="img_category_name_en" class="db_img_category_input" style=" width:180px; " id="img_category_name_en" type="text"
+                                       />
+                            </td>
+
+                            <td>图片存放文件夹:</td>
+                            <td>
+                               
+                                <input name="img_category_folder" id="img_category_folder" class="db_img_category_input required " style=" width:180px; " type="text" />
+
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>排序:</td>
+                            <td>
+                                <input name="img_category_sortno" id="img_category_sortno" class="db_img_category_input required _Munber" value="0" style=" width:180px; " type="text"
+                                       invalidmessage="长度1-16个数字！" />
+                            </td>
+                            <td>状态:</td>
+                            <td>
+                                <span class="_status_sp">启用:</span>
+                                <input id="img_category_status" value="1"
+                                       checked class="db_img_category_input "
+                                       type="radio" name="img_category_status" data-options="required:true">
+                                <span class="_status_sp">禁用:</span>
+                                <input id="img_category_status" value="0" class="db_img_category_input required"
+                                       type="radio" name="img_category_status" data-options="required:true">
+                            </td>
+                          
+
+                        </tr>
+
+                        <tr>
+                            <td>操作权限:</td>
+                            <td colspan="3">
+                                <span class="_status_sp">可删除:</span>
+                                <input id="img_category_operate"
+                                       value="1"
+                                       checked class="db_img_category_input  "
+                                       type="radio" name="img_category_operate" data-options="required:true">
+
+                                <span class="_status_sp">不可删除:</span>
+                                <input id="img_category_operate" value="0" class="db_img_category_input "
+                                       type="radio" name="img_category_operate" data-options="required:true">
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" class="db_img_category_sub">
+                                <a href="#" id="btn_@{@DBName}_op" iconcls="icon-ok" class="button" onclick=""><span>增加</span></a>&nbsp;&nbsp;
+                                <a href="#" class="button" id="btn_@{@DBName}_clear" iconcls="icon-cancel"><span>清空</span></a>
+                            </td>
+
+                        </tr>
+
+
+
+                    </table>
+             
+
+
+
+
+                </form>
+
+                <table style="display:none;">
+                    <tr>
+                        <td>菜单ID:</td>
+                        <td>
+                            <input id="img_category_id" name="img_category_id" class="db_img_category_input " style=" width:210px; " type="text" />
+                        </td>
+
+                        <td>增加时间:</td>
+                        <td>
+                            <input name="img_category_addtime" id="img_category_addtime" class="db_img_category_input  " value="0" style=" width:100px; " type="text" />
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div>
+                <div class="barchart"></div>
+
+
+
+                <div id="chartHolder"></div>
+
+            </div>
+        </div>
+        <div class="tabsFooter">
+            <div class="tabsFooterContent"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    var Data_db_img_category_pager=$(".Data_db_img_category_pager");
+    var data_db_img_category_list=    $("#data_db_img_category_list");
+    var relNum=0;
+    $.Cue_db_img_category_ListData={id:{ }};
+    function ToJsonShowTree(dt) {
+
+
+        var htmlTree = "";
+
+        var rows = dt;
+
+        for (var i = 0; i < rows.length; i++) {
+            var level=0;
+
+            relNum++;
+            var img_category_id = rows[i].img_category_id;
+            var img_category_name= rows[i].img_category_name;
+            var img_category_name_en = rows[i].img_category_name_en;
+            var img_category_size=rows[i].img_category_size
+            var img_category_folder= rows[i].img_category_folder;
+            var img_category_operate_show= rows[i].img_category_operate_show;
+            var img_category_sortno= rows[i].img_category_sortno;
+            var img_category_addtime= rows[i].img_category_addtime;
+           
+            level++;
+            htmlTree+= '<tr target="sid_user" rel="'+relNum+'">';
+            htmlTree+='<td  >'+relNum+'</td>';
+            htmlTree+='<td  ><input name="ids" class="db_img_category_ck" value="'+img_category_id +'" type="checkbox"></td>';
+            htmlTree+='<td  >'+img_category_id+'</td>';
+            htmlTree+='<td >'+img_category_name+'</td>';
+            htmlTree+='<td >'+img_category_size+'</td>';
+            htmlTree+='<td >'+img_category_folder+'</td>';
+            htmlTree+='<td  >'+img_category_operate_show+'</td>';
+            htmlTree+='<td  >'+img_category_sortno+'</td>';
+            htmlTree+='<td  >'+img_category_addtime+'</td>';
+            htmlTree+='<td >'
+            htmlTree+= '<a title="删除"  onclick="del_db_img_category_fun('+img_category_id+')"  class="btnDel">删除</a>';
+            htmlTree+='<a title="编辑"  onclick="edit_db_img_category_fun('+img_category_id +')"  class="btnEdit">编辑</a>';
+            htmlTree+='</td></tr>'
+
+            $.Cue_db_img_category_ListData["id_"+img_category_id ]=rows[i];
+
+
+
+
+
+        }
+
+        return htmlTree;
+    }
+
+
+    $.initData_db_img_category=      function initData_db_img_category(page,rows){
+
+        if(isNaN(rows)){
+
+
+
+        }
+
+
+        $.ajax({
+            url: "/DBData/Data_db_img_category?page="+page+"&rows="+rows+"&num="+Math.random(), async: false, success: function (data) {
+
+                try{
+
+
+                    var dt = eval('(' + data + ')');
+
+                    if (dt == null) return;
+                    var pageSize = dt.total;
+
+
+                    var htmlContent = ToJsonShowTree(dt.rows);
+
+
+                    data_db_img_category_list.html(htmlContent);
+                }catch(e){}
+
+            }
+        })
+
+
+
+    }
+
+
+    $.initData_db_img_category("@pageData.PageNum","@pageData.NumPerPage");
+
+
+
+
+    new @{@DBName}();
+    function   @{@DBName}()
+    {
+        function setVal(m_id) {
+            var postval = "{";
+            var radio = $(m_id + ":radio");
+            //  var array=new Array();
+            var dict = new Array();
+            var allCtl = $(m_id);
+
+            if (allCtl.length <= 0)
+                return;
+            for (var i = 0; i < allCtl.length; i++) {
+
+                var allthis = $(allCtl[i]);
+
+                var isRadio = (allthis.attr("type") + "").indexOf("radio") != -1;
+
+
+
+                if (isRadio) {
+                    continue
+
+
+                }
+
+
+                var name = allthis.attr("id");
+                var isCombobox = allthis.hasClass("easyui-combobox");
+                var val = allthis.val();
+
+                if (isCombobox) {
+                    val = $(allthis).combobox('getValue')
+
+
+
+                }
+
+
+
+                if (val == null || name == null) {
+                    continue
+
+
+                }
+
+                if (!dict.hasOwnProperty(name)) {
+
+                    dict[name] = val + "";
+                    postval += "'" + name + "':'" + val + "',";
+                }
+
+            }
+
+
+
+            for (var i = 0; i < radio.length; i++) {
+
+                for (var j = 1; j < radio.length; j++) {
+
+
+                    var name0 = $(radio[i]).attr("name");
+
+                    var name1 = $(radio[j]).attr("name");
+                    if (name0.match(name1)) {
+                        if (!dict.hasOwnProperty(name0)) {
+
+                            var val = $(m_id + "[name='" + name0 + "']:checked").val();
+                            // alert(val)
+                            dict[name0] = val + "";
+                            postval += "'" + name0 + "':'" + val + "',";
+                        }
+
+                    }
+
+                }
+
+
+            }
+
+            var lastdhas = postval.lastIndexOf(",")
+            postval = postval.substring(0, lastdhas);
+
+            postval += "}"
+
+
+            var postvalue = eval('(' + postval + ')')
+
+
+
+            return postvalue;
+
+        }
+
+
+
+        $("#btn_@{@DBName}_op").click(function (e) {
+
+            var db_img_category_input = $(".db_img_category_input");
+
+            var loadData = setVal(".db_img_category_input");
+
+
+            //1 增加 2修改
+            switch($.AddOrEidtNum)
+            {
+
+                case 1:
+
+                    $.post("/DBDataAE/add_@{@DBName}",loadData,function(dt){
+
+                        var data = eval('(' +dt + ')');
+
+                        switch(data.msgcode){
+
+                            case 1:
+
+
+                                break;
+
+                        }
+
+                        alertMsg.info(data.msg)
+
+                    })
+
+
+
+                    break;
+                case 2:
+                    $.post("/DBDataAE/edit_@{@DBName}",loadData,function(dt){
+
+                        var data = eval('(' +dt + ')');
+
+
+                        alertMsg.info(data.msg)
+                        switch(data.msgcode){
+                            case 1:
+
+                                window.location.href="/lcq/login"
+                                break;
+
+                        }
+
+                    })
+
+
+                    break;
+
+                default:break;
+            }
+
+
+
+
+
+        })
+
+        $("#btn_@{@DBName}_clear").click(function () {
+
+
+            $(".form_@{@DBName}")[0].reset()
+        })
+
+
+
+
+    }
+
+    function _edit_db_img_category_fun(id){
+
+
+
+        $.extend($,{'AddOrEidtNum':2 })
+
+        $(".db_img_category_h1").html("修改数据");
+
+        $("#btn_@{@DBName}_op span").html("修改");
+        var ck=       $(".db_img_category_ck:checked ");
+
+
+        // $.Cue_db_img_category_ListData["id_"+id]=rows[i];
+        if(ck!=null&&ck.length>0){
+            edit_fun(ck.val())
+            $(".db_img_category_ae_ui").click();
+        }
+        else
+        {
+            alertMsg.info("请选择")
+
+        }
+
+
+    }
+
+
+
+    function edit_fun(id){
+
+        var rows= $.Cue_db_img_category_ListData["id_"+id];
+
+
+        if(!rows)return;
+
+        $.extend($,{"Selectdb_img_category_ID":rows.role_menu})
+        for(var rws in rows){
+
+
+            var obj=   $(".db_img_category_input[name='"+rws+"']");
+            if(obj!=null&&obj.length>0){
+                var isRadio = (obj.attr("type")+ "").indexOf("radio") != -1;
+                if(isRadio){
+
+
+
+                    for(var l=0;l<obj.length;l++){
+
+                        if($(obj[l]).val().indexOf(rows[rws])!=-1){
+                            $(obj[l]).attr("checked","true")
+                        }
+
+                    }
+                }else
+                {
+
+                    $(obj).val(rows[rws])
+
+                }
+
+
+            }
+
+        }
+    }
+
+    function edit_db_img_category_fun(id){
+
+        // var tabs_admin_user=   $("#tabs_admin_user")
+
+        $(".db_img_category_ae_ui").click();
+        $.extend($,{'AddOrEidtNum':2 })
+
+        $(".db_img_category_h1").html("修改数据");
+
+        $("#btn_@{@DBName}_op span").html("修改");
+        edit_fun(id)
+    }
+
+
+    function testConfirmMsg(_url, ids){
+        alertMsg.confirm("您是否正确定要删除？", {
+            okCall: function(){
+
+
+                $.post(_url,{'delList[]':ids},function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+
+                    switch(data.msgcode){
+
+                        case 1:
+
+
+
+                            break;
+
+                    }
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+    }
+
+
+    function delAnySelectedConfirmMsg(_url,arrid){
+
+        alertMsg.confirm("您是否正确定要删除全部？", {
+            okCall: function(){
+
+
+                $.post(_url,{"dellist[]":arrid},function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+                    var code= data.msgcode
+                    switch(code){
+                        case 1:
+
+
+
+                            break;
+                        default:
+
+
+                            break;
+
+                    }
+
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+
+
+    }
+
+    function delAllConfirmMsg(_url){
+        alertMsg.confirm("您是否正确定要删除全部？", {
+            okCall: function(){
+
+
+                $.post(_url,function(dt){
+
+
+                    var data = eval('(' +dt + ')');
+                    var code= data.msgcode
+                    switch(code){
+                        case 1:
+
+
+
+                            break;
+                        default:
+
+
+                            break;
+
+                    }
+
+                    alertMsg.info(data.msg)
+
+                })
+            }
+        });
+    }
+    function del_db_img_category_fun(id){
+        testConfirmMsg('/DBDataAE/Del_db_img_category', id)
+
+
+    }
+
+    function batch_all_db_img_category_fun(){
+
+
+        delAllConfirmMsg('/DBDataAE/Del_All_db_img_category')
+    }
+    function  batch_db_img_category_fun(){
+
+        var db_img_category_ck=   $(".db_img_category_ck:checked ");
+
+        var arrid=[];
+        for(var i=0;i<db_img_category_ck.length;i++){
+            var id=$(db_img_category_ck[i]).val();
+            arrid.push(id);
+
+
+        }
+        if(arrid.length<=0){
+            alertMsg.info("请选择")
+            return ;
+        }
+        delAnySelectedConfirmMsg('/DBDataAE/Del_db_img_category',arrid)
+
+
+
+    }
+    function add_db_img_category_fun(that){
+
+        // var tabs_admin_user=   $("#tabs_admin_user")
+
+        $(".db_img_category_ae_ui").click();
+        $.extend($,{'AddOrEidtNum':1 })
+
+        $(".db_img_category_h1").html("增加数据");
+        $("#btn_@{@DBName}_op span").html("增加");
+
+        $.extend($,{"Selectdb_img_category_ID":""})
+    }
+    //function navTabSearch(form){
+
+    //    navTab.reload(form.action, $(form).serializeArray());
+
+    //    return false;
+
+    //}
+
+
+
+    //function dialogSearch(form){
+
+    //    $.pdialog.reload(form.action, $(form).serializeArray());
+
+    //    return false;
+
+    //}
+
+
+
+    function refresh_db_img_category(that){
+
+        var form=  $("#db_img_category_pagerForm")
+        navTab.reload(form.action, $(form).serializeArray());
+    }
+
+
+</script>
+
+
+
+
+
+<script>
+
+    function fun_select_icon(e) {
+
+
+
+        var rdoval = $(".tb_cw_icon input[name='rdo_createworld']:checked").val();
+
+
+        $("#menu_img_url").val(rdoval);
+
+    }
+
+
+    function Set_db_img_categoryXYZ(menu_x, menu_y, menu_z, menu_id) {
+
+        $("#menu_x").val(menu_x);
+        $("#menu_y").val(menu_y);
+        $("#menu_z").val(menu_z);
+
+    }
+
+
+    function fun_select_tree_db_img_category(that){
+        var _checkbox=  $("#select_db_img_category .ckbox");
+
+        var checkbox=  $("#select_db_img_category :checkbox");
+        var role_menu=$("#role_menu");
+        var  n_role_menu=$("#n_role_menu");
+        var val_role_menu_str="";
+        var count_role_menu=1;
+        var txt_role_menu_str="";
+
+        $(_checkbox).each(function () {
+
+
+            checkbox=  $(this).children(":checkbox")
+            //
+
+            if($(this).hasClass("checked")|| $(this).hasClass("indeterminate")){
+                var text=$(checkbox).attr("text")
+                var vl= $(checkbox).val();
+                if(vl!=null){
+                    txt_role_menu_str+=text+";";
+                    val_role_menu_str+=vl+",";
+                }
+
+
+            }
+
+            count_role_menu++;
+        });
+
+
+    var lastIndex=    val_role_menu_str.lastIndexOf(",")
+     var news= val_role_menu_str.substring(0,lastIndex)
+     n_role_menu.val(txt_role_menu_str);
+     role_menu.val(news)
+
+    }
+
+
+    $("._Munber").NIsNunberChange(0);
+</script>
+
+
+

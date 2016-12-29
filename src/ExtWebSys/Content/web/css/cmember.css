@@ -1,0 +1,321 @@
+﻿.cmember {
+margin:20px auto;
+
+width:1000px;
+
+
+
+
+}
+
+
+    .cmember .cmtop .cmone {
+    
+    line-height:42px;
+     overflow:hidden;
+   height:75px;
+    }
+    .cmember .cmtop {
+    
+    height:150px;
+
+    background:#f7f7f7;
+     overflow:hidden;
+    
+    }
+
+.clearbottom {
+border-bottom: 2px solid #38A4E0;
+height:2px;
+width:980px;
+margin-top:5px;
+margin-left:auto;
+margin-right:auto;
+*margin-top:1px;
+*margin-bottom:1px;
+ overflow:hidden;
+
+}
+
+        .cmember .cmtop strong {
+        float:left;
+        
+        margin-right:10px;
+        height:40px;
+        line-height:40px;
+        display:block;
+        color:#666;
+        text-align:right;
+        width:110px;
+        overflow:hidden;
+        
+        }
+    .cmember .cmtop a {
+    
+        float:left;
+  color:#228ECA;
+  font-size:14px;
+  display:block;
+  width:95px;
+  height:40px;
+  text-align:center;
+      line-height:40px;
+       overflow:hidden;
+    }
+
+        .cmember .cmtop a:hover {
+        background: none repeat scroll 0 0 #f6f6f6;
+       font-weight: bold;
+        color:#333;
+
+         overflow:hidden;
+
+        }
+
+.cmtwo {
+
+ overflow:hidden;
+
+
+}
+
+.cmember .cm {
+height:42px;
+overflow:hidden;
+
+}
+
+.cmcenter {
+
+    margin-top:20px;
+    border:1px solid #D9D9D9;
+    min-height:600px;
+
+}
+
+.cmheadermsg {
+height:38px;
+line-height:38px;
+width:980px;
+margin:0 auto;
+color:#999;
+
+}
+.cmheadermsg  a{
+
+    font-size:12px;
+    color:#228eca
+
+}
+.cmheadercn {
+margin-top:0px;
+
+}
+
+.cmheadertop {
+
+    height:60px;
+    border-bottom:1px solid #CCCCCC;
+
+
+}
+
+
+    .cmheadertop span {
+    height:31px;
+     width:110px;
+     display:block;
+    float:left;
+    text-align:center;
+    line-height:31px;
+    margin-top:25px;
+    font-size:15px;
+    }
+
+
+#selectedcnheader {
+    background:#38A3E0;
+    color:#fff;
+
+
+
+
+
+}
+
+
+#selectedcnheader  a{
+
+
+
+    color:#fff;
+
+
+}
+
+#cnselected {
+   background: none repeat scroll 0 0 #fff;
+       font-weight: bold;
+        color:#333;
+
+         overflow:hidden;
+
+}
+
+.cmheadersearch {
+
+    width:400px;
+    float:left;
+
+
+
+}
+
+.cmheaderbtn {
+    width:400px;
+    float:left;
+  
+
+
+}
+
+.cmspan {
+    margin:0 auto;
+    display:block;
+    width:800px;
+}
+.cnmsg td  {
+
+font-size:13px;
+
+}
+
+.cnmsg td .bottom {
+  margin-top:10px;
+    
+    }
+    .cnmsg td .bottom .date {
+    float:left;
+    
+    }
+
+     .cnmsg td .bottom .opts{
+    float:right;
+    
+    }
+.cnmsg td a {
+
+font-size:13px;
+
+
+}
+
+.cnmsg td {
+
+line-height:160%;
+
+
+}
+    .cnmsg td .msg {
+    line-height:170%;
+    
+    }
+
+.cmul {
+
+margin-top:18px;
+
+}
+
+    .cmul li {
+    
+      border-bottom: 1px dashed #cccccc;
+
+
+      width:960px;
+      margin:0 auto;
+      margin-bottom:10px;
+    
+    }
+
+    .SmallPortrait {
+    width: 70px;
+}
+
+.cmheaderbtn input {
+
+
+    background:#38A4E0;
+    color:#fff;
+}
+
+.cmheadertop a{
+
+
+   color:#333;
+}
+
+.cmul .bottom .opts  a{
+
+    color:#38A3E0;
+}
+
+.cmheadertop span {
+
+cursor:pointer;
+
+}
+.cmtable th {
+    font-size: 10.5pt;
+    color:#666;
+
+    text-align:right;
+}
+
+.cmtable {
+margin-top:30px;
+
+margin-left:30px;
+
+}
+.cmtable td {
+
+    padding:10px;
+}
+
+    .cmtable .submit .BUTTON  {
+    border:1px solid #ccc;
+    padding:5px;
+    height:30px;
+    width:90px;
+ 
+    
+    }
+
+.cmheadertop .cmheaderh2 {
+
+    margin-top:23px;
+    margin-left:15px;
+    width:150px;
+    display:inline-block;
+
+}
+
+
+ .headbtn {
+     margin-left:10px;
+    
+}
+
+.frame {
+
+    width:410px;
+    height:350px;
+   border:1px solid #D9D9D9;
+}
+
+.previewtitle {
+    font-size:14px;
+    color:#666;
+
+}

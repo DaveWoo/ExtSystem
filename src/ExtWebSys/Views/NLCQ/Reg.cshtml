@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Index = "00";
+    Layout = "~/Views/Shared/_LayoutNLcq.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<link href="~/Content/web/css/register.css" rel="stylesheet" />
+<script src="~/Content/js/Validform_v5.3.2_min.js"></script>
+<link href="~/Content/css/Validform/style.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/js/passwordStrength-min.js"></script>
+<script src="~/Content/js/jquery.cityselect.js"></script>
+<div class="clear" style="height:20px;"> </div>
+
+<div class="feg-box w-1000 cf">
+    <div class="feg-inputbox">
+        <h2 class="f-title">注册会员</h2><div class="feg-inputlist mar-t40">
+
+            <form id="idform" action="/nlcq/reg" method="post">
+
+                <div class="formsub">
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name"><font color="red">*</font>用户名</span>
+                        <input type="text" ajaxurl="/ajax/UserExistName" tip="请输入用户名" value="请输入用户名" altercss="gray" errormsg="用户名至少6个字符,最多18个字符！" datatype="s6-18" class="input-one inputxt" name="User_Name">
+
+                        <div class="Validform_checktip"></div>
+                    </div>
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name"><font color="red">*</font>邮箱</span>
+                        <input type="text" ajaxurl="/ajax/UserExistEmail" tip="请输入邮箱" value="请输入邮箱" altercss="gray" errormsg="Email格式不正确" datatype="e" class="input-one inputxt" name="User_Email">
+                        <div class="Validform_checktip"></div>
+                    </div>
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name">昵称</span>
+                        <input type="text" tip="请输入昵称" value="请输入昵称" altercss="gray" class="input-one inputxt" name="User_Nickname">
+                        <div class="Validform_checktip"></div>
+                    </div>
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name"><font color="red">*</font>设置密码</span>
+                        <input type="password" maxlength="32" tip="请输入设置密码" datatype="*6-18" nullmsg="请设置密码！" errormsg="密码范围在6~16位之间！" plugin="passwordStrength" value="请输入密码" class="input-one inputxt" name="User_PW">
+                        <div style="display:none;" class="passwordStrength">密码强度： <span>弱</span><span>中</span><span class="last">强</span></div>
+                        <div class="Validform_checktip"></div>
+                    </div>
+
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name"><font color="red">*</font>确认密码</span>
+                        <input type="password" tip="请输入确认密码" maxlength="32" value="请输入密码" datatype="*" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！" recheck="User_PW" class="input-one inputxt" name="password">
+                        <div class="Validform_checktip"></div>
+                    </div>
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name">居住地区</span>
+
+                        <div id="city_2">
+                            <select class="prov" name="User_Prov"></select>
+                            <select class="city" name="User_City" disabled="disabled"></select>
+                            <select class="dist" name="User_Dist" disabled="disabled"></select>
+                        </div>
+
+                        <script>
+                            $(function () {
+                                $("#city_2").citySelect({
+                                    prov: "广东",
+                                    nodata: "none"
+                                })
+
+                            })
+                        </script>
+                    </div>
+
+                    <div class="inputbox cf mar-b20">
+                        <span class="input-name">性别</span>
+                        <input name="User_Sex" id="gender_1" type="radio" checked="checked" value="1"><label for="gender_1">男</label>&nbsp;&nbsp;&nbsp;
+                        <input name="User_Sex" id="gender_2" type="radio" value="2"><label for="gender_2">女</label>
+                    </div>
+
+                    <div class="inputbox cf">
+                        <span class="input-name"><font color="red">*</font>验证码</span>
+                        <input type="text" ajaxurl="/ajax/useryesnocode" datatype="*4-5" name="Captcha" tip="请输入验证码" value="请输入验证码" class="input-tow safe-number">
+                        @*<div class="security-code"><img id="regCaptcha" src="/Ajax/ImgCaptcha"></div>*@
+                        <span title="" style="font-size:12px; color:#000;" class="warning-word" id="RefreshCaptchaID">
+                            <input type="button" style="border: 1px solid #666;height:25px;" value="获取验证码/发送到邮箱 " />
+                        </span>
+                        <div class="Validform_checktip"></div>
+                    </div>
+                    <button type="submit" class="greenbtn">
+                        同意用户协议，注册
+                    </button><div class="yhxy"><a target="_blank" href="#">《钊科用户协议》</a></div>
+                </div>
+            </form>
+
+        </div>
+    </div><!--loginbox--><div class="right-loginbox">
+        <h3>已有钊科账号？</h3>
+        <a class="btn" href="/nlcq/login">立即登录</a><h3 class="mar-t50">用第三方账号登录</h3><ul class="lgin-box3"><li><a href="#"><img alt="qq登录" src="~/Content/web/img/qq-btn.png"></a></li><li><a href="#"><img alt="微博登录" src="~/Content/web/img/sina-btn.png"></a></li><li><a href="#"><img alt="eoe社区登录" src="~/Content/web/img/eoe-btn.png"></a></li></ul>
+    </div><!--loginbox-->
+</div>
+
+<script>
+
+    //刷新验证码
+    function RefreshCaptcha(a) {
+
+        $(a).attr("src", "/ajax/imgCaptcha?rn=" + Math.random());
+
+    }
+    $("#RefreshCaptchaID").click(function () {
+
+        var User_Email = $("input[name='User_Email']")
+        $.post("/ajax/SendToEMailCode?to=" + escape(User_Email.val()), function (dt) {
+            var jsondata = eval("(" + dt + ")");
+            alert(jsondata.info)
+
+        })
+        // RefreshCaptcha("#regCaptcha")
+    })
+
+    $("#idform").Validform({
+        tiptype:
+
+            function (msg, o, cssctl) {
+                //msg：提示信息;
+                //o:{obj:*,type:*,curform:*}, obj指向的是当前验证的表单元素（或表单对象），type指示提示的状态，值为1、2、3、4， 1：正在检测/提交数据，2：通过验证，3：验证失败，4：提示ignore状态, curform为当前form对象;
+                //cssctl:内置的提示信息样式控制函数，该函数需传入两个参数：显示提示信息的对象 和 当前提示的状态（既形参o中的type）;
+                if (!o.obj.is("form")) {//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+                    var objtip = o.obj.siblings(".Validform_checktip");
+                    cssctl(objtip, o.type);
+                    objtip.text(msg);
+                }
+            },
+        usePlugin: {
+            passwordstrength: {
+                minLen: 6,
+                maxLen: 18
+            }
+        }
+    });
+</script>

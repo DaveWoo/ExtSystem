@@ -1,0 +1,120 @@
+﻿1
+
+
+    <div style="margin-bottom:5px; width:690px; ">
+
+        <span style="float:left; margin-left:4px;">
+            <label for="">查询图片名:</label>
+            <input name="imagename" id="imagename" class="easyui-validatebox  easyui-textbox"
+                   type="text" style=" width:182px;  height:18px; " />
+        </span>
+        <span style="float:left; margin-left:4px;">
+            <label for="">选择上传分类</label>
+            <input name="imagecategory_id" id="imagecategoryid" class="easyui-validatebox  easyui-combobox"
+                   type="text" style=" width:180px;  height:18px; " />
+        </span>
+        <span style="float:left; margin-left:4px;">
+            <a href="#" class="easyui-linkbutton c2" style="width:80px ; height:20px;" iconcls="icon-save" id="upload_img">上传管理</a>
+
+
+            <a href="#" class="easyui-linkbutton " iconcls="icon-search" style="width:80px ; height:20px;" id="go_search_img">查询</a>
+
+
+
+        </span>
+     
+
+    </div>
+<br/>
+    <table class="tb_cw_img" bordercolor="#CDE0F5" cellspacing="0" border="1" cellpadding="0">
+        <tr>
+        <td>
+            <input type='checkbox' value='cw_accept' name='chk_createworld'>
+            <img title='accept' class='cw_img liaozhaoquan' src='/Content/admin/themes/content/cw_icon/accept.png'></td>
+
+
+
+
+
+             </tr>
+  </table>
+
+
+   <script type="text/javascript">
+       
+
+       $(function () {
+
+
+
+           var cid = 2;
+
+           var imagename =null;
+           var where = '';
+
+                   
+           if (cid != null && parseInt(cid) > 0 && imagename != null && imagename != '') {
+
+
+                       
+               where = " image_category_id=" + cid + " and  image_name like ''%" + imagename + "%''"
+
+           }
+           else if (cid != null && cid !='' && parseInt(cid) > 0 && (imagename == null || imagename == '')) {
+                    
+                    
+               where =" image_category_id="+cid;
+           }
+           else if (imagename != null && imagename != '' && (cid == null || cid == '')) {
+                       
+               where = (" image_name like ''%" + imagename + "%''")
+
+                        
+           }
+
+                
+         
+
+
+           $.ajax({
+               type:"get",
+               async:true,
+           url:'/AjaxData/Data_db_image?action=search&where=' + escape(where)+'&page=1&rows=20',
+           success: function (data) {
+
+               var dt = $.parseJSON(data);
+
+              
+           }
+       });
+     
+
+
+
+
+
+
+       })
+
+
+   </script>
+
+
+    <style>
+        .tb_cw_img {
+            width: 100%;
+            margin: 0px auto;
+            border-spacing: 0px;
+            border-collapse: separate;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #fff #a0b4d2 #a0b4d2 #fff;
+        }
+
+            .tb_cw_img tr td {
+                border-width: 1px;
+                border-style: solid;
+                border-color: #a0b4d2 #fff #fff #a0b4d2;
+                padding: 2px;
+            }
+    </style>

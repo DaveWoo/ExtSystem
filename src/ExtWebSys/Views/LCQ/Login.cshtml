@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "login";
+    Layout = "";
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>网站后台管理系统</title>
+    <link href='~/Content/dwz/themes/css/login.css' rel="stylesheet" type="text/css" />
+   
+    <script src="~/Content/dwz/js/jquery-1.7.2.js"></script>
+    <script src="~/Content/js/Validform_v5.3.2_min.js"></script>
+    <link href="~/Content/css/Validform/style.css" rel="stylesheet" />
+ 
+</head>
+<body>
+
+
+ 
+
+
+    <div id="login">
+        <div id="login_header">
+            <h1 class="login_logo">
+                <a href=""><img src='@Url.Content("~/Content/dwz/themes/default/images/login_logo.png")' /> </a>
+            </h1>
+            <div class="login_headerContent">
+                <div class="navList">
+                    <ul>
+                        <li><a href="#">设为首页</a></li>
+                        <li><a href="#">反馈</a></li>
+                        <li><a href="#" target="_blank">帮助</a></li>
+                    </ul>
+                </div>
+                <h2 class="login_title"><img src="@Url.Content("~/Content/dwz/themes/default/images/login_title.png")" /></h2>
+            </div>
+        </div>
+        <div id="login_content">
+            <div class="loginForm">
+                <form id="loginform"  method="post"  style=" width:255px;" >
+                    <p>
+                        <label>用户名：</label>
+                        <input type="text" name="username" id="username" datatype="s5-20" 
+                               errormsg="用户名至少5个字符,最多20个字符！" size="20"
+                                class="login_input " />
+                    </p>
+                    <p>
+                        <label>密码：</label>
+                        <input type="password" name="password" id="userpw"  datatype="s6-20" errormsg="密码至少6个字符,最多18个字符！" class="login_input" />
+                    </p>
+                    <p>
+                        <label>验证码：</label>
+                        <input class="code" type="text" id="checkcode" style=" width:50px;"  datatype="s4-4" errormsg="密码至少4个字符,最多4个字符！" />
+                        <span><img style=" cursor:pointer;"  id="msgcode" src='/Ajax/AjaxCaptcha' onclick="getCaptcha(this)" alt="" width="75" height="24" /> </span>
+
+
+                       
+                    </p>
+
+                    <div class="login_bar">
+                        <input class="sub" id="sub_btn" type="button" value=" " />
+                    </div>
+                </form>
+
+                <script>
+
+    $(function () {
+        //$(".registerform").Validform();  //就这一行代码！;
+
+        var lgpost = $("#loginform").Validform();
+        $("#sub_btn").click(function (e) {
+            lgpost.ajaxPost();
+            submitForm(e);
+          
+
+           
+
+            return false;
+        })
+
+        function submitForm(e) {
+
+
+
+
+            var nameVal = $('#username').val();
+            var passwordVal = $('#userpw').val();
+            var checkcodeVal = $('#checkcode').val();
+
+
+
+            $.Showmsg("正在提交数据……");
+            $.post('/Ajax/AjaxAdLogin', { name: nameVal, password: passwordVal, checkcode: checkcodeVal }, function (data) {
+
+                var dt = eval('(' + data + ')')
+
+                msg = dt.msg;
+
+                
+              
+                getCaptcha('#msgcode')
+                var codeStatus = parseInt(dt.msgcode);
+
+                $.Showmsg(msg);
+             
+                switch (codeStatus) {
+                    case 1:
+
+
+
+                        window.location.href = '/lcq/main'
+                        break;
+                    case 8:
+
+                        window.location.href = '/lcq/main'
+
+                        break;
+
+
+
+                }
+
+            })
+
+
+        }
+
+
+
+    })
+
+ 
+
+
+
+
+
+
+
+    function getCaptcha(a) {
+
+        $(a).attr("src", "/Ajax/AjaxCaptcha?rn=" + Math.random());
+
+    }
+
+                </script>
+
+
+
+            </div>
+            <div class="login_banner"><img src='@Url.Content("~/Content/dwz/themes/default/images/login_banner.jpg")' /> </div>
+            <div class="login_main">
+                <ul class="helpList">
+                    <li><a href="#">下载驱动程序</a></li>
+                    <li><a href="#">如何安装密钥驱动程序？</a></li>
+                    <li><a href="#">忘记密码怎么办？</a></li>
+                    <li><a href="#">为什么登录失败？</a></li>
+                </ul>
+                <div class="login_inner">
+                    <p>您可以使用 网易网盘 ，随时存，随地取</p>
+                    <p>您还可以使用 闪电邮 在桌面随时提醒邮件到达，快速收发邮件。</p>
+                    <p>在 百宝箱 里您可以查星座，订机票，看小说，学做菜…</p>
+                </div>
+            </div>
+        </div>
+        <div id="login_footer">
+            Copyright &copy; 2009 www.dwzjs.com Inc. All Rights Reserved.
+        </div>
+    </div>
+</body>
+</html>
